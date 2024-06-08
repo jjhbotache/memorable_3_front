@@ -3,16 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 const userReducer = createSlice({
     name: "user",
     initialState: {
-      userName: null,
-      password: null,
-      data: null
+      google_sub: "",
+      name: "",
+      email: "",
+      phone: null,
+      image_url: null
     },
     reducers: {
       setUser: (state, action) => {
-        console.log(action.payload);
-        state.userName = action.payload.userName;
-        state.password = action.payload.password;
-        state.data = action.payload.data;
+        state.google_sub = action.payload.google_sub;
+        state.name = action.payload.name;
+        state.email = action.payload.email;
+        state.phone = action.payload.phone;
+        state.image_url = action.payload.image_url;        
       },
     },
   })

@@ -7,4 +7,8 @@ export const Nav = styled.nav`
   background-color: #333;
   color: white;
   padding: 1rem;
+
+  .small {
+    font-size: 0.5rem;
+  }
 `;

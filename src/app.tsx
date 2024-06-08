@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DEBUG, LOCAL_API, REAL_API } from "./constants/appConstants";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/global/navbar/Navbar";
 import { setUser } from "./redux/slices/userReducer";
+import googleJsonConfig from "../googleClientSecret.json";
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
+import { gapi } from "gapi-script";
 
 export default function App() {
 
@@ -10,39 +13,42 @@ export default function App() {
   const user = useSelector((state: any) => state.user);
   const dispacher = useDispatch();
 
-  function singIn(e:React.FormEvent<HTMLButtonElement>){
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget.form as HTMLFormElement));
-    
-    
-    let url= (DEBUG? LOCAL_API : REAL_API) + "/users/read"
+  const { client_id } = googleJsonConfig.web;
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: client_id,
+        scope: 'https://www.googleapis.com/auth/userinfo.profile',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
+
+
+  function onSignInOrSignUp(response:GoogleLoginResponse) {
+    const url = (DEBUG ? LOCAL_API : REAL_API) + "/user-login-signup";
 
     fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json',},
-      body: JSON.stringify(data),
+      method: "POST",
+      headers: { "Content-Type": "application/json", },
+      body: JSON.stringify({
+        google_sub: response.profileObj.googleId,
+        name: response.profileObj.name,
+        email: response.profileObj.email,
+        phone: null,
+        image_url: response.profileObj.imageUrl,
+      }),
     })
-    .then(response => {
-      if (!response.ok) {
-        setError("Invalid username or password");
-        throw new Error('Invalid username or password');
-      }
-      return response;
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setError(null);
-      dispacher(
-        setUser({
-          userName: data.user.username,
-          password: data.user.password,
-          data: data.data
-        })
-      )
 
-    })
-    
+    dispacher(setUser({
+      google_sub: response.profileObj.googleId,
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      phone: null,
+      image_url: response.profileObj.imageUrl,
+    }));
   }
 
 
@@ -51,11 +57,15 @@ export default function App() {
     <Navbar/>
     <h1> Sing in </h1>
     {error && <p>{error}</p>}
-    <form style={{display:"flex",flexDirection:"column"}}>
-      <input name="username" type="text" placeholder="Username"/>
-      <input name="password" type="password" placeholder="Password"/>
-      <button type="submit" onClick={singIn}>Sing in</button>
-    </form>
+    <GoogleLogin
+      clientId={client_id}
+      buttonText="Google Login"
+      onSuccess={(response) => {
+        if (response as GoogleLoginResponse) {onSignInOrSignUp(response as GoogleLoginResponse)} else console.log(response);
+      }}
+      onFailure={(response) => console.log(response)}
+      cookiePolicy={'single_host_origin'}
+    />
     </>
   )
 };

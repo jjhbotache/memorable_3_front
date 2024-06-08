@@ -8,8 +8,9 @@ export default function Navbar() {
   return(
     <Nav>
       <h1>Navbar</h1>
-      <h2>User: <span>{
-        user.userName ? user.userName : "No user logged in"
+      <img src={user.image_url} alt="profile picture" />
+      <h2>User: <span className="small">{
+        user.name ? user.name.split(" ")[0] : "No user logged in"
         }</span> </h2>
     </Nav>
   )
