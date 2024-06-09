@@ -93,18 +93,18 @@ export default function Navbar() {
         <i className=" ico fi fi-ss-heart"></i>
         <i className=" ico fi fi-rr-shopping-cart"></i>
         {
-          user.google_sub == null ? <i onClick={e=>setOpenMenu("open")} className=" ico fi fi-rr-user"></i>:
-          <img onClick={e=>setOpenMenu("open")} src={user.image_url} alt="user" />          
+          user.google_sub == null ? <i onClick={()=>setOpenMenu("open")} className=" ico fi fi-rr-user"></i>:
+          <img onClick={()=>setOpenMenu("open")} src={user.image_url} alt="user" />          
         }
       </div>
 
-      <div className="compactMenu" onClick={e=>setOpenMenu("open")}>
+      <div className="compactMenu" onClick={()=>setOpenMenu("open")}>
         <i className="fi fi-rr-menu-burger"></i>
       </div>
     </Nav>
     <Sidebar >
       <div ></div>
-      <motion.div variants={bgVariants} animate={openMenu} className="background" onClick={e=>setOpenMenu("close")} />
+      <motion.div variants={bgVariants} animate={openMenu} className="background" onClick={()=>setOpenMenu("close")} />
 
       <motion.aside variants={sidebarVariants} animate={openMenu} transition={{ type: "spring", bounce:0.2 }} >
         {
