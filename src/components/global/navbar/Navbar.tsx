@@ -15,6 +15,15 @@ export default function Navbar() {
   const { client_id } = googleJsonConfig.web;
   const dispacher = useDispatch();
 
+  useEffect(() => {
+    // get from local storage the user info if exists
+    const userLS = localStorage.getItem("user");
+    if(userLS){
+      dispacher(setUser(JSON.parse(userLS)));
+    }
+  }, [])
+
+
   const links = [
     {name: "Nosotros", url: "/us"},
     {name: "vinos", url: "/wines"},
@@ -53,6 +62,13 @@ export default function Navbar() {
       phone: null,
       image_url: response.profileObj.imageUrl,
     }));
+    localStorage.setItem("user", JSON.stringify({
+      google_sub: response.profileObj.googleId,
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      phone: null,
+      image_url: response.profileObj.imageUrl,
+    }));
   }
   
   function closeSession() {
@@ -63,6 +79,7 @@ export default function Navbar() {
       phone: null,
       image_url: null
     }));
+    localStorage.removeItem("user");
   }
 
   
