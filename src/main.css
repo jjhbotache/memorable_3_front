@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Fragmentcore';
+  src: url('./assets/fonts/Fragmentcore.otf') format('truetype');
+}
+@font-face {
+  font-family: 'HelloValentina';
+  src: url('./assets/fonts/HelloValentina.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Fragmentcore', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+/* center al the i, and its pseudoelements */
+i, i::before, i::after{
+  display: grid;
+  place-items: center;
+}

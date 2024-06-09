@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const userReducer = createSlice({
     name: "user",
     initialState: {
-      google_sub: "",
-      name: "",
-      email: "",
+      google_sub: null,
+      name: null,
+      email: null,
       phone: null,
       image_url: null
     },
