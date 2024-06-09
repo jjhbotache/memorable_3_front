@@ -4,14 +4,13 @@ import logoImg from "../../../assets/branding/logo.png"
 import GoogleLogin, { GoogleLoginResponse} from "react-google-login";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { DEBUG, LOCAL_API, REAL_API } from "../../../constants/appConstants";
+import { DEBUG, LOCAL_API, REAL_API, googleClientId } from "../../../constants/appConstants";
 import { setUser } from "../../../redux/slices/userReducer";
 
 
 export default function Navbar() {
   const user = useSelector((state:any) => state.user);
   const [openMenu, setOpenMenu] = useState("close");
-  const { client_id } = googleJsonConfig.web;
   const dispacher = useDispatch();
 
   useEffect(() => {
@@ -116,7 +115,7 @@ export default function Navbar() {
             <div className="small">o registrate con:</div>
           </div>
           <GoogleLogin
-            clientId={client_id}
+            clientId={googleClientId}
             buttonText="Google Login"
             onSuccess={(response) => onLoginSignupSucced(response as GoogleLoginResponse)}
             onFailure={(response) => console.log(response)}
