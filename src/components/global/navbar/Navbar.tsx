@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Nav, Sidebar } from "./navbarStyledComponents";
 import logoImg from "../../../assets/branding/logo.png"
 import GoogleLogin, { GoogleLoginResponse} from "react-google-login";
-import googleJsonConfig from "../../../../googleClientSecret.json";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { DEBUG, LOCAL_API, REAL_API } from "../../../constants/appConstants";
