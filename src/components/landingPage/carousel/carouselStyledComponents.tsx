@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { primaryColor,  tertiaryColor } from "../../../constants/styleConstants";
+import { mdScreen, primaryColor,  tertiaryColor } from "../../../constants/styleConstants";
 
 const gridGapEms = .4;
 export const CarouselContainer = styled.div`
   /* if the screen is smaller than md screen, dont show */
   display: none;
-  @media (min-width: 768px){
+  @media (min-width: ${mdScreen}px){
     display: block;
   }
 

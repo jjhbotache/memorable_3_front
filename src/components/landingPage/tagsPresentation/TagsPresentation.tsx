@@ -1,5 +1,6 @@
 import styled from "styled-components"
-import { primaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import UsDescription from "../../us/usDescription/UsDescription";
 
 
 export default function TagsPresentation() {
@@ -14,6 +15,7 @@ export default function TagsPresentation() {
     "Amor"
   ]
   return(
+    <>
     <TagsDescription>
       <h1>¿Para que momento quieres tu botella memorable?</h1>
       <div className="tagsContainer">
@@ -23,9 +25,14 @@ export default function TagsPresentation() {
               <span>{tag}</span>
             </div>
           ))
-        }
+          }
+      </div>
+      <div className="extraInfo">
+        <div className="divider"></div>
+        <UsDescription/>
       </div>
     </TagsDescription>  
+    </>
   )
 };
 
@@ -36,12 +43,18 @@ const TagsDescription = styled.main`
   align-items: center;
   justify-content: space-evenly;
   gap: 1em;
-  margin-top: 2em;
-  padding: 1em;
+  padding: 4em 0; 
   box-sizing: border-box;
   min-width: 50%;
   width: 550px;
   margin: 0;
+  z-index: 2;
+  box-shadow: -20px 0 50px rgba(0,0,0,.5);
+  @media screen and (width < ${mdScreen}px){
+    box-shadow: 0px 0 50px rgba(0,0,0,.5);
+    
+  }
+
 
   h1{
     font-size: 3em;
@@ -54,6 +67,8 @@ const TagsDescription = styled.main`
     justify-content: center;
     gap: 2em;
     flex-wrap: wrap;
+    z-index: 2;
+    padding-bottom: 2em;
   }
   .tag{
     display: flex;
@@ -72,5 +87,21 @@ const TagsDescription = styled.main`
       color: ${tertiaryColor};
       transform: scale(1.3);
     };
+  }
+  .extraInfo{
+    display: none;
+    @media screen and (width < ${mdScreen}px){
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      align-items: center;
+      text-align: center;
+    }
+
+    .divider{
+      width: 95%;
+      height: 1px;
+      background: ${primaryColor};
+    }
   }
 `;

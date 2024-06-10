@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { API,  googleClientId } from "../../../constants/appConstants";
 import { setUser } from "../../../redux/slices/userReducer";
+import { Link } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -89,10 +90,13 @@ export default function Navbar() {
   return(
     <>
     <Nav>
-      <img className="logo" src={logoImg} alt="logo" />
+      <Link to="/"> <img className="logo" src={logoImg} alt="logo" /> </Link>
       <ul className="menu">
-        {links.map((link, index) => <li key={index}><a
-          href={link.url}>{link.name}</a></li>)}
+        {links.map((link, index) => 
+        <li key={index}>
+          <Link to={link.url}>{link.name}</Link>
+        </li>
+        )}
       </ul>
       <div className="icons">
         <i className=" ico fi fi-ss-heart"></i>

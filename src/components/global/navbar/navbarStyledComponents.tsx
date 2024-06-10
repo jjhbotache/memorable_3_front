@@ -87,6 +87,8 @@ export const Nav = styled.nav`
 `;
 
 export const Sidebar = styled.div`
+  max-width:85vw;
+  z-index: 9999;
   .background{
     opacity: 0.5;
     background: #000;
