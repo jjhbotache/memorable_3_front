@@ -4,7 +4,7 @@ import logoImg from "../../../assets/branding/logo.png"
 import GoogleLogin, { GoogleLoginResponse} from "react-google-login";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { DEBUG, LOCAL_API, REAL_API, googleClientId } from "../../../constants/appConstants";
+import { API,  googleClientId } from "../../../constants/appConstants";
 import { setUser } from "../../../redux/slices/userReducer";
 
 
@@ -21,6 +21,11 @@ export default function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    // each time the user changes, save it in local storage
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user])
+  
 
   const links = [
     {name: "Nosotros", url: "/us"},
@@ -39,7 +44,7 @@ export default function Navbar() {
   }
 
   function onLoginSignupSucced(response:GoogleLoginResponse) {
-    const url = (DEBUG ? LOCAL_API : REAL_API) + "/user-login-signup";
+    const url = API + "/user-login-signup";
 
     fetch(url, {
       method: "POST",
@@ -103,8 +108,7 @@ export default function Navbar() {
       </div>
     </Nav>
     <Sidebar >
-      <div ></div>
-      <motion.div variants={bgVariants} animate={openMenu} className="background" onClick={()=>setOpenMenu("close")} />
+      <motion.div  variants={bgVariants} animate={openMenu}  className="background" onClick={()=>setOpenMenu("close")} />
 
       <motion.aside variants={sidebarVariants} animate={openMenu} transition={{ type: "spring", bounce:0.2 }} >
         {

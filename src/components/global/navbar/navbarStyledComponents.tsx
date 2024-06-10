@@ -13,7 +13,8 @@ export const Nav = styled.nav`
   height: 40px;
 
   .logo{
-    height: 40px;
+    max-width: 200px;
+    width: 60vw;
     filter: brightness(9999%);
   }
 
@@ -44,6 +45,7 @@ export const Nav = styled.nav`
     @media screen and (max-width: ${mdScreen}px){ display: none; }
     justify-content: space-between;
     width: 10%;
+    gap: .6rem;
     .ico{
       color: ${secondaryColor};
       cursor: pointer;
