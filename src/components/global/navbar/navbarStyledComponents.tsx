@@ -184,6 +184,7 @@ export const Sidebar = styled.div`
         border: 1px solid ${primaryColor};
         border-radius: .2rem;
         text-align: center;
+        padding: .2rem 0;
         a{
           color: ${primaryColor};
           text-decoration: none;
