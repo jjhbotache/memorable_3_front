@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleConstants";
 import UsDescription from "../../us/usDescription/UsDescription";
 import WinesContainer from "../../wines/winesContainer/WinesContainer";
+import ContactForm from "../../contact/ContactForm";
 
 
 export default function TagsPresentation() {
@@ -33,6 +34,8 @@ export default function TagsPresentation() {
         <UsDescription/>
         <div className="divider"/>
         <WinesContainer/>
+        <div className="divider"/>
+        <ContactForm/>
       </div>
     </TagsDescription>  
     </>

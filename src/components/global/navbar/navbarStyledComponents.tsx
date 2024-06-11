@@ -3,6 +3,11 @@ import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../
 
 
 export const Nav = styled.nav`
+  /* make it sticky on top */
+  position: sticky;
+  top: 0;
+  
+
   display: flex;
   justify-content: space-between;
   align-items: center;

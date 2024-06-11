@@ -15,6 +15,13 @@ export default function Carousel() {
   const [imgRows, setimgRows] = useState<imgResponse[][]>([]);
 
   useEffect(() => {
+    // get imgs from local storage
+    const imgs = localStorage.getItem("imgs");
+    if (imgs) {
+      setimgRows(JSON.parse(imgs));
+      return;
+    }
+
     fetch(API + "/imgs")
       .then(res => res.json())
       .then(data => {
@@ -34,6 +41,8 @@ export default function Carousel() {
           imgRowsCopy.push(row);
         }
         setimgRows(imgRowsCopy);
+        // save imgs to local storage
+        localStorage.setItem("imgs", JSON.stringify(imgRowsCopy));
         console.log(imgRowsCopy);
         
       });
