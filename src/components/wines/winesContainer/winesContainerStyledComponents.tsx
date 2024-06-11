@@ -31,18 +31,18 @@ export const StyledWinesContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    margin: 3em 0;
+    height: auto;
 
     @media screen and (width < ${mdScreen}px){
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 90vh;
       gap: 1em;
     }
 
-    margin: 3em 0;
-    height: 50vh;
+    
    h1{
     font-family: 'HelloValentina';
     font-size: 4em;
@@ -64,11 +64,13 @@ export const StyledWinesContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: auto;
+    border-radius: 1em;
 
     img{
-      height: 100%;
-      border-radius: .5em;
+      width: 80vw;
+      max-width: 300px;
+      border-radius: 1em;
     }
    }
   }
