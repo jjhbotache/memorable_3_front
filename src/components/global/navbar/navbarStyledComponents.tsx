@@ -11,6 +11,7 @@ export const Nav = styled.nav`
   padding: 1rem;
   margin: 0;
   height: 40px;
+  z-index: 10;
 
   .logo{
     max-width: 200px;
@@ -106,6 +107,7 @@ export const Sidebar = styled.div`
     right: 0;
     height: 100vh;
     width: 300px;
+    max-width: 80vw;
     background-color: ${secondaryColor};
     padding: 0 1rem;
     z-index: 10;

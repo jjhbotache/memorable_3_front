@@ -27,7 +27,8 @@ const UsDescriptionStyled = styled.main`
   }
   h1{
     font-family: HelloValentina;
-    font-size: 4em;
+    font-size: 5em;
+    font-weight: 300;
   }
   p{
     font-size: larger;
