@@ -111,7 +111,7 @@ export default function Navbar() {
         <i className="fi fi-rr-menu-burger"></i>
       </div>
     </Nav>
-    <Sidebar >
+    <Sidebar>
       <motion.div  variants={bgVariants} animate={openMenu}  className="background" onClick={()=>setOpenMenu("close")} />
 
       <motion.aside variants={sidebarVariants} animate={openMenu} transition={{ type: "spring", bounce:0.2 }} >
@@ -149,8 +149,11 @@ export default function Navbar() {
         <div className="onCompactedOptions">
           <hr className="divider"/>
           <ul className="menu">
-            {links.map((link, index) => <li key={index}><a
-            href={link.url}>{link.name}</a></li>)}
+            {links.map((link, index) => (
+              <Link to={link.url} key={index}>
+                <li>{link.name}</li>
+              </Link>
+            ))}
           </ul>
           <i className="fi fi-ss-heart"></i>
           <i className="fi fi-rr-shopping-cart"></i>

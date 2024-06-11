@@ -93,7 +93,7 @@ export const Nav = styled.nav`
 `;
 
 export const Sidebar = styled.div`
-  max-width:85vw;
+  
   z-index: 9999;
   .background{
     opacity: 0.5;
@@ -111,8 +111,9 @@ export const Sidebar = styled.div`
     top: 0;
     right: 0;
     height: 100vh;
+    max-height: 100vh;
     width: 300px;
-    max-width: 80vw;
+    max-width:60vw;
     background-color: ${secondaryColor};
     padding: 0 1rem;
     z-index: 10;
@@ -170,7 +171,6 @@ export const Sidebar = styled.div`
       align-items: center;
       flex-direction: column;
       gap: .2em;
-      padding: 1rem 0;
       .fi{
         font-size: 2rem;
         cursor: pointer;
@@ -188,16 +188,18 @@ export const Sidebar = styled.div`
       display: flex;
       flex-direction: column;
       gap: .2rem;
+      margin: .2em;
+      a{
+          color: ${primaryColor};
+          text-decoration: none;
+        }
       li{
         background: ${tertiaryColor};
         border: 1px solid ${primaryColor};
         border-radius: .2rem;
         text-align: center;
         padding: .2rem 0;
-        a{
-          color: ${primaryColor};
-          text-decoration: none;
-        }
+        
         transition: all 0.2s ease-in-out;
         &:hover{
           transform: scale(1.1);

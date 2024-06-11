@@ -23,7 +23,7 @@ export default function TagsPresentation() {
       <div className="tagsContainer">
         {
           tags.map(tag => (
-            <div className="tag">
+            <div className="tag" key={tag}>
               <span>{tag}</span>
             </div>
           ))
