@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Navbar from "../components/global/navbar/Navbar"
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import myFetch from "../helpers/myFetch";
 import { API } from "../constants/appConstants";
 import { useNavigate } from "react-router-dom";
