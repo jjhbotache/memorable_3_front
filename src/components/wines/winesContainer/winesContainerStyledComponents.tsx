@@ -6,7 +6,7 @@ export const StyledWinesContainer = styled.div`
   max-width: 700px;
   @media screen and (width < ${mdScreen}px){
     box-shadow: unset;
-    width: 95vw;
+    width: 100%;
     box-sizing: border-box;
   }
   box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);

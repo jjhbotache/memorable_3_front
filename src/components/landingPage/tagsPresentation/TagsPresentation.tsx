@@ -105,7 +105,7 @@ const TagsDescription = styled.main`
     }
 
     .divider{
-      width: 95%;
+      width: 80%;
       height: 1px;
       background: ${primaryColor};
     }

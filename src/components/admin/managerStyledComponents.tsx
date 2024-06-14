@@ -11,7 +11,6 @@ export const StyledForm = styled.form`
   color: ${primaryColor};
   border-radius: 5px;
   max-width: 600px;
-  width: 100%;
   background: ${secondaryColor};
   input {
     padding: 0.5rem;
@@ -25,6 +24,12 @@ export const StyledForm = styled.form`
     background-color: #f0f0f0;
     cursor: pointer;
   }
+  .divider{
+    margin: .1rem 0;
+    border: 0;
+    border-top: 1px solid black;
+  
+  }
   
 `
 
@@ -36,6 +41,7 @@ export const AddDropdown = styled.details`
   margin: 1rem;
   width: 90%;
   box-sizing: border-box;
+
   summary {
     cursor: pointer;
   }
@@ -44,6 +50,9 @@ export const AddDropdown = styled.details`
   }
   summary::marker {
     display: none;
+  }
+  form{
+    margin: auto;
   }
 `
 
@@ -77,6 +86,8 @@ export const ElementsContainer = styled.div`
     color: ${primaryColor};
     border-radius: 5px;
     background: ${tertiaryColor};
+    max-width: 240px;
+    box-sizing: border-box;
     img{
       width: 100%;
       height: 100%;
@@ -86,32 +97,53 @@ export const ElementsContainer = styled.div`
     }
     p{
       margin: 0;
+      text-align: center;
     }
     .btns{
       display: flex;
       /* for the first btn, the right corners without a border radious */
-      button:first-child{
+      button:first-child,a:first-child{
         border-radius: 1em 0 0 1em;
         }
-      button:last-child{
+      button:last-child,a:last-child{
         border-radius: 0 1em 1em 0;
       }
       /* for the btns that aren't the first or the last, without border radious*/
-      button{
-        border-radius: 0;
-      }
     }
-    button{
+    button,a{
+      text-align: center;
+      text-decoration: none;
+      color: ${primaryColor};
       padding: 0.5rem;
-      border-radius: 5px;
+      border-radius: 0;
       border: 1px solid black;
       background-color: #f0f0f0;
       cursor: pointer;
       transition: all .1s ease-in-out;
-      &:hover{
+      &:hover:not([disabled]){
         background-color: ${primaryColor};
         color: ${secondaryColor};
       }
+    }
+  }
+
+  details{
+    width: 100%;
+    position: relative;
+    summary{
+      cursor: pointer;
+    }
+
+    .floatingContent{
+      position: absolute;
+      top: -200%;
+      background-color: ${secondaryColor};
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 1rem;
+      width: 90%;
+      box-sizing: border-box;
     }
   }
 `

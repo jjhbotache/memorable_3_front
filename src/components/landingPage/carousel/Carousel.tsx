@@ -12,24 +12,23 @@ const imgsPerRow = 4;
 const timesToRepeatImgsPerRow = 4;
 const animationDuration = 40;
 export default function Carousel() {
-  const [imgRows, setimgRows] = useState<imgResponse[][]>([]);
+  const [imgRows, setimgRows] = useState<string[][]>([]);
 
   useEffect(() => {
     // get imgs from local storage
-    const imgs = localStorage.getItem("imgs");
-    if (imgs) {
-      setimgRows(JSON.parse(imgs));
-      return;
-    }
+    // const imgs = localStorage.getItem("imgs");
+    // if (imgs) {
+    //   setimgRows(JSON.parse(imgs));
+    //   return;
+    // }
 
     fetch(API + "/imgs")
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         
-        const imgRowsCopy = []
+        const imgRowsCopy: string[][] = [];
         for (let i = 0; i < rows; i++) {
-          const row = [];
+          const row: string[] = [];
           for (let j = 0; j < imgsPerRow; j++) {
             let randomIndex = getRandomNum(0, data.length - 1);
             row.push(data[randomIndex]);
@@ -37,15 +36,15 @@ export default function Carousel() {
           for (let j = 0; j < timesToRepeatImgsPerRow; j++) {
             row.push(...row);
           }
-          
           imgRowsCopy.push(row);
         }
         setimgRows(imgRowsCopy);
         // save imgs to local storage
         localStorage.setItem("imgs", JSON.stringify(imgRowsCopy));
         console.log(imgRowsCopy);
-        
-      });
+      })
+      .catch(err => console.log(err + " carousel"));
+
   }, []);
 
   
@@ -64,15 +63,9 @@ export default function Carousel() {
           }}
           transition={{duration: animationDuration,repeat: Infinity,ease: "linear"}}
           >
-            {row.map((imgObj,i) => {
-              if (imgObj){
-                return(
-                  <img key={i} src={API+"/image/"+imgObj.img_url} alt={imgObj.name} />
-                )
-              }else{
-                <img key={i}  src="https://static.millesima.com/s3/attachements/editorial/h630px/how-many-ounces-in-a-glass-of-wine.jpg"  alt="carousel-img"/>
-              }
-            })}
+            {row.map((imgUrl,i) =>(
+              <img key={i}  src={imgUrl || "https://static.millesima.com/s3/attachements/editorial/h630px/how-many-ounces-in-a-glass-of-wine.jpg"}  alt="carousel-img"/>
+            ))}
           </motion.div>
         ))}
       </div>

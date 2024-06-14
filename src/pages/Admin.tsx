@@ -6,6 +6,7 @@ import { API } from "../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import { primaryColor, secondaryColor } from "../constants/styleConstants";
 import DesignManager from "../components/admin/DesignManager";
+import TagsManager from "../components/admin/TagsManager";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ export default function Admin() {
     "designs",
     "wines",
     "users",
-    "orders"
+    "orders",
+    "tags",
   ];
 
   return(
@@ -49,6 +51,7 @@ export default function Admin() {
           <div className="divider"/>
           <h1>{tableEditing}</h1>
           { tableEditing === "designs" && <DesignManager /> }
+          { tableEditing === "tags" && <TagsManager /> }
         </div>
       </AdminPage>
     </>

@@ -178,7 +178,7 @@ export default function Navbar() {
           <hr className="divider"/>
           <ul className="menu">
             {links.map((link, index) => (
-              <Link to={link.url} key={index}>
+              link.name && <Link to={link.url} key={index}>
                 <li>{link.name}</li>
               </Link>
             ))}

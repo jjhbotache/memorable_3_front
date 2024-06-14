@@ -23,7 +23,7 @@ const UsDescriptionStyled = styled.main`
   padding: 1em;
 
   @media screen and (width < ${mdScreen}px) {
-    width: 100%;
+    width: 90%;
   }
   h1{
     font-family: HelloValentina;
