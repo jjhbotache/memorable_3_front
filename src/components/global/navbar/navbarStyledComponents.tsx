@@ -4,13 +4,14 @@ import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../
 
 export const Nav = styled.nav`
   /* make it sticky on top */
+  /* overflow: hidden; */
   position: sticky;
   top: 0;
   
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   background-color: ${primaryColor};
   color: white;
   padding: 1rem;
@@ -22,16 +23,21 @@ export const Nav = styled.nav`
     max-width: 200px;
     width: 60vw;
     filter: brightness(9999%);
+    cursor: pointer;
+    flex-basis: auto;
   }
 
   .menu{
     display: flex;
     justify-content: space-between;
-    padding-top: 20px;
-    width: 40%;
-    max-width: 300px;
+    max-width: 400px;
     list-style: none;
-    margin-right: auto;
+    flex-basis: 100%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: 4vw;
+    padding-top: .8em;
+
     & li{
       padding: 0.5rem;
       & a{
@@ -50,8 +56,9 @@ export const Nav = styled.nav`
     display: flex;
     @media screen and (max-width: ${mdScreen}px){ display: none; }
     justify-content: space-between;
-    width: 10%;
     gap: .6rem;
+    flex-basis: 100%;
+    max-width: 100px;
     .ico{
       color: ${secondaryColor};
       cursor: pointer;

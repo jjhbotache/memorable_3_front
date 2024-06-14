@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { API,  googleClientId } from "../../../constants/appConstants";
 import { setUser } from "../../../redux/slices/userReducer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import myFetch from "../../../helpers/myFetch";
 
 
 export default function Navbar() {
   const user = useSelector((state:any) => state.user);
   const [openMenu, setOpenMenu] = useState("close");
   const dispacher = useDispatch();
+  const [admin, setAdmin] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // get from local storage the user info if exists
@@ -20,6 +24,7 @@ export default function Navbar() {
     if(userLS){
       dispacher(setUser(JSON.parse(userLS)));
     }
+    verifyAdmin();
   }, [])
 
   useEffect(() => {
@@ -33,6 +38,7 @@ export default function Navbar() {
     {name: "vinos", url: "/wines"},
     {name: "Diseños", url: "/designs"},
     {name: "Contacto", url: "/contact"},
+    admin ? {name: "Admin", url: "/admin"} : {name: "", url: "/admin"}
   ]
 
   const sidebarVariants = {
@@ -44,9 +50,30 @@ export default function Navbar() {
     close: { display: "none", opacity: 0}
   }
 
-  function onLoginSignupSucced(response:GoogleLoginResponse) {
-    const url = API + "/user-login-signup";
+  function verifyAdmin() {
+    myFetch(API+"/verify-admin")
+      .then(res => {
+        if(res.status === 200) {
+          return res.json();
+        } else {
+          throw new Error("not an admin");
+        }
+      })
+      .then(() => setAdmin(true))
+      .catch(() => {
+        console.log("not an admin");
+        navigate("/");
+        setAdmin(false);
+      })
+  }
 
+  function onLoginSignupSucced(response:GoogleLoginResponse) {
+
+    // if admin, set a cookie with the admin
+    
+    
+
+    const url = API + "/user-login-signup";
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json", },
@@ -73,6 +100,7 @@ export default function Navbar() {
       phone: null,
       image_url: response.profileObj.imageUrl,
     }));
+    verifyAdmin();
   }
   
   function closeSession() {

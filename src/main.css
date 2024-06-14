@@ -27,3 +27,8 @@ i, i::before, i::after{
   display: grid;
   place-items: center;
 }
+
+ul{
+  padding: 0;
+  margin: 0;
+}
