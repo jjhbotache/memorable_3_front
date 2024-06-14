@@ -64,7 +64,15 @@ export default function Carousel() {
           }}
           transition={{duration: animationDuration,repeat: Infinity,ease: "linear"}}
           >
-            {row.map((imgObj,i) => <img key={i} src={API+"/image/"+imgObj.img_url} alt="carousel-img"/>)}
+            {row.map((imgObj,i) => {
+              if (imgObj){
+                return(
+                  <img key={i} src={API+"/image/"+imgObj.img_url} alt={imgObj.name} />
+                )
+              }else{
+                <img key={i}  src="https://static.millesima.com/s3/attachements/editorial/h630px/how-many-ounces-in-a-glass-of-wine.jpg"  alt="carousel-img"/>
+              }
+            })}
           </motion.div>
         ))}
       </div>
