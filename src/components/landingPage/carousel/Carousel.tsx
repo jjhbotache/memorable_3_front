@@ -64,7 +64,7 @@ export default function Carousel() {
           }}
           transition={{duration: animationDuration,repeat: Infinity,ease: "linear"}}
           >
-            {row.map((imgObj,i) => <img key={i} src={API+"/image/"+imgObj.image_url} alt="carousel-img"/>)}
+            {row.map((imgObj,i) => <img key={i} src={API+"/image/"+imgObj.img_url} alt="carousel-img"/>)}
           </motion.div>
         ))}
       </div>
