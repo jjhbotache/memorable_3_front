@@ -7,7 +7,7 @@ const userReducer = createSlice({
       name: null,
       email: null,
       phone: null,
-      image_url: null
+      img_url: null
     },
     reducers: {
       setUser: (state, action) => {
@@ -15,7 +15,7 @@ const userReducer = createSlice({
         state.name = action.payload.name;
         state.email = action.payload.email;
         state.phone = action.payload.phone;
-        state.image_url = action.payload.image_url;        
+        state.img_url = action.payload.img_url;        
       },
     },
   })

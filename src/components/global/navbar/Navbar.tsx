@@ -82,7 +82,7 @@ export default function Navbar() {
         name: response.profileObj.name,
         email: response.profileObj.email,
         phone: null,
-        image_url: response.profileObj.imageUrl,
+        img_url: response.profileObj.imageUrl,
       }),
     })
 
@@ -91,14 +91,14 @@ export default function Navbar() {
       name: response.profileObj.name,
       email: response.profileObj.email,
       phone: null,
-      image_url: response.profileObj.imageUrl,
+      img_url: response.profileObj.imageUrl,
     }));
     localStorage.setItem("user", JSON.stringify({
       google_sub: response.profileObj.googleId,
       name: response.profileObj.name,
       email: response.profileObj.email,
       phone: null,
-      image_url: response.profileObj.imageUrl,
+      img_url: response.profileObj.imageUrl,
     }));
     verifyAdmin();
   }
@@ -109,7 +109,7 @@ export default function Navbar() {
       name: null,
       email: null,
       phone: null,
-      image_url: null
+      img_url: null
     }));
     localStorage.removeItem("user");
   }
@@ -131,7 +131,7 @@ export default function Navbar() {
         <i className=" ico fi fi-rr-shopping-cart"></i>
         {
           user.google_sub == null ? <i onClick={()=>setOpenMenu("open")} className=" ico fi fi-rr-user"></i>:
-          <img onClick={()=>setOpenMenu("open")} src={user.image_url} alt="user" />          
+          <img onClick={()=>setOpenMenu("open")} src={user.img_url} alt="user" />          
         }
       </div>
 
@@ -166,7 +166,7 @@ export default function Navbar() {
                 <div className="small">Hola</div>
                 <h1 className="name">{user.name}</h1>
               </div>
-              <img src={user.image_url}/>
+              <img src={user.img_url}/>
             </div>
             <button className="btn" >Tu informacion</button>
             <button className="btn closeSession"  onClick={closeSession}>Cerrar sesion</button>
