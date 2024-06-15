@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { CarouselContainer } from "./carouselStyledComponents";
 import { API } from "../../../constants/appConstants";
-import { imgResponse } from "../../../interfaces/imgResponse";
 import { motion } from "framer-motion";
 import getRandomNum from "../../../helpers/getRandomNum";
 
