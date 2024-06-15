@@ -54,7 +54,7 @@ export default function ContactForm() {
       }
     }).catch(err => {
       console.log(err)
-    
+      toast.error("Error al enviar el mensaje")
     })
     .finally(() => {
       setLoading(false);
