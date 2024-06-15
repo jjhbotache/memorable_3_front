@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { AddDropdown, ElementsContainer, StyledForm } from "./managerStyledComponents";
+import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./managerStyledComponents";
 import myFetch from "../../helpers/myFetch";
 import { API } from "../../constants/appConstants";
 
@@ -12,6 +12,7 @@ export default function TagsManager() {
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [deletingTag, setDeletingTag] = useState<null|number>(null);
+  const [editingTag, setEditingTag] = useState<null|Tag>(null);
 
   useEffect(() => {
     fetchTags();
@@ -35,6 +36,15 @@ export default function TagsManager() {
 
     // format name to have the first letter in uppercase and the rest in lowercase
     const formattedName = (data.name[0].toUpperCase() + data.name.slice(1).toLowerCase()).trim();
+
+    // check if the tag already exists
+    if (tags.some(t => t.name === formattedName)) {
+      alert("El tag ya existe");
+      (e.target as HTMLFormElement).reset();
+      setLoading(false);
+      return;
+    }
+
     myFetch(API + "/tag/create", {
       method: "POST",
       body: JSON.stringify({
@@ -75,6 +85,32 @@ export default function TagsManager() {
       .finally(() => setDeletingTag(null));
   }
 
+    
+  function onEdit(e:FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget));
+    if (typeof data.name != "string") return
+    const formattedName = (data.name[0].toUpperCase() + data.name.slice(1).toLowerCase()).trim();
+    myFetch(API + "/tag/update", {
+      method: "PUT",
+      body: JSON.stringify({
+        id_tag: editingTag?.id,
+        name: formattedName
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        fetchTags();
+        setEditingTag(null);
+      })
+      .catch(err => console.log(err));
+  }
+
+
   return(
     <>
     <AddDropdown>
@@ -91,11 +127,24 @@ export default function TagsManager() {
           <p>{t.name}</p>
           <div className="btns">
             <button disabled={deletingTag===t.id} onClick={()=>deleteTag(t.id)}>Eliminar</button>
-            <button disabled>Editar</button>
+            <button onClick={()=>{setEditingTag(t)}}>Editar</button>
           </div>
         </div>
       ))}
     </ElementsContainer>
+    <EditorContainer 
+      className="editor" 
+      open={editingTag != null}
+      onClick={e=>{if((e.target as HTMLDivElement).classList.contains("editor")) setEditingTag(null)}}>
+      <div className="main">
+        <i className="fi-rr-cross-small close" onClick={()=>setEditingTag(null)}></i>
+        <p>Editar tag</p>
+        <form onSubmit={onEdit}>
+          <input type="text" name="name" placeholder="Name" defaultValue={editingTag?.name}/>
+          <button type="submit">Editar</button>
+        </form>
+      </div>
+    </EditorContainer>
     </>
   )
 };

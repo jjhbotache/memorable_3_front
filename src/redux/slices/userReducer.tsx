@@ -15,7 +15,9 @@ const userReducer = createSlice({
         state.name = action.payload.name;
         state.email = action.payload.email;
         state.phone = action.payload.phone;
-        state.img_url = action.payload.img_url;        
+        state.img_url = action.payload.img_url;  
+        
+        localStorage.setItem("user", JSON.stringify(state));
       },
     },
   })

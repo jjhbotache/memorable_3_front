@@ -20,6 +20,7 @@ export default function Navbar() {
 
   useEffect(() => {
     // get from local storage the user info if exists
+    // debugger
     const userLS = localStorage.getItem("user");
     if(userLS){
       dispacher(setUser(JSON.parse(userLS)));
@@ -27,10 +28,6 @@ export default function Navbar() {
     verifyAdmin();
   }, [])
 
-  useEffect(() => {
-    // each time the user changes, save it in local storage
-    localStorage.setItem("user", JSON.stringify(user));
-  }, [user])
   
 
   const links = [
@@ -42,8 +39,8 @@ export default function Navbar() {
   ]
 
   const sidebarVariants = {
-    open: { display: "block", opacity: 1},
-    close: { x:"100%", opacity: 0}
+    open: { display: "block", opacity: 1, x:0},
+    close: { x:"100%", opacity: 0,display: "none"}
   }
   const bgVariants = {
     open: { display: "block", opacity: 0.5},
@@ -62,7 +59,6 @@ export default function Navbar() {
       .then(() => setAdmin(true))
       .catch(() => {
         console.log("not an admin");
-        navigate("/");
         setAdmin(false);
       })
   }
@@ -112,6 +108,7 @@ export default function Navbar() {
       img_url: null
     }));
     localStorage.removeItem("user");
+    navigate("/");
   }
 
   
@@ -142,7 +139,7 @@ export default function Navbar() {
     <Sidebar>
       <motion.div  variants={bgVariants} animate={openMenu}  className="background" onClick={()=>setOpenMenu("close")} />
 
-      <motion.aside variants={sidebarVariants} animate={openMenu} transition={{ type: "spring", bounce:0.2 }} >
+      <motion.aside initial={false} variants={sidebarVariants} animate={openMenu} transition={{ type: "spring", bounce:0.2 }} >
         {
           user.google_sub == null ? 
           <>

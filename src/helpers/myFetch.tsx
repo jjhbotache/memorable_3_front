@@ -1,7 +1,7 @@
 interface Options {
-  method: string | undefined;
-  body: string | FormData | undefined;
-  headers: object | undefined;
+  method?: string;
+  body?: string | FormData;
+  headers?: object;
 }
 
 

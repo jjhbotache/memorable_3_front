@@ -3,19 +3,30 @@ import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleC
 import UsDescription from "../../us/usDescription/UsDescription";
 import WinesContainer from "../../wines/winesContainer/WinesContainer";
 import ContactForm from "../../contact/ContactForm";
+import { useEffect, useState } from "react";
+import { API } from "../../../constants/appConstants";
 
+interface Tag{
+  id: number;
+  name: string;
+}
 
 export default function TagsPresentation() {
-  const tags = [
-    "Cumpleaños",
-    "Boda",
-    "Graduación",
-    "Viaje",
-    "Fiesta",
-    "Reunión",
-    "Aniversario",
-    "Amor"
-  ]
+ const [tags, setTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    fetchTags();
+  }, [])
+
+  function fetchTags() {
+    fetch(API + "/tags")
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setTags(res);
+      });
+  }
+
   return(
     <>
     <TagsDescription>
@@ -23,8 +34,8 @@ export default function TagsPresentation() {
       <div className="tagsContainer">
         {
           tags.map(tag => (
-            <div className="tag" key={tag}>
-              <span>{tag}</span>
+            <div className="tag" key={tag.id}>
+              <span>{tag.name}</span>
             </div>
           ))
           }

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { primaryColor, secondaryColor } from "../constants/styleConstants";
 import DesignManager from "../components/admin/DesignManager";
 import TagsManager from "../components/admin/TagsManager";
+import UsersManager from "../components/admin/UsersManager";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -33,10 +34,8 @@ export default function Admin() {
 
   const tablesToEdit = [
     "designs",
-    "wines",
-    "users",
-    "orders",
     "tags",
+    "users",
   ];
 
   return(
@@ -52,6 +51,8 @@ export default function Admin() {
           <h1>{tableEditing}</h1>
           { tableEditing === "designs" && <DesignManager /> }
           { tableEditing === "tags" && <TagsManager /> }
+          { tableEditing === "users" && <UsersManager /> }
+
         </div>
       </AdminPage>
     </>
@@ -64,7 +65,6 @@ const AdminPage = styled.main`
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  background-color: #f0f0f0;
   h1{
     font-size: 4em;
     color: ${primaryColor};
@@ -73,6 +73,7 @@ const AdminPage = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: ${secondaryColor};
   }
   .select{
     font-size: large;

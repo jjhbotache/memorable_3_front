@@ -68,18 +68,18 @@ export default function ContactForm() {
   return(
     <ContactFormStyled>
       <form className="form" onSubmit={sendMail}>
-        <h1>Contact Us</h1>
-          <input type="text" placeholder="Name" name="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}/>
-          <input type="email" placeholder="Email" name="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}/>
-          <input type="text" placeholder="Subject" name="subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}/>
-          <textarea rows={3}  placeholder="Message" name="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}></textarea>
+        <h1>Contacto!</h1>
+          <input type="text" placeholder="Nombre" name="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}/>
+          <input type="email" placeholder="Correo electrónico" name="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}/>
+          <input type="text" placeholder="Asunto" name="subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}/>
+          <textarea rows={3}  placeholder="Mensaje" name="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}></textarea>
           <button>{
             loading ? "Enviando..." : "Enviar"
             }</button>
       </form>
       <div className="separatorText">
         <div className="divider"/>
-        <p>Contáctanos a traves de whatsapp:</p>
+        <p>Contáctanos a través de whatsapp:</p>
       </div>
       <i onClick={sendToWhatsapp} className=" whatsappIco fi fi-brands-whatsapp"></i>
     </ContactFormStyled>    
