@@ -1,20 +1,13 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import myFetch from "../../helpers/myFetch";
 import { API } from "../../constants/appConstants";
-import { AddDropdown, ElementsContainer, StyledForm } from "./managerStyledComponents";
+import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./managerStyledComponents";
+import Tag from "../../interfaces/tagInterface";
+import Desing from "../../interfaces/designInterface";
+import { toast } from "react-toastify";
 
-interface Desing {
-  id: number;
-  name: string;
-  ai_url: string;
-  img_url: string;
-  tags: Tag[];
-}
 
-interface Tag {
-  id: number;
-  name: string;
-}
+
 
 export default function DesignManager() {
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -22,6 +15,7 @@ export default function DesignManager() {
   const [loading, setLoading] = useState(false);
   const [deletingDesign, setDeletingDesign] = useState<null|number>(null);
   const [tags, setTags] = useState<Tag[]>([]);
+  const [editingDesign, setEditingDesign] = useState<null|Desing>(null);
 
 
  
@@ -79,9 +73,11 @@ export default function DesignManager() {
     .then(res => res.json())
     .then(res => {
       // reset the form
+      toast.success("Diseño creado");
       console.log(res);      
       (e.target as HTMLFormElement).reset();
       // reload the designs
+
       loadDesgins();
 
     })
@@ -100,10 +96,61 @@ export default function DesignManager() {
     .then(res => {
       console.log(res);
       setDesign(design.filter(d => d.id !== id));
+      toast.success("Diseño eliminado");
     })
     .catch(err => console.log(err))
     .finally(() => setDeletingDesign(null));
   }
+
+  function onEdit(e:FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    interface CustomFormData {
+      name: string;
+      img?: File;
+      ai?: File;
+      tags: Tag[];
+    }
+    const formData = new FormData(e.currentTarget);
+    const data:CustomFormData = {
+      name: formData.get("name") as string,
+      tags: tags.filter(t => formData.getAll("tags").includes(t.id.toString())),
+      img: formData.get("img") as File,
+      ai: formData.get("ai") as File,
+    };
+    console.log(data);
+    // if the img doesn't exists, remove it from the data
+    
+    if(data.img?.name === "") delete data.img;
+    if(data.ai?.name === "") delete data.ai;
+    
+    // create a new form data
+    const newFormData = new FormData();
+    newFormData.append("name", data.name);
+    if(data.img) newFormData.append("img", data.img);
+    if(data.ai) newFormData.append("ai", data.ai);
+    newFormData.append("tags_in_string", data.tags.map(t => t.id).join(","));
+
+    setLoading(true);
+    const updatedFormData = new FormData();
+    updatedFormData.append("id_design", editingDesign?.id.toString() || "");
+    for (const [key, value] of newFormData.entries()) {
+      updatedFormData.append(key, value);
+    }
+    
+    myFetch(API+"/design/update", {
+      method: "PUT",
+      body: updatedFormData,
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      loadDesgins();
+      setEditingDesign(null);
+    })
+    .catch(err => console.log(err))
+    .finally(() => setLoading(false));
+  }
+  
 
   return(
     <>
@@ -133,7 +180,7 @@ export default function DesignManager() {
         <div key={d.id} className="row">
           <img src={d.img_url} alt={d.name} />
           <p>{d.name}</p>
-          {/* taags */}
+          {/* tags */}
           <details>
             <summary>Tags</summary>
             <div className="floatingContent">
@@ -147,11 +194,40 @@ export default function DesignManager() {
           <div className="btns">
             <button disabled={deletingDesign===d.id} onClick={()=>deleteDesign(d.id)}>Eliminar</button>
             <a href={d.ai_url} download>Descargar AI</a>
-            <button disabled>Editar</button>
+            <button onClick={()=>{setEditingDesign(d)}}>Editar</button>
           </div>
         </div>
       ))}
     </ElementsContainer>
+    <EditorContainer 
+      className="editor" 
+      open={editingDesign != null}
+      onClick={e=>{if((e.target as HTMLDivElement).classList.contains("editor")) setEditingDesign(null)}}>
+      <div className="main">
+        <i className="fi-rr-cross-small close" onClick={()=>setEditingDesign(null)}></i>
+        <h1>Editar Diseño</h1>
+        <form onSubmit={onEdit}>
+          <label htmlFor="name">Nombre del diseño</label>
+          <input className="required" type="text" name="name" placeholder="Name" defaultValue={editingDesign?.name}/>
+          <img src={editingDesign?.img_url}/>
+          <label htmlFor="img">Imagen</label>
+          <input type="file" name="img" accept=".png" onChange={setInputName}/>
+          <label htmlFor="ai">Adobe illustrator file</label>
+          <input type="file" name="ai" accept=".ai" />
+          <hr className="divider"/>
+          <p>Tags</p>
+          {/* create a list of checkboxes for each tag */}
+          {tags.map(t => (
+            <label key={t.id}>
+              <input type="checkbox" name="tags" value={t.id} defaultChecked={editingDesign?.tags?.some(tag => tag.id === t.id)} />
+              {t.name}
+            </label>
+          ))}
+
+          <button type="submit" disabled={loading}>{loading?"editando...":"editar"}</button>
+        </form>
+      </div>
+    </EditorContainer>
     </>
   )
 };

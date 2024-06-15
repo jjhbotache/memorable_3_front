@@ -1,21 +1,17 @@
 import { FormEvent, useEffect, useState } from "react";
-import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./managerStyledComponents";
+import { EditorContainer, ElementsContainer } from "./managerStyledComponents";
 import myFetch from "../../helpers/myFetch";
 import { API } from "../../constants/appConstants";
+import User from "../../interfaces/userInterface";
 
-interface User{
-  google_sub: string;
-  name: string;
-  email: string;
-  phone?: string;
-  img_url: string;
-}
+
 
 export default function UsersManager() {
   // const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [deletingUser, setDeletingUser] = useState<null|string>(null);
   const [editingUser, setEditingUser] = useState<null|User>(null);
+  
 
   useEffect(() => {
     fetchUsers();
@@ -115,7 +111,7 @@ export default function UsersManager() {
       onClick={e=>{if((e.target as HTMLDivElement).classList.contains("editor")) setEditingUser(null)}}>
       <div className="main">
         <i className="fi-rr-cross-small close" onClick={()=>setEditingUser(null)}></i>
-        <h1>Editar User</h1>
+        <h1>Editar usuario</h1>
         <form onSubmit={onEdit}>
           <input className="required" type="text" name="name" placeholder="Name" defaultValue={editingUser?.name}/>
           <input className="required" type="email" name="email" placeholder="Email" defaultValue={editingUser?.email}/>
@@ -129,6 +125,7 @@ export default function UsersManager() {
               });
             }
           }/>
+          <hr className="divider"/>
           <button type="submit">Editar</button>
         </form>
       </div>

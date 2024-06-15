@@ -2,11 +2,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./managerStyledComponents";
 import myFetch from "../../helpers/myFetch";
 import { API } from "../../constants/appConstants";
+import Tag from "../../interfaces/tagInterface";
 
-interface Tag {
-  id: number;
-  name: string;
-}
 
 export default function TagsManager() {
   const [loading, setLoading] = useState(false);

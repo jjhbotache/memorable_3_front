@@ -164,12 +164,16 @@ interface StyledManagerProps {
 }
 
 export const EditorContainer = styled.div<StyledManagerProps>`
+
+
   ${props => props.open ?"display: flex;":"display: none;"}
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
   height: 100%;
   background: rgba(0,0,0,.5);
   justify-content: center;
@@ -177,6 +181,11 @@ export const EditorContainer = styled.div<StyledManagerProps>`
   z-index: 100;
   
   .main{
+    h1{
+      margin: 0;
+      text-align: center;
+      font-size: 2rem;
+    }
     .close{
       position: absolute;
       top: 0;
@@ -193,7 +202,6 @@ export const EditorContainer = styled.div<StyledManagerProps>`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    justify-content: center;
     padding: 1rem;
     border: .3em solid ${primaryColor};
     color: ${primaryColor};
@@ -205,6 +213,7 @@ export const EditorContainer = styled.div<StyledManagerProps>`
     width: 80%;
     height: 90%;
     max-height: 600px;
+    overflow-y: auto;
 
     form{
       display: flex;
