@@ -7,11 +7,12 @@
   src: url('./assets/fonts/HelloValentina.ttf') format('truetype');
 }
 
-html,body,#root {
+html,body {
   font-family: 'Fragmentcore', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex: 1;
   flex-direction: column;
