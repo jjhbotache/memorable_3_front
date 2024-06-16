@@ -19,10 +19,11 @@ export default function DesignContainer({designs,arragment}:DesignContainerProps
               <div className="rightSide">
                 <div className="text">
                   <h1>{design.name}</h1>
+                  <span className="helpText">{design.name}</span>
                   <i onClick={()=>setLoved(!loved)} className={loved?"fi fi-ss-heart heart":"fi fi-bs-heart heart"}></i>
                 </div>
                 <div className="btns">
-                  <button>Agregar al carrito</button>
+                  <button><span className="text">Agregar al carrito</span><i className=" ico fi fi-rr-shopping-cart"></i></button>
                   <button>Comprar</button> 
                 </div>
               </div>

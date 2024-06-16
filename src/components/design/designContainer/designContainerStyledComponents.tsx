@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants"
+import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants"
 
 interface designsContainerProps {
   styleBehavior?: "grid" | "column";
@@ -26,9 +26,9 @@ export const DesignsStyledContainer = styled.div<designsContainerProps>`
   .design{
     ${props => props.styleBehavior === "grid" 
     ?`
-    max-width: 320px;
-    height: 300px;
+    max-width: 200px;
     flex-direction: column;
+    position: relative;
     `:`
     flex-basis: 100%;
     `}
@@ -40,15 +40,19 @@ export const DesignsStyledContainer = styled.div<designsContainerProps>`
     gap: 2vw;
     color: ${primaryColor};
     box-sizing: border-box;
-    overflow: hidden;
     img{
+      ${props => props.styleBehavior === "grid" 
+      ?`
+      `:`
+      max-width: 160px;
+      `}
+      width: 100%;
       border-radius: 1rem;
       border: 2px solid ${primaryColor};
-      width: 100%;
-      max-width: 160px;
       padding: .2rem;
       aspect-ratio: 1/1;
       margin: auto;
+      box-sizing: border-box;
     }
     .rightSide{
       display: flex;
@@ -63,27 +67,62 @@ export const DesignsStyledContainer = styled.div<designsContainerProps>`
         h1{ 
           ${props => props.styleBehavior === "grid" 
           ?`
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           padding-bottom: .7rem;
           max-height: 1rem;
           overflow: hidden;
           white-space: nowrap;
-          
+          text-decoration: underline;
+          cursor: pointer;
+          text-align: center;
+          width: 100%;
           `:`
           font-size: 2rem;
           `}
           font-weight: 300;
           text-overflow: ellipsis;
         }
+        .helpText{
+          display: none; 
+          text-align: center;
+          padding: .5rem;
+          border-radius: 1rem;
+          opacity: 0;
+          transition: all .3s;
+        }
+        h1:hover + .helpText,
+        h1:active + .helpText{
+          position: absolute;
+          display: block;
+          background: ${primaryColor};
+          color: ${secondaryColor};
+          bottom: -5%;
+          left: 0;
+          width: 100%;
+          opacity: 1;
+        }
         .heart{
+          ${props => props.styleBehavior === "grid" 
+          ?`
+          position: absolute;
+          right: 0;
+          top: .7em;
+          font-size: 1.5rem;
+          `:`
           font-size: 2rem;
+          `}
           font-weight: 100;
           min-width: 4rem;
         }
       }
       .btns{
-        display: flex;
+        ${props => props.styleBehavior === "grid" 
+        ?`
+        justify-content: space-evenly;
+        `:`
         justify-content: end;
+        `}
+        display: flex;
         width: 100%;
         gap: 1rem;
         button{
@@ -93,6 +132,16 @@ export const DesignsStyledContainer = styled.div<designsContainerProps>`
           `:`
           padding: .5rem 1rem;
           `}
+
+          @media screen and (width < ${mdScreen}px) {
+            .text{display: none;}
+          }
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: .2rem;
+
           border-radius: 999rem;
           background: ${primaryColor};
           color: ${secondaryColor};
