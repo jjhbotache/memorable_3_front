@@ -12,7 +12,7 @@ export default function DesignContainer({designs,arragment}:DesignContainerProps
     
     <DesignsStyledContainer styleBehavior={arragment}>
       {
-        designs.map((design:Desing) => {
+        designs && designs.map((design:Desing) => {
           return(
             <div className="design">
               <img src={design.img_url} alt={design.name}/>
