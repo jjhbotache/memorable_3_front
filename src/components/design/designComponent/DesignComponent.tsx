@@ -5,8 +5,9 @@ interface DesignComponentProps {
     displayStyle: "grid" | "column";
     design: Desing;
     loved: boolean;
+    onChangeLoved: () => void;
 }
-export default function DesignComponent({displayStyle,design,loved}:DesignComponentProps) {
+export default function DesignComponent({displayStyle,design,loved,onChangeLoved}:DesignComponentProps) {
   return(
     <DesignComponentStyledContainer styleBehavior={displayStyle}>
       {displayStyle === "column" ?
@@ -15,7 +16,7 @@ export default function DesignComponent({displayStyle,design,loved}:DesignCompon
           <div className="rightSide">
             <div className="titleAndHeart">
               <h1 className="title">{design.name}</h1>
-              <i className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"}></i>
+              <i onChange={onChangeLoved} className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"}></i>
             </div>
             <div className="btns">
               <button className="addCart"><span >Agregar al carrito</span><i className="fi fi-rr-shopping-cart"></i></button>
@@ -25,7 +26,7 @@ export default function DesignComponent({displayStyle,design,loved}:DesignCompon
         </>
         :
         <>
-          <i className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"}></i>
+          <i className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"} onChange={onChangeLoved}></i>
           <img src={design.img_url} alt={design.name}/>
           <h1 className="title">{design.name}</h1>
           <div className="btns">
