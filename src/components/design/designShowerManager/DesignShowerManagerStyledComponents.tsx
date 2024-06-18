@@ -3,9 +3,9 @@ import { primaryColor, secondaryColor, tertiaryColor } from "../../../constants/
 
 export const StyledShowerManager = styled.div`
   display: flex;
-  margin: 1em 0 2em 0;
-  width: 100%;
-  max-width: 95vw;
+  margin: 1em auto 2em auto;
+  width: 98%;
+  /* max-width: 95vw; */
   gap: clamp(1px , calc(1.5vw - .2em), 1em);
   font-family: "Fragmentcore";
   box-sizing: border-box;
