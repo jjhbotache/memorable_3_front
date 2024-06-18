@@ -3,12 +3,13 @@ import { primaryColor, secondaryColor, tertiaryColor } from "../../../constants/
 
 export const StyledShowerManager = styled.div`
   display: flex;
-  margin: 1em auto 2em auto;
+  margin: 1em 0 2em 0;
   width: 100%;
   max-width: 95vw;
-  gap: 1em;
+  gap: clamp(1px , calc(1.5vw - .2em), 1em);
   font-family: "Fragmentcore";
   box-sizing: border-box;
+  flex-wrap: wrap;
   .search{
     font-family: "Fragmentcore";
     display: flex;
