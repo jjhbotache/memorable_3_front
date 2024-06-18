@@ -33,6 +33,7 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
         align-items: start;
         .title{
           flex: 1;
+          padding-top: .3em;
         }
         .heart{
           flex-basis: 2em;
