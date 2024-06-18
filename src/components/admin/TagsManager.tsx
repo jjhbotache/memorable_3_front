@@ -16,12 +16,15 @@ export default function TagsManager() {
   }, []);
 
   function fetchTags() {
+    setLoading(true);
     myFetch(API + "/tags")
       .then(res => res.json())
       .then(res => {
         console.log(res);
         setTags(res);
-      });
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
   }
 
   function createTag(e:FormEvent<HTMLFormElement>) {
@@ -118,7 +121,7 @@ export default function TagsManager() {
     </StyledForm>
     </AddDropdown>
     <ElementsContainer>
-      {tags.length===0 && <p>No hay tags</p>}
+      {tags.length===0 && loading? <p>Loading...</p> : tags.length===0 && <p>No tags</p>}
       {tags.map(t => (
         <div key={t.id} className="row">
           <p>{t.name}</p>

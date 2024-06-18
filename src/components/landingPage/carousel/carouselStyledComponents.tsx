@@ -4,12 +4,35 @@ import { mdScreen, primaryColor,  tertiaryColor } from "../../../constants/style
 const gridGapEms = .4;
 export const CarouselContainer = styled.div`
   /* if the screen is smaller than md screen, dont show */
-  display: none;
-  @media (min-width: ${mdScreen}px){
+  @media screen and (width > ${mdScreen}px){
     display: block;
   }
+  @media screen and (width < ${mdScreen}px){
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .2;
+    &::after{
+      content: '';
+      position: absolute;
+      z-index: 2;
+      top: 80%;
+      left: 0;
+      width: 100%;
+      height: 20vh;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,1) 100%
+      );
+      opacity: 1;
+    }
+  }
 
-  height: 100%;
+
+  height: inherit;
   background: ${tertiaryColor};
   width: 50%;
   overflow: hidden ;

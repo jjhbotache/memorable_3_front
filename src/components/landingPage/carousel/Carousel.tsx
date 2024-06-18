@@ -3,6 +3,7 @@ import { CarouselContainer } from "./carouselStyledComponents";
 import { API } from "../../../constants/appConstants";
 import { motion } from "framer-motion";
 import getRandomNum from "../../../helpers/getRandomNum";
+import { toast } from "react-toastify";
 
 const imgStartXTranslate = -200;
 const rowTranslation = -266;
@@ -15,6 +16,40 @@ export default function Carousel() {
 
   useEffect(() => {
 
+    fetchImgs();
+
+  }, []);
+
+  
+
+  
+  return(
+    <CarouselContainer>
+      {imgRows ? 
+      <div className="rowsContainer">
+        {imgRows && imgRows.map( (row,i) => (
+          <motion.div key={i} className="row" 
+          animate={{
+            transform: [
+              `translateX(${imgStartXTranslate}%)`,
+              `translateX(${imgStartXTranslate+rowTranslation}%)`,
+            ],
+          }}
+          transition={{duration: animationDuration,repeat: Infinity,ease: "linear"}}
+          >
+            {row.map((imgUrl,i) =>(
+              <img key={i}  src={imgUrl || "https://static.millesima.com/s3/attachements/editorial/h630px/how-many-ounces-in-a-glass-of-wine.jpg"}  alt="carousel-img"/>
+            ))}
+          </motion.div>
+        ))}
+      </div>
+      :
+      <h1>Cargando...</h1>}
+      
+    </CarouselContainer>
+  )
+
+  function fetchImgs() {
     fetch(API + "/imgs")
       .then(res => res.json())
       .then(data => {
@@ -34,32 +69,16 @@ export default function Carousel() {
         setimgRows(imgRowsCopy);
         // save imgs to local storage
       })
-      .catch(err => console.log(err + " carousel"));
-
-  }, []);
-
-  
-
-  
-  return(
-    <CarouselContainer>
-      <div className="rowsContainer">
-        {imgRows && imgRows.map( (row,i) => (
-          <motion.div key={i} className="row" 
-          animate={{
-            transform: [
-              `translateX(${imgStartXTranslate}%)`,
-              `translateX(${imgStartXTranslate+rowTranslation}%)`,
-            ],
-          }}
-          transition={{duration: animationDuration,repeat: Infinity,ease: "linear"}}
-          >
-            {row.map((imgUrl,i) =>(
-              <img key={i}  src={imgUrl || "https://static.millesima.com/s3/attachements/editorial/h630px/how-many-ounces-in-a-glass-of-wine.jpg"}  alt="carousel-img"/>
-            ))}
-          </motion.div>
-        ))}
-      </div>
-    </CarouselContainer>
-  )
+      .catch(err => {
+        console.log(err + " carousel")
+        toast.error("Error al cargar las imagenes: " + err);
+        setTimeout (() => {
+          toast.error("Recargando... ");
+          fetchImgs();
+        }, 5000);
+      })
+      .finally(() => {
+        // setLoading(false);
+      })
+  }
 };

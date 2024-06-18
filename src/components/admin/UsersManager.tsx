@@ -11,6 +11,7 @@ export default function UsersManager() {
   const [users, setUsers] = useState<User[]>([]);
   const [deletingUser, setDeletingUser] = useState<null|string>(null);
   const [editingUser, setEditingUser] = useState<null|User>(null);
+  const [loading, setLoading] = useState<Boolean>(false);
   
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function UsersManager() {
   }, []);
 
   function fetchUsers() {
+    setLoading(true);
     myFetch(API + "/users")
       .then(res => res.json())
       .then(res => {
@@ -25,7 +27,9 @@ export default function UsersManager() {
         // filter the current user
         res = res.filter((t:User) => t.google_sub !== JSON.parse(localStorage.getItem("user") || "{}").google_sub);
         setUsers(res);
-      });
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
   }
 
 
@@ -88,7 +92,7 @@ export default function UsersManager() {
     <>
     <ElementsContainer>
       {users.length===0 ?
-       <p>No hay Users</p>
+       loading? <p>Loading...</p> : <p>No users</p>
        :
        users.map(u => (
         <div key={u.google_sub} className="row">

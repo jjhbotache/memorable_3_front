@@ -8,6 +8,7 @@ import { primaryColor, secondaryColor } from "../constants/styleConstants";
 import DesignManager from "../components/admin/DesignManager";
 import TagsManager from "../components/admin/TagsManager";
 import UsersManager from "../components/admin/UsersManager";
+import MoreConfigs from "../components/admin/MoreConfigs";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function Admin() {
     "designs",
     "tags",
     "users",
+    "More configs"
   ];
 
   return(
@@ -52,6 +54,7 @@ export default function Admin() {
           { tableEditing === "designs" && <DesignManager /> }
           { tableEditing === "tags" && <TagsManager /> }
           { tableEditing === "users" && <UsersManager /> }
+          { tableEditing === "More configs" && <MoreConfigs /> }
 
         </div>
       </AdminPage>
@@ -66,8 +69,9 @@ const AdminPage = styled.main`
   padding: 0;
   margin: 0;
   h1{
-    font-size: 4em;
+    font-size: 2em;
     color: ${primaryColor};
+    margin-bottom: 2rem;
   }
   .main{
     display: flex;

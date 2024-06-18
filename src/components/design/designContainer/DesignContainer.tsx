@@ -13,7 +13,7 @@ export default function DesignContainer({designs,arragment}:DesignContainerProps
 
   return(
     
-    <DesignsStyledContainer styleBehavior={arragment}>
+    <DesignsStyledContainer $styleBehavior={arragment}>
       {
         Array.isArray(designs) && designs.map((design:Desing) => {
           return(

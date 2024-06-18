@@ -12,7 +12,7 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     width: 100%;
     max-width: 95vw;
     height: 22vh;
-    padding: .3em;
+    padding: .2em;
     box-sizing: border-box;
     img{
       height: 100%;

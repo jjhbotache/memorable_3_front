@@ -5,6 +5,7 @@ import WinesContainer from "../../wines/winesContainer/WinesContainer";
 import ContactForm from "../../contact/ContactForm";
 import { useEffect, useState } from "react";
 import { API } from "../../../constants/appConstants";
+import { toast } from "react-toastify";
 
 interface Tag{
   id: number;
@@ -24,6 +25,11 @@ export default function TagsPresentation() {
       .then(res => {
         console.log(res);
         setTags(res);
+      })
+      .catch(err => {
+        console.error(err)
+        toast.error("Error al cargar las etiquetas");
+        fetchTags();
       });
   }
 
@@ -67,8 +73,10 @@ const TagsDescription = styled.main`
   margin: 0;
   z-index: 2;
   box-shadow: -20px 0 50px rgba(0,0,0,.5);
-  @media screen and (width < ${mdScreen}px){
+  @media screen and (max-width: ${mdScreen}px){
     box-shadow: 0px 0 50px rgba(0,0,0,.5);
+    background: rgba(255,255,255,.2);
+    overflow: hidden;
     
   }
 

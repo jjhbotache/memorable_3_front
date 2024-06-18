@@ -175,7 +175,7 @@ export default function DesignManager() {
     </StyledForm>
     </AddDropdown>
     <ElementsContainer>
-      {design.length===0 && <p>No hay diseños</p>}
+    {design.length===0 && loading? <p>Loading...</p> : design.length===0 && <p>No designs</p>}
       {design.map(d => (
         <div key={d.id} className="row">
           <img src={d.img_url} alt={d.name} />
