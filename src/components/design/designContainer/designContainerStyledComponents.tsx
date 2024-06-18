@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { primaryColor } from "../../../constants/styleConstants";
 
 interface DesignsContainerProps {
   styleBehavior?: "grid" | "column";
