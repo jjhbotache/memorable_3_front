@@ -27,9 +27,8 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   gap: 1vw;
   height: 100%;
   border-radius: 1rem;
-  box-shadow: 0 0 1rem 0.5rem ${primaryColor};
+  box-shadow: 0 0 1rem -.2rem ${primaryColor};
   width: 95%;
   margin: 1rem auto;
-  
-
+  padding: 1rem;
 `

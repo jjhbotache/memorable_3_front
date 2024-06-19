@@ -42,8 +42,10 @@ export default function Designs() {
     <DesignPage>
       <Navbar/>
       <div className="main">
-        <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()}/>
-        {loading?<h1>Cargando...</h1> :<DesignContainer designs={designs} arragment={arragmentState}/>}
+        <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} />
+        {loading?<h1>Cargando...</h1> :
+        <DesignContainer designs={designs} arragment={arragmentState} searchFilter=""/> 
+        }
       </div>
     </DesignPage>  
   )

@@ -28,7 +28,6 @@ export default function TagsPresentation() {
       })
       .catch(err => {
         console.error(err)
-        toast.error("Error al cargar las etiquetas");
         fetchTags();
       });
   }
@@ -100,6 +99,7 @@ const TagsDescription = styled.main`
     justify-content: center;
     align-items: center;
     background: ${tertiaryColor};
+    border: 1px solid ${primaryColor};
     padding: .3em .5em;
     font-size: 1.2em;
     border-radius: 99999px;
