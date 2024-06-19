@@ -5,7 +5,6 @@ import WinesContainer from "../../wines/winesContainer/WinesContainer";
 import ContactForm from "../../contact/ContactForm";
 import { useEffect, useState } from "react";
 import { API } from "../../../constants/appConstants";
-import { toast } from "react-toastify";
 
 interface Tag{
   id: number;
