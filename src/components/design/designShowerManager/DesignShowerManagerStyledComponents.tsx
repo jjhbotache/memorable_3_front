@@ -67,7 +67,7 @@ export const StyledShowerManager = styled.div`
       z-index: 10;
       @media screen and (width < ${mdScreen}px){
         position: fixed;
-        top: 32vh;
+        top: 28vh;
         height: 60vh !important;
         left: 50%;
         transform: translateX(-50%);
