@@ -35,7 +35,6 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
           flex: 1;
           padding-top: .3em;
           padding-bottom: .1em;
-          font-size: clamp(1.4rem, 2vw, 2rem);
           -webkit-line-clamp: 2;
         }
         .heart{
@@ -86,6 +85,7 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     .title{
       padding: .2em .4em 0 0;
       margin-bottom:.7em ;
+      height:100%;
     }
     .btns{
       width: 100%;
@@ -144,6 +144,5 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box;
-    height:100%;
   }
 `;
