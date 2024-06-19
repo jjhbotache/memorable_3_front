@@ -35,7 +35,6 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
           flex: 1;
           padding-top: .3em;
           padding-bottom: .1em;
-          -webkit-line-clamp: 2;
         }
         .heart{
           flex-basis: 2em;
@@ -136,7 +135,7 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
   }
   .title{
     font-size: clamp(1.4rem, 2vw, 2rem);
-    line-height: 1.5em;
+    line-height: 1.2em;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;

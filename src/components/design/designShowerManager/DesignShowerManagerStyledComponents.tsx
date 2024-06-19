@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
 
 export const StyledShowerManager = styled.div`
   display: flex;
@@ -65,6 +65,16 @@ export const StyledShowerManager = styled.div`
       width: 200%;
       max-width: 200px;
       z-index: 10;
+      @media screen and (width < ${mdScreen}px){
+        position: fixed;
+        top: 32vh;
+        height: 60vh !important;
+        left: 50%;
+        transform: translateX(-50%);
+
+        
+        height: 80vh;
+      }
 
       .tagsContainer{
         display: flex;
