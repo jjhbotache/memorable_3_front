@@ -180,8 +180,8 @@ export default function Navbar() {
               </Link>
             ))}
           </ul>
-          <i className="fi fi-ss-heart"></i>
-          <i className="fi fi-rr-shopping-cart"></i>
+          <Link to="/loved"><i className=" ico fi fi-ss-heart"></i></Link>
+          <Link to="/cart"><i className=" ico fi fi-rr-shopping-cart"></i></Link>
         </div>
       </motion.aside>      
     </Sidebar>
