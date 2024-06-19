@@ -5,11 +5,10 @@ import DesignContainer from "../components/design/designContainer/DesignContaine
 import { useEffect, useState } from "react"
 import { API } from "../constants/appConstants"
 import Desing from "../interfaces/designInterface"
-import { toast } from "react-toastify"
 import DesignShowerManager from "../components/design/designShowerManager/DesignShowerManager"
 
 export default function Designs() {
-  const [designs, setDesigns] = useState<Desing[]>([]);
+  const [designData, setDesignsData] = useState<Desing[]>([]);
   const [loading, setLoading] = useState(true);
   const [arragmentState, setArragmentState] = useState<"column"|"grid">("column");
 
@@ -20,14 +19,15 @@ export default function Designs() {
   }, [])
 
   function fetchDesigns() {
+    setLoading(true)
+    console.log("fetching designs");      
     fetch(API + "/designs/public")
       .then(r => r.json())
       .then(data => {
-        setDesigns(data)
+        setLoading(false)
+        setDesignsData(data)
       })
-      .catch(err => {
-        toast.error("Error al cargar los diseños: " + err)
-        toast.error("reintentando...")
+      .catch(() => {
         fetchDesigns()
       })
       .finally(() => {
@@ -38,13 +38,17 @@ export default function Designs() {
   function switchArrangment() {
     arragmentState === "column" ? setArragmentState("grid") : setArragmentState("column")
   }
+
+  console.log("from designs sending:", designData);
+  
   return(
     <DesignPage>
       <Navbar/>
       <div className="main">
         <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} />
-        {loading?<h1>Cargando...</h1> :
-        <DesignContainer designs={designs} arragment={arragmentState}/> 
+        {loading?
+        <h1>Cargando......</h1>:
+        <DesignContainer designs={designData} arragment={arragmentState}/> 
         }
       </div>
     </DesignPage>  

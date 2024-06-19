@@ -5,6 +5,10 @@ import WinesContainer from "../../wines/winesContainer/WinesContainer";
 import ContactForm from "../../contact/ContactForm";
 import { useEffect, useState } from "react";
 import { API } from "../../../constants/appConstants";
+import orderRandomizer from "../../../helpers/orderRandomizer";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../../../redux/slices/filterReducer";
+import { useNavigate } from "react-router-dom";
 
 interface Tag{
   id: number;
@@ -13,6 +17,8 @@ interface Tag{
 
 export default function TagsPresentation() {
  const [tags, setTags] = useState<Tag[]>([]);
+ const dispacher = useDispatch();
+ const navigate = useNavigate();
 
   useEffect(() => {
     fetchTags();
@@ -23,12 +29,28 @@ export default function TagsPresentation() {
       .then(res => res.json())
       .then(res => {
         console.log(res);
-        setTags(res);
+        const randomOrder = orderRandomizer(res);
+        // ensure to take max 6 tags
+        try{
+          setTags(randomOrder.slice(0, 8));
+        }catch(err){
+          setTags(randomOrder);
+        }
       })
       .catch(err => {
         console.error(err)
         fetchTags();
       });
+  }
+
+  function onChosedTag(tag:Tag){
+    dispacher(
+      setFilter({
+        name: "",
+        tags: [tag]
+      })
+    )
+    navigate("/designs");
   }
 
   return(
@@ -38,7 +60,7 @@ export default function TagsPresentation() {
       <div className="tagsContainer">
         {
           tags.map(tag => (
-            <div className="tag" key={tag.id}>
+            <div className="tag" key={tag.id} onClick={()=>onChosedTag(tag)}>
               <span>{tag.name}</span>
             </div>
           ))

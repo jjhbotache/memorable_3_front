@@ -4,6 +4,7 @@ import { DesignsStyledContainer } from "./designContainerStyledComponents";
 import DesignComponent from "../designComponent/DesignComponent";
 import { useSelector } from "react-redux";
 import { Filter } from "../../../interfaces/filterInterface";
+import orderRandomizer from "../../../helpers/orderRandomizer";
 
 interface DesignContainerProps {
   designs: Desing[];
@@ -23,18 +24,21 @@ export default function DesignContainer({designs,arragment}:DesignContainerProps
       return filter.tags.every(tag => tags.includes(tag.id));
     });
 
+
+    // randomize the order
+    designsFiltered = orderRandomizer(designsFiltered);
     setdesignsToShow(designsFiltered);
   }, [
-    filter
+    filter,designs
   ]);
 
+
+  
   return(
     
     <DesignsStyledContainer $styleBehavior={arragment}>
       {
-        Array.isArray(designsToShow) &&
-        designsToShow.length > 0 
-        ?designsToShow.map((design:Desing) => {
+        (designsToShow.length != 0) ? designsToShow.map((design:Desing) => {
           return(
             <DesignComponent design={design} displayStyle={arragment} key={design.id} loved={loved} onChangeLoved={()=>setLoved(!loved)} />
           )

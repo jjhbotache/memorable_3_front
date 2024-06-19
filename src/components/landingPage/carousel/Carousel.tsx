@@ -3,7 +3,6 @@ import { CarouselContainer } from "./carouselStyledComponents";
 import { API } from "../../../constants/appConstants";
 import { motion } from "framer-motion";
 import getRandomNum from "../../../helpers/getRandomNum";
-import { toast } from "react-toastify";
 
 const imgStartXTranslate = -200;
 const rowTranslation = -266;
@@ -71,14 +70,11 @@ export default function Carousel() {
       })
       .catch(err => {
         console.log(err + " carousel")
-        toast.error("Error al cargar las imagenes: " + err);
         setTimeout (() => {
-          toast.error("Recargando... ");
           fetchImgs();
         }, 5000);
       })
       .finally(() => {
-        // setLoading(false);
       })
   }
 };

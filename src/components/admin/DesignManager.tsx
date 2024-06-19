@@ -11,11 +11,13 @@ import { toast } from "react-toastify";
 
 export default function DesignManager() {
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const [design, setDesign] = useState<Desing[]>([]);
+  const [designs, setDesigns] = useState<Desing[]>([]);
+  const [designsToShow, setDesignsToShow] = useState<Desing[]>([]);
   const [loading, setLoading] = useState(false);
   const [deletingDesign, setDeletingDesign] = useState<null|number>(null);
   const [tags, setTags] = useState<Tag[]>([]);
   const [editingDesign, setEditingDesign] = useState<null|Desing>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
 
  
@@ -24,9 +26,13 @@ export default function DesignManager() {
       .then(res => res.json())
       .then(res => {
         console.log(res);
-        setDesign(res);
+        setDesigns(res);
+        setDesignsToShow(res);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err)
+        loadDesgins()
+      });
   }
 
   useEffect(() => {
@@ -95,7 +101,7 @@ export default function DesignManager() {
     .then(res => res.json())
     .then(res => {
       console.log(res);
-      setDesign(design.filter(d => d.id !== id));
+      setDesigns(designs.filter(d => d.id !== id));
       toast.success("Diseño eliminado");
     })
     .catch(err => console.log(err))
@@ -146,11 +152,20 @@ export default function DesignManager() {
       console.log(res);
       loadDesgins();
       setEditingDesign(null);
+      toast.success("Diseño editado");
+      searchInputRef.current && (searchInputRef.current.value = "");
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      toast.error("Error al editar el diseño")
+    })
     .finally(() => setLoading(false));
   }
   
+  function onFilter(e:ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setDesignsToShow(designs.filter(d => d.name.toLowerCase().includes(value.toLowerCase())));
+  }
 
   return(
     <>
@@ -175,8 +190,9 @@ export default function DesignManager() {
     </StyledForm>
     </AddDropdown>
     <ElementsContainer>
-    {design.length===0 && loading? <p>Loading...</p> : design.length===0 && <p>No designs</p>}
-      {design.map(d => (
+      <input type="text" onChange={onFilter} className="searcher" placeholder="Search your design" ref={searchInputRef}/>
+    {designsToShow.length===0 && loading? <p>Loading...</p> : designsToShow.length===0 && <p>No hay disños para mostrar</p>}
+      {designsToShow.map(d => (
         <div key={d.id} className="row">
           <img src={d.img_url} alt={d.name} />
           <p>{d.name}</p>

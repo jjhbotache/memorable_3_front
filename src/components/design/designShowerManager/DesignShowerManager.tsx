@@ -32,7 +32,10 @@ export default function DesignShowerManager({onSwitchArrangment,arragment}:props
     fetch(API + "/tags")
     .then(res=>res.json())
     .then(data=>setTags(data))
-    .catch(err=>console.log(err))
+    .catch(err=>{
+      console.log(err);
+      fetchTags();
+    })
   }
 
   function onCheckTag(tagId: number) {
@@ -65,10 +68,12 @@ export default function DesignShowerManager({onSwitchArrangment,arragment}:props
       <details className="filter">
         <summary><i className="fi fi-sr-settings-sliders"></i></summary>
         <div className="floatingInfo">
+          <i className=""></i>
           <h3>Filtros</h3>
           <hr className="divider"/>
           <h4>tags</h4>
           <div className="tagsContainer">
+            <button onClick={()=>{ dispacher(setFilter({name:filter.name,tags:[]})) }}>Limpiar filtros</button>
             {/* list of tags checkbox */}
             {tags && tags.map((tag)=>
               <label key={tag.id}>

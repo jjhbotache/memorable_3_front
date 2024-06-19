@@ -59,13 +59,31 @@ export const StyledShowerManager = styled.div`
       background: ${tertiaryColor};
       border-radius: .3em;
       border: 1px solid ${primaryColor};
-      padding: .5em;
-      width: 100%;
-      z-index: 1;
+      padding: .8em;
+      max-height: 80vh;
+      overflow-y: auto;
+      width: 200%;
+      max-width: 200px;
+      z-index: 10;
 
       .tagsContainer{
         display: flex;
         flex-direction: column;
+      }
+      button{
+        background: ${primaryColor};
+        color: ${secondaryColor};
+        border: 1px solid ${primaryColor};
+        border-radius: .3em;
+        padding: .2em .5em;
+        margin: .5em 0;
+        cursor: pointer;
+        transition: all .2s;
+        &:hover{
+          background: ${secondaryColor};
+          color: ${primaryColor};
+        }
+      
       }
     }
   }

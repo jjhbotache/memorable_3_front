@@ -11,7 +11,7 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     align-items: center;
     width: 100%;
     max-width: 95vw;
-    height: 22vh;
+    height: 27vh;
     padding: .2em;
     box-sizing: border-box;
     img{
@@ -35,7 +35,8 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
           flex: 1;
           padding-top: .3em;
           padding-bottom: .1em;
-
+          font-size: clamp(1.4rem, 2vw, 2rem);
+          -webkit-line-clamp: 2;
         }
         .heart{
           flex-basis: 2em;
@@ -51,9 +52,9 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
         button{
           flex: 1;
           max-width: clamp(5em, 20vw, 10em);
-          font-size: .4em;
+          font-size: .5em;
           border-radius: 1rem;
-          padding: .3em;
+          padding: .5em .6em;
           box-sizing: border-box;
         }
         
@@ -76,8 +77,8 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
       font-size: 1.5em;
       cursor: pointer;
       position: absolute;
-      top: .3em;
-      right: .3em;
+      top: .4em;
+      right: .4em;
     }
     img{
       width: 100%;

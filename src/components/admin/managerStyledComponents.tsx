@@ -74,6 +74,12 @@ export const ElementsContainer = styled.div`
   width: 80%;
   box-sizing: border-box;
 
+  .searcher{
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
 
   .row{
     display: flex;
