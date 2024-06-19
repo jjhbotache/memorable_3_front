@@ -2,37 +2,46 @@ import { useEffect, useState } from "react";
 import Desing from "../../../interfaces/designInterface";
 import { DesignsStyledContainer } from "./designContainerStyledComponents";
 import DesignComponent from "../designComponent/DesignComponent";
+import { useSelector } from "react-redux";
+import { Filter } from "../../../interfaces/filterInterface";
 
 interface DesignContainerProps {
   designs: Desing[];
   arragment: "grid" | "column";
-  searchFilter?: string;
 }
-export default function DesignContainer({designs,arragment,searchFilter}:DesignContainerProps) {
+export default function DesignContainer({designs,arragment}:DesignContainerProps) {
   const [loved, setLoved] = useState(false);
   const [designsToShow, setdesignsToShow] = useState<Desing[]>([]);
+  const filter:Filter = useSelector((state:any)=>state.filter);
 
   useEffect(() => {
-    if(!!searchFilter) {
-      setdesignsToShow(designs.filter((design) => {
-        return design.name.toLowerCase().includes(searchFilter.toLowerCase())
-      }))
-    } else {
-      setdesignsToShow(designs)
-    }
+    // filter by name
+    let designsFiltered = designs.filter(design => design.name.toLowerCase().includes(filter.name.toLowerCase()));
+
+    designsFiltered = designsFiltered.filter(design => {
+      const tags = design.tags.map(tag => tag.id);
+      return filter.tags.every(tag => tags.includes(tag.id));
+    });
+
+    setdesignsToShow(designsFiltered);
   }, [
-    searchFilter
+    filter
   ]);
 
   return(
     
     <DesignsStyledContainer $styleBehavior={arragment}>
       {
-        Array.isArray(designsToShow) && designsToShow.map((design:Desing) => {
+        Array.isArray(designsToShow) &&
+        designsToShow.length > 0 
+        ?designsToShow.map((design:Desing) => {
           return(
             <DesignComponent design={design} displayStyle={arragment} key={design.id} loved={loved} onChangeLoved={()=>setLoved(!loved)} />
           )
         })
+        :
+        <h1>No se encontraron diseños</h1>
+
       }
     </DesignsStyledContainer>
   )

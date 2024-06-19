@@ -27,15 +27,31 @@ export const StyledShowerManager = styled.div`
   .filter{
     display: flex;
     flex: 2;
-    background: ${tertiaryColor};
     border-radius: .3em;
     position: relative;
     cursor: pointer;
+    
+    .divider{
+      height: 1px;
+      width: 100%;
+      background: ${primaryColor};
+      border: none;
+    }
+
     summary{
       display: grid;
       place-items: center;
       text-align: center;
       height: 100%;
+
+      i{
+        height: 2rem;
+        width: 2rem;
+        background: ${primaryColor};
+        color: ${secondaryColor};
+        border-radius: 25%;
+      }
+
     }
     .floatingInfo{
       position: absolute;
@@ -44,7 +60,13 @@ export const StyledShowerManager = styled.div`
       border-radius: .3em;
       border: 1px solid ${primaryColor};
       padding: .5em;
+      width: 100%;
       z-index: 1;
+
+      .tagsContainer{
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
   .arragmentBtns{

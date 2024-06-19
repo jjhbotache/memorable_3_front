@@ -44,7 +44,7 @@ export default function Designs() {
       <div className="main">
         <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} />
         {loading?<h1>Cargando...</h1> :
-        <DesignContainer designs={designs} arragment={arragmentState} searchFilter=""/> 
+        <DesignContainer designs={designs} arragment={arragmentState}/> 
         }
       </div>
     </DesignPage>  
