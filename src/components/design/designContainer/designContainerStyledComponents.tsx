@@ -13,6 +13,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   `:
   css`
     display: flex;
@@ -31,5 +32,4 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   width: 95%;
   margin: 1rem auto;
   padding: 1vw;
-  box-sizing: border-box;
 `

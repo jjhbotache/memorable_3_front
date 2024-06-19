@@ -68,7 +68,7 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     align-items: center;
     flex-direction: column;
     position: relative;
-    width: 47vw;
+    width: 46vw;
     max-width: 200px;
     margin-bottom: 2em;
     .heart{
