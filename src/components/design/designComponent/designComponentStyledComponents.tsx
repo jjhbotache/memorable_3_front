@@ -85,7 +85,6 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     .title{
       padding: .2em .4em 0 0;
       margin-bottom:.7em ;
-      height:100%;
     }
     .btns{
       width: 100%;

@@ -30,5 +30,6 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   box-shadow: 0 0 1rem -.2rem ${primaryColor};
   width: 95%;
   margin: 1rem auto;
-  padding: 1rem;
+  padding: 1vw;
+  box-sizing: border-box;
 `
