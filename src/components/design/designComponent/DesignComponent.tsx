@@ -78,7 +78,7 @@ export default function DesignComponent({displayStyle,design}:DesignComponentPro
 
 
   return(
-    <DesignComponentStyledContainer styleBehavior={displayStyle}>
+    <DesignComponentStyledContainer $styleBehavior={displayStyle}>
       {displayStyle === "column" ?
         <>
           <img src={design.img_url} alt={design.name}/>

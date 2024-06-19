@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleConstants";
 
-export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" | "column"}>`
+export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" | "column"}>`
 
   /* ------------------------------------------------------------------------------------ */
-  ${props => props.styleBehavior === "column" ? 
+  ${props => props.$styleBehavior === "column" ? 
   css`
     display: flex;
     justify-content: space-between;
@@ -12,10 +12,12 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
     width: 100%;
     max-width: 95vw;
     height: 27vh;
+    max-height: 200px;
     padding: .2em;
     box-sizing: border-box;
     img{
       height: 100%;
+      max-height: 22vh;
     }
     .rightSide{
       display: flex;
