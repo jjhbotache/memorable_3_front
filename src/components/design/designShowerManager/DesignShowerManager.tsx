@@ -15,6 +15,7 @@ export default function DesignShowerManager({onSwitchArrangment,arragment}:props
   const [tags, setTags] = useState<Tag[]>();
 
 
+
   useEffect(() => {
     fetchTags();
   }, []);
@@ -66,7 +67,11 @@ export default function DesignShowerManager({onSwitchArrangment,arragment}:props
       <input className="search" type="text" placeholder="Busca un diseño" onChange={e=>onSearchName(e.target.value)} value={filter.name} />
 
       <details className="filter">
-        <summary><i className="fi fi-sr-settings-sliders"></i></summary>
+        <summary>
+          <i className="fi fi-sr-settings-sliders">
+            {filter.tags.length > 0 && <span className="badge">{filter.tags.length}</span>}
+          </i>
+        </summary>
         <div className="floatingInfo">
           <i className=""></i>
           <h3>Filtros</h3>

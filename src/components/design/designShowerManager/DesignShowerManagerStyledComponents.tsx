@@ -43,6 +43,7 @@ export const StyledShowerManager = styled.div`
       place-items: center;
       text-align: center;
       height: 100%;
+      position: relative;
 
       i{
         height: 2rem;
@@ -50,6 +51,22 @@ export const StyledShowerManager = styled.div`
         background: ${primaryColor};
         color: ${secondaryColor};
         border-radius: 25%;
+        position: relative;
+        span.badge{
+          position: absolute;
+          display: grid;
+          place-items: center;
+          top: 0;
+          right: 0;
+          transform: translate(50%,-50%);
+          background: ${tertiaryColor};
+          color: ${primaryColor};
+          border-radius: 50%;
+          font-size: .7em;
+          width: 1.5em;
+          height: 1.5em;
+          font-weight: bold;
+        }
       }
 
     }
