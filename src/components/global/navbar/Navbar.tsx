@@ -124,8 +124,8 @@ export default function Navbar() {
         )}
       </ul>
       <div className="icons">
-        <i className=" ico fi fi-ss-heart"></i>
-        <i className=" ico fi fi-rr-shopping-cart"></i>
+        <Link to="/loved"><i className=" ico fi fi-ss-heart"></i></Link>
+        <Link to="/cart"><i className=" ico fi fi-rr-shopping-cart"></i></Link>
         {
           user.google_sub == null ? <i onClick={()=>setOpenMenu("open")} className=" ico fi fi-rr-user"></i>:
           <img onClick={()=>setOpenMenu("open")} src={user.img_url} alt="user" />          

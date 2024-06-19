@@ -59,7 +59,10 @@ export const Nav = styled.nav`
     gap: .6rem;
     flex-basis: 100%;
     max-width: 100px;
-    .ico{
+    .ico,a{
+      display: grid;
+      place-items: center;
+      text-decoration: none;
       color: ${secondaryColor};
       cursor: pointer;
       transition: all 0.2s ease-in-out;

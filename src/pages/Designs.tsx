@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { primaryColor, secondaryColor } from "../constants/styleConstants"
 import Navbar from "../components/global/navbar/Navbar"
-import DesignContainer from "../components/design/designContainer/DesignContainer"
+import DesignsContainer from "../components/design/designContainer/DesignContainer"
 import { useEffect, useState } from "react"
 import { API } from "../constants/appConstants"
 import Desing from "../interfaces/designInterface"
@@ -19,27 +19,61 @@ export default function Designs() {
   }, [])
 
   function fetchDesigns() {
+    
+    const fetchPublicDesigns = () => {
+      return new Promise((resolve) => {
+      fetch(API + "/designs/public")
+        .then(r => r.json())
+        .then((data:Desing[]) => {
+          resolve(data)
+        })
+        .catch(() => {
+          fetchDesigns()
+        })
+      })
+    }
+
+    const fetchFavoriteDesigns = () => {
+      return new Promise((resolve) => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}")
+      fetch(API + "/favorite/" + user.google_sub)
+        .then(res => res.json())
+        .then((res:Desing[]) => {
+          resolve(res.map((d: Desing) => ({ ...d, loved: true })))
+        })
+        .catch(() => {
+          fetchFavoriteDesigns()
+        })
+      })
+    }
+
     setLoading(true)
-    console.log("fetching designs");      
-    fetch(API + "/designs/public")
-      .then(r => r.json())
-      .then(data => {
-        setLoading(false)
-        setDesignsData(data)
+    Promise.all([fetchPublicDesigns(), fetchFavoriteDesigns()]).then((values) => {
+      // merge the two arrays
+      const publicDesigns: Desing[] = values[0] as Desing[]
+      const favoriteDesigns = values[1] as Desing[]
+      
+      // in the public designs, check if the design is in the favorite designs
+      const designs = publicDesigns.map((design) => {
+        const favoriteDesign = favoriteDesigns.find((d) => d.id === design.id)
+        if (favoriteDesign) {
+          return {
+            ...design,
+            loved: true
+          }
+        }
+        return design
       })
-      .catch(() => {
-        fetchDesigns()
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+      
+      setDesignsData(designs)
+      setLoading(false)
+    })
   }
 
   function switchArrangment() {
     arragmentState === "column" ? setArragmentState("grid") : setArragmentState("column")
   }
 
-  console.log("from designs sending:", designData);
   
   return(
     <DesignPage>
@@ -48,7 +82,7 @@ export default function Designs() {
         <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} />
         {loading?
         <h1>Cargando......</h1>:
-        <DesignContainer designs={designData} arragment={arragmentState}/> 
+        <DesignsContainer designs={designData} arragment={arragmentState}/> 
         }
       </div>
     </DesignPage>  

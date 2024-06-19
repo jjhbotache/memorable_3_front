@@ -10,15 +10,16 @@ interface DesignContainerProps {
   designs: Desing[];
   arragment: "grid" | "column";
 }
-export default function DesignContainer({designs,arragment}:DesignContainerProps) {
-  const [loved, setLoved] = useState(false);
+export default function DesignsContainer({designs,arragment}:DesignContainerProps) {
   const [designsToShow, setdesignsToShow] = useState<Desing[]>([]);
   const filter:Filter = useSelector((state:any)=>state.filter);
 
   useEffect(() => {
+
     // filter by name
     let designsFiltered = designs.filter(design => design.name.toLowerCase().includes(filter.name.toLowerCase()));
 
+    // filter by tags
     designsFiltered = designsFiltered.filter(design => {
       const tags = design.tags.map(tag => tag.id);
       return filter.tags.every(tag => tags.includes(tag.id));
@@ -26,21 +27,23 @@ export default function DesignContainer({designs,arragment}:DesignContainerProps
 
 
     // randomize the order
-    designsFiltered = orderRandomizer(designsFiltered);
-    setdesignsToShow(designsFiltered);
+    const designsFilteredRandomized = orderRandomizer(designsFiltered);
+    setdesignsToShow(designsFilteredRandomized);
   }, [
     filter,designs
   ]);
 
 
+  console.log(designsToShow);
   
   return(
     
-    <DesignsStyledContainer $styleBehavior={arragment}>
+    <DesignsStyledContainer  $styleBehavior={arragment}>
+      <small className="foundDesigns">{designsToShow.length} Diseño{designsToShow.length>1&&"s"} encontrado{designsToShow.length>1&&"s"}</small>
       {
         (designsToShow.length != 0) ? designsToShow.map((design:Desing) => {
           return(
-            <DesignComponent design={design} displayStyle={arragment} key={design.id} loved={loved} onChangeLoved={()=>setLoved(!loved)} />
+            <DesignComponent design={design} displayStyle={arragment} key={design.id} />
           )
         })
         :

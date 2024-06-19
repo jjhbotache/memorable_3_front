@@ -55,7 +55,6 @@ export const DesignComponentStyledContainer = styled.div<{styleBehavior:"grid" |
           padding: .5em .6em;
           box-sizing: border-box;
         }
-        
       }
 
 

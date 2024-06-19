@@ -32,4 +32,10 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   width: 95%;
   margin: 1rem auto;
   padding: 1vw;
+
+  .foundDesigns{
+    margin-right: auto;
+    /* span a row */
+    flex-basis: 100%;
+  }
 `

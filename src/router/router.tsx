@@ -5,6 +5,7 @@ import Wines from "../pages/Wines";
 import Contact from "../pages/Contact";
 import Admin from "../pages/Admin";
 import Designs from "../pages/Designs";
+import Loved from "../pages/Loved";
 
 export const router = createBrowserRouter([
   {
@@ -34,5 +35,9 @@ export const router = createBrowserRouter([
   {
     path: "/designs",
     element: <Designs/>,
+  },
+  {
+    path: "/loved",
+    element: <Loved/>,
   }
 ]);
