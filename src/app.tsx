@@ -7,6 +7,7 @@ import Carousel from "./components/landingPage/carousel/Carousel";
 import TagsPresentation from "./components/landingPage/tagsPresentation/TagsPresentation";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import User from "./interfaces/userInterface";
 
 export default function App() {
 
@@ -24,7 +25,7 @@ export default function App() {
     gapi.load('client:auth2', start);
 
     const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if(user){
+    if(user?.google_sub){
       fetch(API + "/user-login-signup", {
         method: "POST",
         headers: {
@@ -35,7 +36,9 @@ export default function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        toast.success("Bienvenido de vuelta " + data.user.name);
+        toast.success("Bienvenido de vuelta"+ (user as User).name.split(" ")[0] ,{
+          pauseOnFocusLoss: false
+        });
       })
     }
   }, []);
