@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect} from "react";
 import Navbar from "./components/global/navbar/Navbar";
 import { gapi } from "gapi-script";
 import { API, googleClientId } from "./constants/appConstants";
