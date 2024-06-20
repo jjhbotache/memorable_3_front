@@ -36,7 +36,7 @@ export default function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        toast.success("Bienvenido de vuelta"+ (user as User).name.split(" ")[0] ,{
+        toast.success("Bienvenido de vuelta "+ (user as User).name.split(" ")[0] ,{
           pauseOnFocusLoss: false
         });
       })
