@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import DesignsContainer from "../components/design/designContainer/DesignContainer";
 import ArrangmentSwitch from "../components/design/arrangmentSwitch/ArrangmentSwitch";
 import { primaryColor, secondaryColor } from "../constants/styleConstants";
-import { toast } from "react-toastify";
 import myFetch from "../helpers/myFetch";
+import { toast } from "react-toastify";
 
-export default function Loved() {
+export default function Cart() {
   const [lovedDesigns, setlovedDesigns] = useState<Desing[]>([]);
   const [arragment, setArragment] = useState<"column" | "grid">("column");
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function Loved() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || "{}")
     if(!user.google_sub) {
-      toast.error("Debes iniciar sesión para poder ver tus favoritos");
+      toast.error("Debes iniciar sesión para poder ver tu carrito");
       navigate("/login")
     };
     // get the loved designs
@@ -31,7 +31,7 @@ export default function Loved() {
     <Container>
       <Navbar/>
       <div className="main">
-        <h1 className="pageTitle">Mis favoritos</h1>
+        <h1 className="pageTitle">Mis carrito</h1>
         <div className="swithContainer">
           <ArrangmentSwitch arragment={arragment} onColumn={()=>setArragment("column")} onGrid={()=>setArragment("grid")} />
         </div>
@@ -46,7 +46,7 @@ export default function Loved() {
       .then((data:Desing[]) => {
         console.log(data);
         // filter by addedToCart
-        data = data.filter(design => design.loved)
+        data = data.filter(design => design.addedToCart)
         
         setlovedDesigns(data)
       })

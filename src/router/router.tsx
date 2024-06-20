@@ -6,6 +6,7 @@ import Contact from "../pages/Contact";
 import Admin from "../pages/Admin";
 import Designs from "../pages/Designs";
 import Loved from "../pages/Loved";
+import Cart from "../pages/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -39,5 +40,9 @@ export const router = createBrowserRouter([
   {
     path: "/loved",
     element: <Loved/>,
+  },
+  {
+    path: "/cart",
+    element: <Cart/>,
   }
 ]);

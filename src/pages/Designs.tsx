@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { API } from "../constants/appConstants"
 import Desing from "../interfaces/designInterface"
 import DesignShowerManager from "../components/design/designShowerManager/DesignShowerManager"
+import myFetch from "../helpers/myFetch"
 
 export default function Designs() {
   const [designData, setDesignsData] = useState<Desing[]>([]);
@@ -19,55 +20,21 @@ export default function Designs() {
   }, [])
 
   function fetchDesigns() {
-    
-    const fetchPublicDesigns = () => {
-      return new Promise((resolve) => {
-      fetch(API + "/designs/public")
-        .then(r => r.json())
-        .then((data:Desing[]) => {
-          resolve(data)
-        })
-        .catch(() => {
-          fetchDesigns()
-        })
-      })
-    }
-
-    const fetchFavoriteDesigns = () => {
-      return new Promise((resolve) => {
-      const user = JSON.parse(localStorage.getItem("user") || "{}")
-      fetch(API + "/favorite/" + user.google_sub)
-        .then(res => res.json())
-        .then((res:Desing[]) => {
-          resolve(res.map((d: Desing) => ({ ...d, loved: true })))
-        })
-        .catch(() => {
-          fetchFavoriteDesigns()
-        })
-      })
-    }
-
     setLoading(true)
-    Promise.all([fetchPublicDesigns(), fetchFavoriteDesigns()]).then((values) => {
-      // merge the two arrays
-      const publicDesigns: Desing[] = values[0] as Desing[]
-      const favoriteDesigns = values[1] as Desing[]
-      
-      // in the public designs, check if the design is in the favorite designs
-      const designs = publicDesigns.map((design) => {
-        const favoriteDesign = favoriteDesigns.find((d) => d.id === design.id)
-        if (favoriteDesign) {
-          return {
-            ...design,
-            loved: true
-          }
-        }
-        return design
+    myFetch(API+"/designs/public")
+      .then(res=>res.json())
+      .then((data:Desing[]) => {
+        console.log(data);
+        
+        setDesignsData(data)
+        setLoading(false)
       })
-      
-      setDesignsData(designs)
-      setLoading(false)
-    })
+      .catch(e=>{
+        console.log(e);
+        setTimeout(() => {
+          fetchDesigns()
+        }, 1000)
+      })
   }
 
   function switchArrangment() {

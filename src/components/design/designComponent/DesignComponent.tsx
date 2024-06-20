@@ -4,6 +4,7 @@ import { DesignComponentStyledContainer } from "./designComponentStyledComponent
 import { API } from "../../../constants/appConstants";
 import { toast } from "react-toastify";
 import User from "../../../interfaces/userInterface";
+import { useNavigate } from "react-router-dom";
 
 interface DesignComponentProps {
     displayStyle: "grid" | "column";
@@ -12,6 +13,8 @@ interface DesignComponentProps {
 }
 export default function DesignComponent({displayStyle,design}:DesignComponentProps) {
   const [loved, setLoved] = useState<boolean>(design.loved || false);
+  const [addedToCart, setAddedToCart] = useState<boolean>(design.addedToCart || false);
+  const navigate = useNavigate();
 
   function onChangeLoved() {
     const user:User = JSON.parse(localStorage.getItem("user") || "{}");
@@ -42,7 +45,9 @@ export default function DesignComponent({displayStyle,design}:DesignComponentPro
     })
     .then(res => res.json())
     .then(data => {
-      toast.success("Agregado a favoritos",{autoClose: 1000});
+      toast.success("Agregado a favoritos. Clickea para ver tus favoritos",{
+        onClick: ()=>navigate("/loved"),
+      });
       console.log(data);
       setLoved(true);
     })
@@ -76,32 +81,105 @@ export default function DesignComponent({displayStyle,design}:DesignComponentPro
     )
   }
 
+  function onChangeCart() {
+    const user:User = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if(!user.google_sub) {
+      toast.error("Debes iniciar sesión para poder agregar al carrito");
+      return;
+    }
+
+
+    if(addedToCart){
+      deleteFromCart();
+    }else{
+      addToCart();
+    }
+    
+  }
+
+  function addToCart(){
+    fetch(API+"/cart/add",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        user_sub: JSON.parse(localStorage.getItem("user") || "{}").google_sub,
+        design_id: design.id
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      toast.success("Agregado al carrito, clickea para ir al carrito",{
+        onClick: ()=>navigate("/cart"),
+      });
+      console.log(data);
+      setAddedToCart(true);
+    })
+    .catch(err => {
+      console.log(err);      
+      toast.error("Ocurrió un error al agregar al carrito",);
+    })
+  }
+
+  function deleteFromCart(){
+    fetch(API+"/cart/remove",{
+      method: "DELETE",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        user_sub: JSON.parse(localStorage.getItem("user") || "{}").google_sub,
+        design_id: design.id
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      toast.success("Eliminado del carrito",{autoClose: 1000});
+      console.log(data);
+      setAddedToCart(false);
+    })
+    .catch(err => {
+      console.log(err);      
+      toast.error("Ocurrió un error al eliminar del carrito");
+    })
+  }
+
+
+
+
+
+  // reusable mini components
+  const Heart = ()=><i onClick={onChangeLoved} className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"}></i>
+  const Img = ()=><img src={design.img_url} alt={design.name}/>
+  const Title = ()=><h1 className="title">{design.name}</h1>
+  const BuyButtons = ()=>(
+    <div className="btns">
+      <button onClick={onChangeCart} className="addCart">
+        <span >Agregar al carrito</span>
+        <i className="fi fi-rr-shopping-cart"></i>
+        {!!addedToCart && <i className="addedIco fi fi-ss-check-circle"></i> }
+      </button>
+      <button className="buy">Comprar</button>
+    </div>
+  )
 
   return(
     <DesignComponentStyledContainer $styleBehavior={displayStyle}>
       {displayStyle === "column" ?
         <>
-          <img src={design.img_url} alt={design.name}/>
+          <Img/>
           <div className="rightSide">
             <div className="titleAndHeart">
-              <h1 className="title">{design.name}</h1>
-              <i onClick={onChangeLoved} className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"}></i>
+              <Title/>
+              <Heart/>
             </div>
-            <div className="btns">
-              <button className="addCart"><span >Agregar al carrito</span><i className="fi fi-rr-shopping-cart"></i></button>
-              <button className="buy">Comprar</button>
-            </div>
+            <BuyButtons/>
           </div>
         </>
         :
         <>
-          <i className={(loved?"fi fi-ss-heart ":"fi fi-bs-heart ") + "heart"} onClick={onChangeLoved}></i>
-          <img src={design.img_url} alt={design.name}/>
-          <h1 className="title">{design.name}</h1>
-          <div className="btns">
-              <button className="addCart"><span >Agregar al carrito</span><i className="fi fi-rr-shopping-cart"></i></button>
-              <button className="buy">Comprar</button>
-            </div>
+          <Heart/>
+          <Img/>
+          <Title/>
+          <BuyButtons/>
         </>
       }
     </DesignComponentStyledContainer>

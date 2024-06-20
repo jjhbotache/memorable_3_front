@@ -35,7 +35,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
 
   .foundDesigns{
     margin-right: auto;
-    /* span a row */
+    margin-top: .2rem;
     flex-basis: 100%;
   }
 `

@@ -26,7 +26,7 @@ export const StyledShowerManager = styled.div`
   }
   .filter{
     display: flex;
-    flex: 2;
+    flex: 1;
     border-radius: .3em;
     position: relative;
     cursor: pointer;
@@ -115,31 +115,7 @@ export const StyledShowerManager = styled.div`
     }
   }
   .arragmentBtns{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex: 1;
-    i{
-      color: ${primaryColor};
-      height: 2em;
-      width: 2em;
-      border-radius: 25%;
-      opacity: .6;
-      cursor: pointer;
-      transition: all .2s;
-      &::before, &::after{
-        height: 2em;
-        width: 2em;
-        display: grid;
-      
-        place-items: center;
-      }
-      &.active{
-        opacity: 1;
-        color: ${secondaryColor};
-        background: ${primaryColor};
-      }
-    }
-
+    flex: 3 ;
+    max-width: 100px;
   }
 `

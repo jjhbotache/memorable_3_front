@@ -34,7 +34,7 @@ export default function DesignsContainer({designs,arragment}:DesignContainerProp
   ]);
 
 
-  console.log(designsToShow);
+  // console.log(designsToShow) ;
   
   return(
     

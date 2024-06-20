@@ -5,6 +5,7 @@ import { setFilter } from "../../../redux/slices/filterReducer";
 import { useEffect, useState } from "react";
 import { API } from "../../../constants/appConstants";
 import Tag from "../../../interfaces/tagInterface";
+import ArrangmentSwitch from "../arrangmentSwitch/ArrangmentSwitch";
 interface props{
   onSwitchArrangment: ()=>void;
   arragment: "grid" | "column";
@@ -91,10 +92,11 @@ export default function DesignShowerManager({onSwitchArrangment,arragment}:props
         </div>
       </details>
 
-      <div className="arragmentBtns">
+      {/* <div className="arragmentBtns">
         <i onClick={()=>onSwitchArrangment()} className={"fi fi-ss-apps "+(arragment==="grid" && "active")}></i>
         <i onClick={()=>onSwitchArrangment()} className={"fi fi-sr-table-list " + (arragment==="column" && "active")}></i>
-      </div>
+      </div> */}
+      <ArrangmentSwitch arragment={arragment} onColumn={()=>onSwitchArrangment()} onGrid={()=>onSwitchArrangment()} />
     </StyledShowerManager>
   )
 };

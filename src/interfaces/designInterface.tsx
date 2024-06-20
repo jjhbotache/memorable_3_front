@@ -6,5 +6,6 @@ export default interface Desing {
   ai_url: string;
   img_url: string;
   tags: Tag[];
-  loved?: boolean;
+  loved: boolean;
+  addedToCart: boolean;
 }

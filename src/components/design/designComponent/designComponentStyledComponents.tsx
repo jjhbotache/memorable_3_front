@@ -106,11 +106,26 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
   .btns{
     display: flex;
     gap: .7vw;
+
+    .addCart{
+      position: relative;
+      .addedIco{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(45%, -45%);
+
+        font-size: .8em;
+        color: ${primaryColor};
+      }
+    }
+
     button{
       border: 1px solid ${primaryColor};
       background: ${tertiaryColor};
       color: ${primaryColor};
       border-radius: 1rem;
+      padding: .2em .4em;
       cursor: pointer;
       transition: all .2s;
   
@@ -123,7 +138,6 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        background:  ${tertiaryColor};
         @media screen and (width < ${mdScreen}px) {
           flex: unset;
           width: auto;

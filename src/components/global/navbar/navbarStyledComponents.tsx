@@ -113,7 +113,7 @@ export const Sidebar = styled.div`
     left: 0;
     height: 100vh;
     width: 100vw;
-    z-index: 1;
+    z-index: 3;
   }
 
   aside{
@@ -190,6 +190,9 @@ export const Sidebar = styled.div`
           transform: scale(1.2);
         }
       }
+    }
+    .ico,a{
+      text-decoration: none;
     }
     .menu{
       width: 100%;
