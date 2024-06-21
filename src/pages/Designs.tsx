@@ -2,54 +2,32 @@ import styled from "styled-components"
 import { primaryColor, secondaryColor } from "../constants/styleConstants"
 import Navbar from "../components/global/navbar/Navbar"
 import DesignsContainer from "../components/design/designContainer/DesignContainer"
-import { useEffect, useState } from "react"
-import { API } from "../constants/appConstants"
+import {useState } from "react"
 import Desing from "../interfaces/designInterface"
 import DesignShowerManager from "../components/design/designShowerManager/DesignShowerManager"
-import myFetch from "../helpers/myFetch"
+import { useLoaderData } from "react-router-dom"
+import Tag from "../interfaces/tagInterface"
 
 export default function Designs() {
-  const [designData, setDesignsData] = useState<Desing[]>([]);
-  const [loading, setLoading] = useState(true);
+  // const [designData, setDesignsData] = useState<Desing[]>([]);
+  // const [loading, setLoading] = useState(true);
   const [arragmentState, setArragmentState] = useState<"column"|"grid">("column");
 
-  useEffect(() => {
-    setLoading(true)
-    // fetch designs until get them
-    fetchDesigns()
-  }, [])
-
-  function fetchDesigns() {
-    setLoading(true)
-    myFetch(API+"/designs/public")
-      .then(res=>res.json())
-      .then((data:Desing[]) => {
-        console.log(data);
-        
-        setDesignsData(data)
-        setLoading(false)
-      })
-      .catch(e=>{
-        console.log(e);
-        setTimeout(() => {
-          fetchDesigns()
-        }, 1000)
-      })
-  }
+  const {designs:designData, tags: preloadedTags} = useLoaderData() as {designs:Desing[], tags:Tag[]};
 
   function switchArrangment() {
     arragmentState === "column" ? setArragmentState("grid") : setArragmentState("column")
   }
 
-  
   return(
     <DesignPage>
       <Navbar/>
       <div className="main">
-        <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} />
-        {loading?
-        <h1>Cargando......</h1>:
-        <DesignsContainer designs={designData} arragment={arragmentState}/> 
+        <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} tags={preloadedTags} />
+        {/* {loading */}
+        {false
+        ?<h1>Cargando......</h1>
+        :<DesignsContainer designs={designData} arragment={arragmentState}/> 
         }
       </div>
     </DesignPage>  

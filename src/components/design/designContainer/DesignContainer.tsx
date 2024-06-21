@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Desing from "../../../interfaces/designInterface";
 import { DesignsStyledContainer } from "./designContainerStyledComponents";
 import DesignComponent from "../designComponent/DesignComponent";
 import { useSelector } from "react-redux";
 import { Filter } from "../../../interfaces/filterInterface";
 import orderRandomizer from "../../../helpers/orderRandomizer";
+import myFetch from "../../../helpers/myFetch";
+import { API } from "../../../constants/appConstants";
+import { fetchAiFilteredDesigns } from "../../../helpers/provider";
 
 interface DesignContainerProps {
   designs: Desing[];
@@ -12,7 +15,10 @@ interface DesignContainerProps {
 }
 export default function DesignsContainer({designs,arragment}:DesignContainerProps) {
   const [designsToShow, setdesignsToShow] = useState<Desing[]>([]);
+  const [aiFilteredDesigns, setAiFilteredDesigns] = useState<Desing[]>([]);
   const filter:Filter = useSelector((state:any)=>state.filter);
+
+  let searchTimeout = useRef<any>();
 
   useEffect(() => {
 
@@ -29,6 +35,22 @@ export default function DesignsContainer({designs,arragment}:DesignContainerProp
     // randomize the order
     const designsFilteredRandomized = orderRandomizer(designsFiltered);
     setdesignsToShow(designsFilteredRandomized);
+
+    // AI filtered designs
+    clearTimeout(searchTimeout.current);
+    if(filter.name.length > 3) {
+      searchTimeout.current = setTimeout(() => {
+        console.log("fetching ai filtered designs");        
+        clearTimeout(searchTimeout.current);
+        fetchAiFilteredDesigns(filter.name).then((data) => {
+          console.log(data);
+          
+          setAiFilteredDesigns(data.result);
+        })
+      }, 3000);
+    };
+  
+
   }, [
     filter,designs
   ]);
@@ -47,8 +69,19 @@ export default function DesignsContainer({designs,arragment}:DesignContainerProp
           )
         })
         :
-        <h1>No se encontraron diseños</h1>
-
+        <h1>No se encontraron diseños con coincidencia exacta</h1>
+      }
+      {aiFilteredDesigns.length != 0 && <>
+        <div className="aiDesingsHeader">
+          <h2 className="aiTitle">Diseños sugeridos por IA!</h2>
+        </div>
+      </>}
+      {
+        (aiFilteredDesigns.length != 0) && aiFilteredDesigns.map((design:Desing) => {
+          return(
+            <DesignComponent design={design} displayStyle={arragment} key={design.id} />
+          )
+        })
       }
     </DesignsStyledContainer>
   )

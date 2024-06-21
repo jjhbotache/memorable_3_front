@@ -2,24 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyledShowerManager } from "./DesignShowerManagerStyledComponents";
 import { Filter } from "../../../interfaces/filterInterface";
 import { setFilter } from "../../../redux/slices/filterReducer";
-import { useEffect, useState } from "react";
-import { API } from "../../../constants/appConstants";
 import Tag from "../../../interfaces/tagInterface";
 import ArrangmentSwitch from "../arrangmentSwitch/ArrangmentSwitch";
 interface props{
   onSwitchArrangment: ()=>void;
   arragment: "grid" | "column";
+  tags: Tag[];
 }
-export default function DesignShowerManager({onSwitchArrangment,arragment}:props) {
+export default function DesignShowerManager({onSwitchArrangment,arragment,tags}:props) {
   const filter:Filter = useSelector((state:any)=>state.filter);
   const dispacher = useDispatch();
-  const [tags, setTags] = useState<Tag[]>();
 
 
 
-  useEffect(() => {
-    fetchTags();
-  }, []);
 
   function onSearchName(str:String) {
     dispacher(
@@ -28,16 +23,6 @@ export default function DesignShowerManager({onSwitchArrangment,arragment}:props
         tags:filter.tags
       })
     )
-  }
-
-  function fetchTags() {
-    fetch(API + "/tags")
-    .then(res=>res.json())
-    .then(data=>setTags(data))
-    .catch(err=>{
-      console.log(err);
-      fetchTags();
-    })
   }
 
   function onCheckTag(tagId: number) {

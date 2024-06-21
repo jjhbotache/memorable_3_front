@@ -11,7 +11,7 @@ export const UsSliderStyled = styled.div`
 
   background: ${tertiaryColor};
   height: 100%;
-  max-height: 100%;
+  max-height: 87vh;
   width: 50%;
   max-width: 50vw;
   color: ${secondaryColor};
@@ -20,16 +20,18 @@ export const UsSliderStyled = styled.div`
     background: ${tertiaryColor};
     height: 100%;
     width: 100%;
+    max-height: 88vh; 
     .swiper-slide{
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100%;
+      min-height: inherit;
       }
       .img{
-        max-height: 87vh; 
         height: 100%;
         width: 100%;
-        object-fit: cover;
+        max-height: inherit;
       }
   }
 

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { primaryColor } from "../../../constants/styleConstants";
+import { primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
 
 interface DesignsContainerProps {
   $styleBehavior?: "grid" | "column";
@@ -37,5 +37,46 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     margin-right: auto;
     margin-top: .2rem;
     flex-basis: 100%;
+  }
+
+  .aiDesingsHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      ${tertiaryColor}dd 25%,
+      ${tertiaryColor}dd 75%,
+      transparent 100%
+    );
+    padding: 1rem 0;
+    margin: 1rem 0;
+    position: relative;
+    &::after{
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        ${secondaryColor} 0%,
+        transparent 5%,
+        transparent 95%,
+        ${secondaryColor} 100%
+      );
+    }
+  }
+  .divider{
+    width: 100%;
+    border-bottom: 1px solid ${primaryColor};
+    margin: .5rem 0;
+  }
+  .aiTitle{
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
   }
 `

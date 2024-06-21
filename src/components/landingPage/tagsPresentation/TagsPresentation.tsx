@@ -15,33 +15,38 @@ interface Tag{
   name: string;
 }
 
-export default function TagsPresentation() {
- const [tags, setTags] = useState<Tag[]>([]);
+interface Props{
+  preloadedTags?: Tag[];
+}
+
+export default function TagsPresentation({preloadedTags}:Props) {
+  const tags = preloadedTags || [];
+//  const [tags, setTags] = useState<Tag[]>([]);
  const dispacher = useDispatch();
  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchTags();
-  }, [])
+  // useEffect(() => {
+  //   fetchTags();
+  // }, [])
 
-  function fetchTags() {
-    fetch(API + "/tags")
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        const randomOrder = orderRandomizer(res);
-        // ensure to take max 6 tags
-        try{
-          setTags(randomOrder.slice(0, 8));
-        }catch(err){
-          setTags(randomOrder);
-        }
-      })
-      .catch(err => {
-        console.error(err)
-        fetchTags();
-      });
-  }
+  // function fetchTags() {
+  //   fetch(API + "/tags")
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       console.log(res);
+  //       const randomOrder = orderRandomizer(res);
+  //       // ensure to take max 6 tags
+  //       try{
+  //         setTags(randomOrder.slice(0, 8));
+  //       }catch(err){
+  //         setTags(randomOrder);
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //       fetchTags();
+  //     });
+  // }
 
   function onChosedTag(tag:Tag){
     dispacher(

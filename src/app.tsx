@@ -8,8 +8,13 @@ import TagsPresentation from "./components/landingPage/tagsPresentation/TagsPres
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import User from "./interfaces/userInterface";
+import { useLoaderData } from "react-router-dom";
+import Desing from "./interfaces/designInterface";
+import Tag from "./interfaces/tagInterface";
 
 export default function App() {
+  const { designs , tags } = useLoaderData() as { designs: Desing[], tags: Tag[] };
+  
 
 
   useEffect(() => {
@@ -50,8 +55,8 @@ export default function App() {
     <>
       <Navbar/>
       <MainContainer>
-        <Carousel/>
-        <TagsPresentation/>
+        <Carousel preloadedImgs={designs.map(design => design.img_url)} />
+        <TagsPresentation preloadedTags={tags.slice(0, 8)} />
       </MainContainer>
     </>
   )
