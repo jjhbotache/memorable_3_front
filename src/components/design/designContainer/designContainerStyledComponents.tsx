@@ -69,13 +69,8 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
       );
     }
   }
-  .divider{
-    width: 100%;
-    border-bottom: 1px solid ${primaryColor};
-    margin: .5rem 0;
-  }
   .aiTitle{
-    font-size: 2rem;
+    font-size: 1.3rem;
     width: 100%;
     text-align: center;
   }
