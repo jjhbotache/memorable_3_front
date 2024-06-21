@@ -3,9 +3,6 @@ import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleC
 import UsDescription from "../../us/usDescription/UsDescription";
 import WinesContainer from "../../wines/winesContainer/WinesContainer";
 import ContactForm from "../../contact/ContactForm";
-import { useEffect, useState } from "react";
-import { API } from "../../../constants/appConstants";
-import orderRandomizer from "../../../helpers/orderRandomizer";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../../../redux/slices/filterReducer";
 import { useNavigate } from "react-router-dom";
@@ -25,28 +22,6 @@ export default function TagsPresentation({preloadedTags}:Props) {
  const dispacher = useDispatch();
  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetchTags();
-  // }, [])
-
-  // function fetchTags() {
-  //   fetch(API + "/tags")
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       console.log(res);
-  //       const randomOrder = orderRandomizer(res);
-  //       // ensure to take max 6 tags
-  //       try{
-  //         setTags(randomOrder.slice(0, 8));
-  //       }catch(err){
-  //         setTags(randomOrder);
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.error(err)
-  //       fetchTags();
-  //     });
-  // }
 
   function onChosedTag(tag:Tag){
     dispacher(

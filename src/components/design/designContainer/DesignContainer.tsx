@@ -5,8 +5,6 @@ import DesignComponent from "../designComponent/DesignComponent";
 import { useSelector } from "react-redux";
 import { Filter } from "../../../interfaces/filterInterface";
 import orderRandomizer from "../../../helpers/orderRandomizer";
-import myFetch from "../../../helpers/myFetch";
-import { API } from "../../../constants/appConstants";
 import { fetchAiFilteredDesigns } from "../../../helpers/provider";
 
 interface DesignContainerProps {

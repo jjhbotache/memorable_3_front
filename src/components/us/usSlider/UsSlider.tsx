@@ -1,5 +1,4 @@
 import { UsSliderStyled } from "./usSliderStyledComponents";
-import wineImg1 from "../../../assets/imgs/beautiful-thanksgiving-meal-concept.jpg";
 import wineImg2 from "../../../assets/imgs/snapshot-wine-glass.jpg";
 import wineImg3 from "../../../assets/imgs/side-view-woman-hand-pouring-red-wine-into-glass-different-kinds-cheese-olive-walnut-grape-white-surface-black-background.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
