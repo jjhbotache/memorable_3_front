@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CarouselContainer } from "./carouselStyledComponents";
 import { motion } from "framer-motion";
 import getRandomNum from "../../../helpers/getRandomNum";
