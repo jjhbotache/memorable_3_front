@@ -1,22 +1,22 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Navbar from '../components/global/navbar/Navbar';
 import { Link, useLoaderData } from 'react-router-dom';
 import Desing from '../interfaces/designInterface';
-import Tag from '../interfaces/tagInterface';
+import TagInterface from '../interfaces/tagInterface';
 import { mdScreen, primaryColor, tertiaryColor } from '../constants/styleConstants';
 import { useEffect, useState } from 'react';
 import formatNumber from '../helpers/formatNumber';
 import { fetchSpecificExtrainfo } from '../helpers/provider';
+import Tag from '../components/global/Tag';
 
 
 
 export default function Design (){
-  const {designs:design, tags: preloadedTags} = useLoaderData() as {designs:Desing, tags:Tag[]};
+  const {designs:design} = useLoaderData() as {designs:Desing};
   const [bottlePrice, setBottlePrice] = useState<number | undefined>();
   const [quantity, setQuantity] = useState<number>(1);
   const [wines, setWines] = useState<string[]>([]);
   
-  console.log(design, preloadedTags);
   useEffect(() => {
     Promise.all([
       fetchSpecificExtrainfo("bottle_price"),
@@ -34,6 +34,14 @@ export default function Design (){
       <div className="product-section">
         <div className="image-wrapper">
           <img src={design.img_url} alt="Design" />
+          <div className="tags">
+            <span className="title">Tags:</span>
+            <div className="tags-wrapper">
+              {design.tags.map((tag: TagInterface) => (
+                <Tag key={tag.id} tag={tag} />
+              ))}
+            </div>
+          </div>
         </div>
         <div className="details-wrapper">
           <h1 className="title">{design.name}</h1>
@@ -74,11 +82,6 @@ export default function Design (){
             <button className="button">Agregar al carro <i className="fi fi-rr-shopping-cart"/></button>
             <button className="button">Comprar</button>
           </div>
-          <div className="tags">
-            <span className="tag">Tag1</span>
-            <span className="tag">Tag2</span>
-            <span className="tag">...</span>
-          </div>
         </div>
       </div>
       <hr />
@@ -89,6 +92,17 @@ export default function Design (){
     </StyledDesign>
   );
 };
+
+// create an animation that slides the tags to the right
+const slide = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-200%);
+  }
+`;
+
 
 const StyledDesign = styled.div`
   width: 100%;
@@ -121,6 +135,33 @@ const StyledDesign = styled.div`
         /* max-width: 100%; */
         aspect-ratio: 1;
       }
+
+
+      .tags {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: 1em;
+        .title{
+          font-size: 1.5em;
+          font-weight: 300;
+          color: ${primaryColor};
+          width: auto;
+          margin-right: 1em;
+
+        }
+        .tags-wrapper{
+          display: flex;
+          gap: 1em;
+          flex-wrap: wrap;
+          overflow-x: hidden;
+          width: 100%;
+          div{
+            /* animation: ${slide} 10s infinite linear; */
+          }
+        }
+      }
+    
     }
   
   
@@ -128,6 +169,7 @@ const StyledDesign = styled.div`
       width: 45%;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: clamp(.1em, 1vw, 2em);
       @media screen and (width < ${mdScreen}px) {
         width: 100%;
@@ -155,9 +197,9 @@ const StyledDesign = styled.div`
       }
       .wichToUse{
         margin-left: .4em;
-        gap: clamp(.3em,2vw,2vw);
+        gap: clamp(.3em,2vw,.5em);
         color: ${primaryColor};
-        font-size: clamp(.7rem, 3vw, 1.5rem);
+        font-size: clamp(.6rem, 2vw, 1rem);
         transition: all .3s;
         &:hover{
           text-decoration: underline;
@@ -203,12 +245,12 @@ const StyledDesign = styled.div`
         display: flex;
         gap: 1em;
         justify-content: end;
+        margin-top: 3em;
         @media screen and (width < ${mdScreen}px) {
           flex-direction: column;
           gap: 0;
         }
       }
-
       .button {
         @media screen and (width < ${mdScreen}px) {
           width: 100%;
@@ -237,17 +279,7 @@ const StyledDesign = styled.div`
   
   
 
-    .tags {
-      display: flex;
-      margin: 10px 0;
-    }
-  
-    .tag {
-      background: #eee;
-      padding: 5px 10px;
-      margin-right: 5px;
-      border-radius: 5px;
-    }
+    
   
     
   
