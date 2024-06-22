@@ -180,7 +180,7 @@ export default function MoreConfigs() {
       }
     </form>
     {
-      extraInfos.map((ei:ExtraInfo, index:number) => {
+      extraInfos && extraInfos.map((ei:ExtraInfo, index:number) => {
         return <div key={index} className="row">
           <h3>{ei.name}{"  :  "} {ei.value}</h3>
           <button onClick={()=>editExtraInfo(ei)}><i className="fi fi-sr-pencil"></i></button>
