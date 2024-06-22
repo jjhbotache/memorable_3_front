@@ -51,7 +51,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
         justify-content: end;
         button{
           flex: 1;
-          max-width: clamp(5em, 20vw, 10em);
+          max-width: clamp(5em, 25vw, 10em);
           font-size: .5em;
           border-radius: 1rem;
           padding: .5em .6em;
@@ -72,7 +72,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
     max-width: 200px;
     margin-bottom: 2em;
     .heart{
-      z-index: 5;
+      z-index: 4;
       font-size: 1.5em;
       cursor: pointer;
       position: absolute;

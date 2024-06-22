@@ -27,7 +27,7 @@ export default function Designs() {
         {/* {loading */}
         {false
         ?<h1>Cargando......</h1>
-        :<DesignsContainer designs={designData} arragment={arragmentState}/> 
+        :<DesignsContainer designs={designData} arragment={arragmentState} aiSearch={true}/> 
         }
       </div>
     </DesignPage>  

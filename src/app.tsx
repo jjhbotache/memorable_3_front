@@ -56,7 +56,7 @@ export default function App() {
       <Navbar/>
       <MainContainer>
         <Carousel preloadedImgs={designs.map(design => design.img_url)} />
-        <TagsPresentation preloadedTags={tags.slice(0, 8)} />
+        <TagsPresentation preloadedTags={tags.slice(0, 7)} />
       </MainContainer>
     </>
   )

@@ -23,7 +23,17 @@ export default function TagsPresentation({preloadedTags}:Props) {
  const navigate = useNavigate();
 
 
-  function onChosedTag(tag:Tag){
+  function onChosedTag(tag?:Tag){
+    if(!tag){
+      dispacher(
+        setFilter({
+          name: "",
+          tags: []
+        })
+      )
+      navigate("/designs");
+      return;
+    }
     dispacher(
       setFilter({
         name: "",
@@ -36,15 +46,20 @@ export default function TagsPresentation({preloadedTags}:Props) {
   return(
     <>
     <TagsDescription>
-      <h1>¿Para que momento quieres tu botella memorable?</h1>
-      <div className="tagsContainer">
-        {
-          tags.map(tag => (
-            <div className="tag" key={tag.id} onClick={()=>onChosedTag(tag)}>
-              <span>{tag.name}</span>
+      <div className="mainTagsDescription">
+        <h1>¿&nbsp;Qué momento te gustaría hacer <br/><span style={{fontFamily:"Hellovalentina"}}>{" Memorable "}</span>?</h1>
+        <div className="tagsContainer">
+          {
+            tags.map(tag => (
+              <div className="tag" key={tag.id} onClick={()=>onChosedTag(tag)}>
+                <span>{tag.name}</span>
+              </div>
+            ))
+            }
+            <div className="tag" onClick={()=>onChosedTag()}>
+              <span>Déjame ver diseños . . .</span>
             </div>
-          ))
-          }
+        </div>
       </div>
       <div className="extraInfo">
         <div className="divider"/>
@@ -66,7 +81,7 @@ const TagsDescription = styled.main`
   align-items: center;
   justify-content: space-evenly;
   gap: 1em;
-  padding: 4em .5em; 
+  padding: 0 .5em; 
   box-sizing: border-box;
   min-width: 50%;
   width: 550px;
@@ -78,6 +93,12 @@ const TagsDescription = styled.main`
     background: rgba(255,255,255,.2);
     overflow: hidden;
     
+    }
+  .mainTagsDescription{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
   }
 
 
@@ -93,6 +114,7 @@ const TagsDescription = styled.main`
     gap: 2em;
     flex-wrap: wrap;
     z-index: 2;
+    padding: 0 1em;
     padding-bottom: 2em;
   }
   .tag{

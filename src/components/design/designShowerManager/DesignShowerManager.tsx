@@ -59,21 +59,20 @@ export default function DesignShowerManager({onSwitchArrangment,arragment,tags}:
           </i>
         </summary>
         <div className="floatingInfo">
-          <i className=""></i>
-          <h3>Filtros</h3>
-          <hr className="divider"/>
-          <h4>tags</h4>
-          <div className="tagsContainer">
-            <button onClick={()=>{ dispacher(setFilter({name:filter.name,tags:[]})) }}>Limpiar filtros</button>
-            {/* list of tags checkbox */}
-            {tags && tags.map((tag)=>
-              <label key={tag.id}>
-                <input type="checkbox" checked={filter.tags && filter.tags.find(t=>t.id===tag.id) ? true : false} onChange={()=>onCheckTag(tag.id)}/>
-                {tag.name}
-              </label>
-            )}
-          </div>
-
+            <i className=""></i>
+            <h3>Filtros</h3>
+            <hr className="divider"/>
+            <h4>tags</h4>
+            <div className="tagsContainer">
+              <button onClick={()=>{ dispacher(setFilter({name:filter.name,tags:[]})) }}>Limpiar filtros</button>
+              {/* list of tags checkbox */}
+              {tags && tags.map((tag)=>
+                <label key={tag.id}>
+                  <input type="checkbox" checked={filter.tags && filter.tags.find(t=>t.id===tag.id) ? true : false} onChange={()=>onCheckTag(tag.id)}/>
+                  {tag.name}
+                </label>
+              )}
+            </div>
         </div>
       </details>
 

@@ -8,13 +8,16 @@ import { API,  googleClientId } from "../../../constants/appConstants";
 import { setUser } from "../../../redux/slices/userReducer";
 import { Link, useNavigate } from "react-router-dom";
 import myFetch from "../../../helpers/myFetch";
+import { toast } from "react-toastify";
+import User from "../../../interfaces/userInterface";
 
 
 export default function Navbar() {
-  const user = useSelector((state:any) => state.user);
+  const user:User = useSelector((state:any) => state.user);
   const [openMenu, setOpenMenu] = useState("close");
   const dispacher = useDispatch();
   const [admin, setAdmin] = useState(false);
+  const [readyToDeleteAccount, setReadyToDeleteAccount] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -110,8 +113,58 @@ export default function Navbar() {
     localStorage.removeItem("user");
     navigate("/");
   }
+  function deleteAccount() {
+    toast.warning("Eliminando cuenta, por favor espera...", {autoClose: 5000});
+    myFetch(API + "/user/delete/" + user.google_sub, {method: "DELETE"})
+      .then(res => {
+        if(res.status === 200) {
+          dispacher(setUser({
+            google_sub: null,
+            name: null,
+            email: null,
+            phone: null,
+            img_url: null
+          }));
+          localStorage.removeItem("user");
+          navigate("/");
+          // clean all toats
+          toast.dismiss();
+        }
+      })
+  }
+  useEffect(() => {
+    if(readyToDeleteAccount) {
+      toast.error(
+        `Seguro que quieres eliminar tu cuenta?Se perderan todos tus diseños favoritos y carrito de compras, esta accion no se puede deshacer, si estas seguro, presiona el boton de nuevo.`,
+        {autoClose: 10000}
+      );
+      setTimeout(() => {
+        setReadyToDeleteAccount(false);
+      }, 3000);
+    }
+    
+  }, [readyToDeleteAccount])
+
+
+  function goToLoved() {
+    user.google_sub == null
+      ? toast.error("Necesitas iniciar sesion para ver tus diseños favoritos")
+      : navigate("/loved");
+  }
+
+  function goToCart() {
+    user.google_sub == null
+      ? toast.error("Necesitas iniciar sesion para ver tu carrito de compras")
+      : navigate("/cart");
+  }
 
   
+  // reusable components
+  const Icons = () =><>
+    <i onClick={goToLoved} className=" ico fi fi-ss-heart"></i>
+    <i onClick={goToCart} className=" ico fi fi-rr-shopping-cart"></i>
+  </>
+
   return(
     <>
     <Nav>
@@ -124,8 +177,7 @@ export default function Navbar() {
         )}
       </ul>
       <div className="icons">
-        <Link to="/loved"><i className=" ico fi fi-ss-heart"></i></Link>
-        <Link to="/cart"><i className=" ico fi fi-rr-shopping-cart"></i></Link>
+        <Icons/>
         {
           user.google_sub == null ? <i onClick={()=>setOpenMenu("open")} className=" ico fi fi-rr-user"></i>:
           <img onClick={()=>setOpenMenu("open")} src={user.img_url} alt="user" />          
@@ -165,7 +217,16 @@ export default function Navbar() {
               </div>
               <img src={user.img_url}/>
             </div>
-            <button className="btn" >Tu informacion</button>
+            <details className="btn" >
+              <summary>Tu informacion</summary>
+              <ul>
+                <li> <strong> Nombre:</strong>{" "+user.name}</li>
+                <li> <strong> Email:</strong>{" "+user.email}</li>
+                <li> <strong> Celular:</strong>{" "+ (user.phone || "No registrado")}</li>
+              </ul>
+              <button className={"deleteAccountBtn " + (readyToDeleteAccount && "reallyShaking") } onClick={ !readyToDeleteAccount ?()=>setReadyToDeleteAccount(true) : deleteAccount
+              }> { readyToDeleteAccount ? "seguro?":"Eliminar cuenta"}</button>
+            </details>
             <button className="btn closeSession"  onClick={closeSession}>Cerrar sesion</button>
           </div>
           </>
@@ -180,8 +241,7 @@ export default function Navbar() {
               </Link>
             ))}
           </ul>
-          <Link to="/loved"><i className=" ico fi fi-ss-heart"></i></Link>
-          <Link to="/cart"><i className=" ico fi fi-rr-shopping-cart"></i></Link>
+          <Icons/>  
         </div>
       </motion.aside>      
     </Sidebar>

@@ -22,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       draggable
       pauseOnHover
       theme="light"
+      pauseOnFocusLoss={false}
       />
       <Provider store={store}>
         <RouterProvider router={router}/>

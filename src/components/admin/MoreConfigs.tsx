@@ -2,11 +2,27 @@ import styled from "styled-components"
 import { primaryColor, secondaryColor } from "../../constants/styleConstants";
 import myFetch from "../../helpers/myFetch";
 import { toast } from "react-toastify";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { API } from "../../constants/appConstants";
+import { fetchExtraInfo } from "../../helpers/provider";
 
 export default function MoreConfigs() {
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [extraInfos, setExtraInfos] = useState<ExtraInfo[]>([]);
+  const [editingExtrainfo, setEditingExtrainfo] = useState<boolean>(false);
+
+  const formExtrainfoRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    fetchAndSetExtraInfo();
+  }, []);
+
+
+  function fetchAndSetExtraInfo() {
+    fetchExtraInfo().then(res => {
+      setExtraInfos(res);
+    });
+  }
 
   function exportDb() {
     setLoading(true);
@@ -65,7 +81,74 @@ export default function MoreConfigs() {
     }
   }
     
+  function createOrUpdateExtraInfo(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
+    
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = data.get("name") as string;
+    const value = data.get("value") as string;
+    console.log(name, value);
+    
+
+
+    if (name && value) {
+      setLoading(true);
+      myFetch(API + `/extra_info/${editingExtrainfo?"update":"create"}/`+name+"/"+value, {method: 
+      editingExtrainfo?"PUT":"POST"
+        ,})
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        formExtrainfoRef.current?.querySelector("input[name=name]")?.setAttribute("value", "");
+        formExtrainfoRef.current?.querySelector("input[name=value]")?.setAttribute("value", "");
+
+        toast.success("Se ha ejecutado la acción correctamente");
+        fetchAndSetExtraInfo()
+        setEditingExtrainfo(false);
+      })
+      .catch(err => {
+        console.error(err);
+        toast.error("Error al crear la información extra");
+      })
+      .finally(() => setLoading(false));
+    }else{
+      toast.error("Debes completar todos los campos");
+    }
+  }
+
+  function editExtraInfo(ei: ExtraInfo) {
+    formExtrainfoRef.current?.querySelector("input[name=name]")?.setAttribute("value", ei.name);
+    formExtrainfoRef.current?.querySelector("input[name=value]")?.setAttribute("value", ei.value);
+    setEditingExtrainfo(true);
+  }
+  function deleteExtraInfo(ei: ExtraInfo) { 
+    setLoading(true);
+    myFetch(API + "/extra_info/delete/" + ei.name, {
+      method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      toast.success("Información extra eliminada");
+      fetchAndSetExtraInfo()
+    })
+    .catch(err => {
+      console.error(err);
+      toast.error("Error al eliminar la información extra");
+    })
+    .finally(() => setLoading(false));
+  }
+
+  useEffect(() => {
+    // if the new value is false, then reset the form
+    if (!editingExtrainfo) {
+      formExtrainfoRef.current?.reset();
+      formExtrainfoRef.current?.querySelector("input[name=name]")?.setAttribute("value", "");
+      formExtrainfoRef.current?.querySelector("input[name=value]")?.setAttribute("value", "");
+    }
+  }, [editingExtrainfo]);
 
 
   return<Container>
@@ -80,6 +163,31 @@ export default function MoreConfigs() {
       <input type="file" name="db" accept=".db" />
       <button type="submit"><i className="fi fi-sr-disk"></i></button>
     </form>
+
+    <h2>Extra info</h2>
+    <h3>Create</h3>
+    <form className="row" onSubmit={createOrUpdateExtraInfo} ref={formExtrainfoRef}>
+      <input type="text" placeholder="name" name="name" readOnly={editingExtrainfo}/>
+      <input type="text" placeholder="value" name="value" />
+      {
+        editingExtrainfo ? 
+        <>
+          <button type="submit"><i className="fi fi-sr-check"></i></button>
+          <button onClick={()=>setEditingExtrainfo(false)}><i className="fi fi-sr-cross"></i></button>
+        </>
+        :
+        <button type="submit"><i className="fi fi-sr-plus"></i></button>
+      }
+    </form>
+    {
+      extraInfos.map((ei:ExtraInfo, index:number) => {
+        return <div key={index} className="row">
+          <h3>{ei.name}{"  :  "} {ei.value}</h3>
+          <button onClick={()=>editExtraInfo(ei)}><i className="fi fi-sr-pencil"></i></button>
+          <button onClick={()=>deleteExtraInfo(ei)}><i className="fi fi-sr-trash"></i></button>
+        </div>
+      })
+    }
   </Container>
 };
 

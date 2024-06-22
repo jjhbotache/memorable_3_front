@@ -1,5 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
+
+const infoDeployment = keyframes`
+  from{
+    transform: translateY(-2em);
+    height: 0;
+  }
+  to{
+    transform: translateY(0);
+    height: 100vh;
+  }
+`
 
 export const StyledShowerManager = styled.div`
   display: flex;
@@ -23,6 +34,10 @@ export const StyledShowerManager = styled.div`
     &:focus-visible{
       outline: 2px solid ${secondaryColor};
     }
+    @media screen and (width < ${mdScreen}px){
+      flex: unset;
+      width: 100%;
+    }
   }
   .filter{
     display: flex;
@@ -30,6 +45,10 @@ export const StyledShowerManager = styled.div`
     border-radius: .3em;
     position: relative;
     cursor: pointer;
+    @media screen and (width < ${mdScreen}px){
+      flex: unset;
+      width: 50%;
+    }
     
     .divider{
       height: 1px;
@@ -70,28 +89,40 @@ export const StyledShowerManager = styled.div`
       }
 
     }
+    
     .floatingInfo{
+      display: none;
+      height: 0;
+    }
+    &[open] .floatingInfo{
+      display: block;
       position: absolute;
       top: 110%;
+      left: 5%;
       background: ${tertiaryColor};
       border-radius: .3em;
       border: 1px solid ${primaryColor};
       padding: .8em;
-      max-height: 80vh;
-      overflow-y: auto;
-      width: 200%;
-      max-width: 200px;
-      z-index: 10;
-      @media screen and (width < ${mdScreen}px){
-        position: fixed;
-        top: 28vh;
-        height: 60vh !important;
-        left: 50%;
-        transform: translateX(-50%);
+      height: auto;
+      max-height: 50vh;
+      width: clamp(200px,200%,80vw);
+      max-width: 150px;
+      z-index: 5;
 
-        
-        height: 80vh;
+      /* hide the scroll bar */
+      overflow: auto;
+
+
+
+      &::-webkit-scrollbar{
+        display: none;
       }
+        
+    
+      
+
+      /* add animation to reproduce once */
+      animation: ${infoDeployment} .5s forwards;
 
       .tagsContainer{
         display: flex;
@@ -117,5 +148,9 @@ export const StyledShowerManager = styled.div`
   .arragmentBtns{
     flex: 3 ;
     max-width: 100px;
+    @media screen and (width < ${mdScreen}px){
+      flex: unset;
+      width: 100%;
+    }
   }
 `

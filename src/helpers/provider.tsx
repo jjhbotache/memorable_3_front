@@ -30,3 +30,14 @@ export async function fetchTags() {
     throw error;
   }
 }
+
+export async function fetchExtraInfo() {
+  try {
+    const response = await myFetch(`${API}/extra_info`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching extra info:", error);
+    throw error;
+  }
+}

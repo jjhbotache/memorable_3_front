@@ -1,6 +1,21 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
 
+const afraidShake = keyframes`
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(-1deg); }
+  75% { transform: rotate(1deg); }
+  100% { transform: rotate(-1deg); }
+`;
+
+const reallyAfraidShake = keyframes`
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(-3deg); }
+`;
 
 export const Nav = styled.nav`
   /* make it sticky on top */
@@ -134,6 +149,7 @@ export const Sidebar = styled.div`
     gap: 1em;
     h1{
       margin-top: .5rem;
+      margin-bottom: 1em;
     }
     .small{
       font-size: .7em;
@@ -154,13 +170,18 @@ export const Sidebar = styled.div`
         font-weight: bold;
       }
     }
+
+    details.btn[open] summary{
+      text-decoration: underline;
+    }
+
     .btn{
       width: 100%;
-      padding: .5rem;
       background: ${tertiaryColor};
       color: ${primaryColor};
       border: ${primaryColor} solid 1px;
       border-radius: .2rem;
+      box-sizing: border-box;
       cursor: pointer;
       transition: all 0.1s ease-in-out;
       &:hover{
@@ -169,6 +190,58 @@ export const Sidebar = styled.div`
       &.closeSession{
         background: ${primaryColor};
         color: ${secondaryColor};
+        padding: .5rem;
+      }
+      summary{
+        display: flex;
+        justify-content: center;
+        padding: .5rem;
+        cursor: pointer;
+        list-style: none;
+        outline: none;
+        font-size: .9rem;
+        box-sizing: border-box;
+        width: 100%;
+        &:focus{
+          outline: none;
+        }
+      }
+      ul{
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
+        align-items: start;
+        justify-content: start;
+        padding: 0;
+        list-style: none;
+        li{
+          padding: 0;
+          padding: .2rem;
+          text-align: center;
+          font-size: .8rem;
+          word-break: break-all;
+
+        }
+      }
+      .deleteAccountBtn{
+        background: #f00;
+        color: #fff;
+        border: none;
+        padding: .5rem;
+        border-radius: .2rem;
+        margin-left: clamp(.2em, 2vw, 1em);
+        margin-bottom: clamp(.2em, 2vw, 1em);;
+        cursor: pointer;
+        transition: all 0.1s ease-in-out;
+        &:hover{
+          transform: scale(1.05);
+          animation: ${afraidShake} 0.2s infinite;
+        }
+        &.reallyShaking{
+          border: 2px solid #8b0000;
+          animation: ${reallyAfraidShake} 0.2s infinite;
+        }
+      
       }
     }
   }
