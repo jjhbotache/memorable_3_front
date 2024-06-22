@@ -12,17 +12,23 @@ const Admin = lazy(() => import('../pages/Admin'));
 const Designs = lazy(() => import('../pages/Designs'));
 const Loved = lazy(() => import('../pages/Loved'));
 const Cart = lazy(() => import('../pages/Cart'));
+const Design = lazy(() => import('../pages/Design'));
 
 
 
-const designsAndTagsLoader = async () => {
+
+const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
+
   const results = await Promise.all([
-    fetchPublicDesigns(),
+    fetchPublicDesigns(
+      params.id ? params.id : null
+    ),
     fetchTags()
   ])
   const [designs, tags] = results;
   return { designs, tags };
 };
+
 
 
 export const router = createBrowserRouter([
@@ -73,6 +79,15 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingScreen />}>
         <Designs />
+      </Suspense>
+    ),
+  },
+  {
+    path: "designs/:id",
+    loader: designsAndTagsLoader,
+    element: (
+      <Suspense fallback={<LoadingScreen />}>
+        <Design/>
       </Suspense>
     ),
   },

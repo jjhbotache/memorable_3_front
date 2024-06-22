@@ -51,7 +51,10 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
   useEffect(() => {
 
     // filter by name
-    let designsFiltered = designs.filter(design => design.name.toLowerCase().includes(filter.name.toLowerCase()));
+    console.log("filtered designs");
+    console.log(designs);
+    
+    let designsFiltered =designs ? designs.filter(design => design.name.toLowerCase().includes(filter.name.toLowerCase())) : [];
 
     // filter by tags
     designsFiltered = designsFiltered.filter(design => {

@@ -3,9 +3,12 @@ import { API } from '../constants/appConstants.tsx';
 import myFetch from './myFetch.tsx';
 
 // Función para obtener diseños públicos
-export async function fetchPublicDesigns() {
+export async function fetchPublicDesigns(id:number | null = null) {
   try {
-    const response = await myFetch(`${API}/designs/public`);
+    
+    const response = await myFetch(
+      id ? `${API}/design/public/${id}` : `${API}/designs/public`
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -38,6 +41,17 @@ export async function fetchExtraInfo() {
     return data;
   } catch (error) {
     console.error("Error fetching extra info:", error);
+    throw error;
+  }
+}
+
+export async function fetchSpecificExtrainfo(name:string) {
+  try {
+    const response = await myFetch(`${API}/extra_info/${name}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching bottle price:", error);
     throw error;
   }
 }

@@ -143,7 +143,7 @@ const DesignComponent = forwardRef(
     const Heart = () => (
       <i onClick={onChangeLoved} className={(loved ? "fi fi-ss-heart " : "fi fi-bs-heart ") + "heart"}></i>
     );
-    const Img = () => <img src={design.img_url} alt={design.name} />;
+    const Img = () => <img src={design.img_url} alt={design.name} onClick={()=>navigate("/designs/"+design.id)} />;
     const Title = () => <h1 className="title">{design.name}</h1>;
     const BuyButtons = () => (
       <div className="btns">
