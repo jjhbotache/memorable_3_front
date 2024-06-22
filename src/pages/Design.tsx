@@ -3,7 +3,7 @@ import Navbar from '../components/global/navbar/Navbar';
 import { Link, useLoaderData } from 'react-router-dom';
 import Desing from '../interfaces/designInterface';
 import Tag from '../interfaces/tagInterface';
-import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from '../constants/styleConstants';
+import { mdScreen, primaryColor, tertiaryColor } from '../constants/styleConstants';
 import { useEffect, useState } from 'react';
 import formatNumber from '../helpers/formatNumber';
 import { fetchSpecificExtrainfo } from '../helpers/provider';
@@ -15,7 +15,8 @@ export default function Design (){
   const [bottlePrice, setBottlePrice] = useState<number | undefined>();
   const [quantity, setQuantity] = useState<number>(1);
   const [wines, setWines] = useState<string[]>([]);
-
+  
+  console.log(design, preloadedTags);
   useEffect(() => {
     Promise.all([
       fetchSpecificExtrainfo("bottle_price"),
@@ -65,7 +66,7 @@ export default function Design (){
           </div>
           <div className="payment-methods">
             <label>Métodos de pago:</label>
-            <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" srcset="" />
+            <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
           </div>
           <div className="btns">
             <button className="button">Agregar al carro</button>
