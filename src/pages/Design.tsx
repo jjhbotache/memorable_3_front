@@ -67,9 +67,11 @@ export default function Design (){
           <div className="payment-methods">
             <label>Métodos de pago:</label>
             <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
+            <img src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
           </div>
           <div className="btns">
-            <button className="button">Agregar al carro</button>
+            <button className="button">Agregar al carro <i className="fi fi-rr-shopping-cart"/></button>
             <button className="button">Comprar</button>
           </div>
           <div className="tags">
@@ -97,7 +99,7 @@ const StyledDesign = styled.div`
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    padding: 1vw .5em;
+    padding: 1vw 2em;
     gap: clamp(.1em, 2vw, 2em);
 
     .image-wrapper {
@@ -124,6 +126,9 @@ const StyledDesign = styled.div`
   
     .details-wrapper {
       width: 45%;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(.1em, 1vw, 2em);
       @media screen and (width < ${mdScreen}px) {
         width: 100%;
       }
@@ -146,50 +151,90 @@ const StyledDesign = styled.div`
       .quantity-wrapper {
         display: flex;
         align-items: center;
-        margin-right: auto;
+        margin-right: 1vw;
       }
-
       .wichToUse{
-        gap: .5em;
+        margin-left: .4em;
+        gap: clamp(.3em,2vw,2vw);
         color: ${primaryColor};
-        font-size: 1em;
+        font-size: clamp(.7rem, 3vw, 1.5rem);
         transition: all .3s;
         &:hover{
           text-decoration: underline;
           text-shadow: 0 0 2px ${tertiaryColor};
-          transform: scale(1.1);
+          transform: scale(1.05);
         }
       }
-    }
+      .quantity-input {
+        width: 3em;
+        margin-left: 10px;
+      }
+      .dropdown {
+        margin: 10px 0;
+        padding: 10px;
+        width: 50%;
+        border: 1px solid ${primaryColor};
+        border-radius: 5px;
+      }
+      .payment-methods {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        /* justify-content: space-between; */
   
-  
-  
-  
-    .quantity-input {
-      width: 3em;
-      margin-left: 10px;
-    }
-  
-    .dropdown {
-      margin: 10px 0;
-      padding: 10px;
-      width: 50%;
-      border: 1px solid ${primaryColor};
-      border-radius: 5px;
-    }
-  
-    .payment-methods {
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      gap: 1em;
-      /* justify-content: space-between; */
+        img{
+          height: 2.5vw;
+          width: 2.5vw;
+          min-height: 25px;
+          min-width: 25px;
+          object-fit: contain;
+          background: ${tertiaryColor}22;
+          padding: .3vw;
+          border-radius: .2em;
+          border: 1px solid ${primaryColor};
+          transition: all .1s;
+          &:hover{
+            transform: scale(1.1);
+          }
+        }
+      }
+      .btns{
+        display: flex;
+        gap: 1em;
+        justify-content: end;
+        @media screen and (width < ${mdScreen}px) {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
 
-      img{
-        height: 50px;
-      
+      .button {
+        @media screen and (width < ${mdScreen}px) {
+          width: 100%;
+        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        padding: 10px 20px;
+        margin-top: 10px;
+        background-color: ${tertiaryColor};
+        color: ${primaryColor};
+        border: 1px solid ${primaryColor};
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+          &:hover {
+            background-color: ${primaryColor};
+            color: ${tertiaryColor};
+          }
       }
     }
+  
+  
+  
+  
   
 
     .tags {
@@ -204,26 +249,7 @@ const StyledDesign = styled.div`
       border-radius: 5px;
     }
   
-    .btns{
-      display: flex;
-      gap: 1em;
-      justify-content: end;
-    }
-
-    .button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background-color: ${tertiaryColor};
-      color: ${primaryColor};
-      border: 1px solid ${primaryColor};
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s;
-      &:hover {
-        background-color: ${primaryColor};
-        color: ${tertiaryColor};
-      }
-    }
+    
   
   
     .similar-designs {

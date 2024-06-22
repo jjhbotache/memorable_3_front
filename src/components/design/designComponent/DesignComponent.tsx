@@ -149,7 +149,7 @@ const DesignComponent = forwardRef(
       <div className="btns">
         <button onClick={onChangeCart} className="addCart">
           <span>Agregar al carrito</span>
-          <i className="fi fi-rr-shopping-cart"></i>
+          <i className="fi fi-rr-shopping-cart"/>
           {!!addedToCart && <i className="addedIco fi fi-ss-check-circle"></i>}
         </button>
         <button className="buy">Comprar</button>
