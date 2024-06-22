@@ -81,7 +81,7 @@ const TagsDescription = styled.main`
   align-items: center;
   justify-content: space-evenly;
   gap: 1em;
-  padding: 0 .5em; 
+  padding: 1em .5em; 
   box-sizing: border-box;
   min-width: 50%;
   width: 550px;
