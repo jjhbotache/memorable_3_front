@@ -3,7 +3,7 @@ import TagInterface from "../../interfaces/tagInterface";
 import styled from "styled-components";
 import { setFilter } from "../../redux/slices/filterReducer";
 import { useNavigate } from "react-router-dom";
-import { mdScreen, primaryColor, tertiaryColor } from "../../constants/styleConstants";
+import {  primaryColor, tertiaryColor } from "../../constants/styleConstants";
 
 interface TagProps {
   tag:TagInterface;
