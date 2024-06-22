@@ -99,7 +99,7 @@ const StyledDesign = styled.div`
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    padding: 1vw 2em;
+    padding: 1vw 1em;
     gap: clamp(.1em, 2vw, 2em);
 
     .image-wrapper {
