@@ -26,6 +26,9 @@ const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
     ),
     fetchTags()
   ])
+  console.log("results");
+  console.log(results);
+  
   const [designs, tags] = results;
   return { designs, tags };
 };

@@ -9,11 +9,11 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import User from "./interfaces/userInterface";
 import { useLoaderData } from "react-router-dom";
-import Design from "./interfaces/designInterface";
+import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
 
 export default function App() {
-  const { designs , tags } = useLoaderData() as { designs: Design[], tags: Tag[] };
+  const { designs , tags } = useLoaderData() as { designs: Desing[], tags: Tag[] };
   
 
 

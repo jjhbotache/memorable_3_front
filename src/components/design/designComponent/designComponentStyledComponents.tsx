@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
 
 export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" | "column"}>`
 
@@ -157,5 +157,11 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box;
+  }
+  .heart{
+    background: ${secondaryColor};
+    border-radius: 50%;
+    padding: .1em;
+    font-size: 1em;
   }
 `;

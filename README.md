@@ -15,4 +15,5 @@ By working on this project, we aim to improve our skills in managing application
 - fix user info managment ✅
 - design on design page view✅
 - design buy action ✅
+- similar designs ✅
 - design whatsapp bot

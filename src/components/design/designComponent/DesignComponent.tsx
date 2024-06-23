@@ -11,8 +11,7 @@ interface DesignComponentProps {
   design: Design;
 }
 
-const DesignComponent = forwardRef(
-  ({ displayStyle, design }: DesignComponentProps, ref: ForwardedRef<HTMLDivElement>) => {
+const DesignComponent = forwardRef(({ displayStyle, design }: DesignComponentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const [loved, setLoved] = useState<boolean>(design.loved || false);
     const [addedToCart, setAddedToCart] = useState<boolean>(design.addedToCart || false);
     const navigate = useNavigate();
