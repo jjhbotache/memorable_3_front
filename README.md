@@ -13,8 +13,6 @@ By working on this project, we aim to improve our skills in managing application
 - fix in landing in phone 100vh ✅
 - fix filter dropdown ✅
 - fix user info managment ✅
-- design on design page view
-  - missing heart
-  - missing share btn
-- design buy action
+- design on design page view✅
+- design buy action ✅
 - design whatsapp bot
