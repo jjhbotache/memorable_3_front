@@ -305,7 +305,7 @@ const StyledDesign = styled.div`
         width: 100%;
       }
       .tags {
-        font-size: clamp(.5em, 1.2vw, .8em);
+        font-size: clamp(.6em, 1.2vw, .8em);
         display: flex;
         justify-content: space-evenly;
         align-items: center;
