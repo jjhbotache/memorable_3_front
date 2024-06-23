@@ -11,6 +11,7 @@ import myFetch from "../helpers/myFetch";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../redux/slices/filterReducer";
+import Footer from "../components/global/Footer";
 
 export default function Cart() {
   const [lovedDesigns, setlovedDesigns] = useState<Design[]>([]);
@@ -46,6 +47,7 @@ export default function Cart() {
         </div>
         <DesignsContainer designs={lovedDesigns} arragment={arragment} />
       </div>
+      <Footer/>
     </Container>
   )
 
@@ -85,5 +87,7 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 1em;
+      height: 100%;
+      min-height: 95vh;
     }
   `;

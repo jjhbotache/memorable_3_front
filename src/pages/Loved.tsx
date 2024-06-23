@@ -9,6 +9,7 @@ import ArrangmentSwitch from "../components/design/arrangmentSwitch/ArrangmentSw
 import { primaryColor, secondaryColor } from "../constants/styleConstants";
 import { toast } from "react-toastify";
 import myFetch from "../helpers/myFetch";
+import Footer from "../components/global/Footer";
 
 export default function Loved() {
   const [lovedDesigns, setlovedDesigns] = useState<Design[]>([]);
@@ -37,6 +38,7 @@ export default function Loved() {
         </div>
         <DesignsContainer designs={lovedDesigns} arragment={arragment} />
       </div>
+      <Footer/>
     </Container>
   )
 
@@ -76,5 +78,7 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 1em;
+      height: 100%;
+      min-height: 95vh;
     }
   `;

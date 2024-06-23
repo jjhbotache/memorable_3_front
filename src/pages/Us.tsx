@@ -3,6 +3,7 @@ import Navbar from "../components/global/navbar/Navbar";
 import UsDescription from "../components/us/usDescription/UsDescription";
 import UsSlider from "../components/us/usSlider/UsSlider";
 import { mdScreen, primaryColor } from "../constants/styleConstants";
+import Footer from "../components/global/Footer";
 
 export default function Us() {
   return(
@@ -12,6 +13,7 @@ export default function Us() {
         <UsSlider/>
         <UsDescription/>
       </div>
+      <Footer/>
     </UsDescriptionStyled>
   )
 };

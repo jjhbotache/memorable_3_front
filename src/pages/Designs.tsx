@@ -7,6 +7,7 @@ import Design from "../interfaces/designInterface"
 import DesignShowerManager from "../components/design/designShowerManager/DesignShowerManager"
 import { useLoaderData } from "react-router-dom"
 import Tag from "../interfaces/tagInterface"
+import Footer from "../components/global/Footer"
 
 export default function Designs() {
   // const [designData, setDesignsData] = useState<Desing[]>([]);
@@ -30,6 +31,7 @@ export default function Designs() {
         :<DesignsContainer designs={designData} arragment={arragmentState} aiSearch={true}/> 
         }
       </div>
+      <Footer/>
     </DesignPage>  
   )
 };

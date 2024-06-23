@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { secondaryColor } from "../constants/styleConstants";
 import Navbar from "../components/global/navbar/Navbar";
 import WinesContainer from "../components/wines/winesContainer/WinesContainer";
+import Footer from "../components/global/Footer";
 
 export default function Wines() {
   return(<>
@@ -10,6 +11,7 @@ export default function Wines() {
       <div className="wines">
         <WinesContainer/>
       </div>
+      <Footer/>
     </WinesComponent>
   </>
   )

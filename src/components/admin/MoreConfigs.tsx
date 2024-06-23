@@ -87,17 +87,21 @@ export default function MoreConfigs() {
     
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = data.get("name") as string;
-    const value = data.get("value") as string;
+    let name = data.get("name") as string;
+    let value = data.get("value") as string;
+    name = encodeURIComponent(name);
+    value = encodeURIComponent(value);
+    console.log(name, value);
+    
+    
+
     console.log(name, value);
     
 
 
     if (name && value) {
       setLoading(true);
-      myFetch(API + `/extra_info/${editingExtrainfo?"update":"create"}/`+name+"/"+value, {method: 
-      editingExtrainfo?"PUT":"POST"
-        ,})
+      myFetch(API + `/extra_info/${editingExtrainfo?"update":"create"}/`+name+"/"+value, {method:editingExtrainfo?"PUT":"POST"})
       .then(res => res.json())
       .then(res => {
         console.log(res);

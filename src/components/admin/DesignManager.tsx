@@ -5,6 +5,7 @@ import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./m
 import Tag from "../../interfaces/tagInterface";
 import Design from "../../interfaces/designInterface";
 import { toast } from "react-toastify";
+import { downloadImgWithFetch } from "../../interfaces/downloadImg";
 
 
 
@@ -167,6 +168,11 @@ export default function DesignManager() {
     setDesignsToShow(designs.filter(d => d.name.toLowerCase().includes(value.toLowerCase())));
   }
 
+  function downloadImg(d:Design) {
+    downloadImgWithFetch(d.img_url, d.name.toLowerCase().replace(/ /g, "_"))
+  }
+  
+
   return(
     <>
     <AddDropdown>
@@ -209,7 +215,8 @@ export default function DesignManager() {
           </details>
           <div className="btns">
             <button disabled={deletingDesign===d.id} onClick={()=>deleteDesign(d.id)}>Eliminar</button>
-            <a href={d.ai_url} download>Descargar AI</a>
+            <a href={d.ai_url} download={d.name.toLowerCase().replace(/ /g, "_")}>AI</a>
+            <button onClick={()=>downloadImg(d)}>PNG</button>
             <button onClick={()=>{setEditingDesign(d)}}>Editar</button>
           </div>
         </div>

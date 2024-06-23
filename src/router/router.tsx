@@ -3,6 +3,7 @@ import { lazy } from "react";
 import { fetchPublicDesigns, fetchTags } from "../helpers/provider";
 import { Suspense } from "react";
 import LoadingScreen from "../components/global/LoadingScreen";
+import Error from "../pages/Error";
 
 const App = lazy(() => import('../app'));
 const Us = lazy(() => import('../pages/Us'));
@@ -13,6 +14,7 @@ const Designs = lazy(() => import('../pages/Designs'));
 const Loved = lazy(() => import('../pages/Loved'));
 const Cart = lazy(() => import('../pages/Cart'));
 const Design = lazy(() => import('../pages/Design'));
+
 
 
 
@@ -46,6 +48,7 @@ export const router = createBrowserRouter([
       </Suspense>
     ),
     loader: designsAndTagsLoader,
+    errorElement: <Error />,
   },
   {
     path: "us",
@@ -54,6 +57,7 @@ export const router = createBrowserRouter([
         <Us />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "wines",
@@ -62,6 +66,7 @@ export const router = createBrowserRouter([
         <Wines />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "contact",
@@ -70,6 +75,7 @@ export const router = createBrowserRouter([
         <Contact />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "admin",
@@ -78,6 +84,7 @@ export const router = createBrowserRouter([
         <Admin />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "designs",
@@ -87,6 +94,7 @@ export const router = createBrowserRouter([
         <Designs />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "designs/:id",
@@ -96,6 +104,7 @@ export const router = createBrowserRouter([
         <Design/>
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "loved",
@@ -104,6 +113,7 @@ export const router = createBrowserRouter([
         <Loved />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "cart",
@@ -112,13 +122,15 @@ export const router = createBrowserRouter([
         <Cart />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
   {
     path: "*",
     element: (
       <Suspense fallback={<LoadingScreen />}>
-        <App />
+        <Error />
       </Suspense>
     ),
+    errorElement: <Error />,
   },
 ]);

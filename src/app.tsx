@@ -11,6 +11,7 @@ import User from "./interfaces/userInterface";
 import { useLoaderData } from "react-router-dom";
 import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
+import Footer from "./components/global/Footer";
 
 export default function App() {
   const { designs , tags } = useLoaderData() as { designs: Desing[], tags: Tag[] };
@@ -58,6 +59,7 @@ export default function App() {
         <Carousel preloadedImgs={designs.map(design => design.img_url)} />
         <TagsPresentation preloadedTags={tags.slice(0, 7)} />
       </MainContainer>
+      <Footer/>
     </>
   )
 };

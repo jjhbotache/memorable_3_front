@@ -16,4 +16,8 @@ By working on this project, we aim to improve our skills in managing application
 - design on design page view✅
 - design buy action ✅
 - similar designs ✅
+- add on error page ✅
+- on admin, add download option ✅
+- add footer ✅
+- real explain us and wines ✅
 - design whatsapp bot

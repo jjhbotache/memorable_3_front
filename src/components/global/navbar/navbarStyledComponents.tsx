@@ -40,6 +40,10 @@ export const Nav = styled.nav`
     filter: brightness(9999%);
     cursor: pointer;
     flex-basis: auto;
+    transition: all 0.2s ease-in-out;
+    &:hover{
+      transform: scale(1.06);
+    }
   }
 
   .menu{
