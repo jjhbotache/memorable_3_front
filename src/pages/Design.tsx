@@ -211,7 +211,7 @@ export default function DesignElement (){
         </div>
       </div>
       <div className="similar-designs">
-        <h2 className="title">Diseños Similares</h2>
+        <h2 className="title">Tambien te podrian gustar . . .</h2>
         {/* Add similar designs here */}
         {
           similarDesigns!==null && <>
