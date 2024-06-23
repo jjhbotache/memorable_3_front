@@ -18,6 +18,7 @@ const Design = lazy(() => import('../pages/Design'));
 
 
 const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
+  // get route
 
   const results = await Promise.all([
     fetchPublicDesigns(
@@ -28,6 +29,8 @@ const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
   const [designs, tags] = results;
   return { designs, tags };
 };
+
+
 
 
 

@@ -128,7 +128,7 @@ export const Sidebar = styled.div`
     left: 0;
     height: 100vh;
     width: 100vw;
-    z-index: 3;
+    z-index: 9;
   }
 
   aside{
@@ -289,6 +289,7 @@ export const Sidebar = styled.div`
         transition: all 0.2s ease-in-out;
         &:hover{
           transform: scale(1.1);
+          box-shadow: 0 0 1em ${primaryColor};
         }
       }
     }

@@ -3,7 +3,7 @@ import myFetch from "../../helpers/myFetch";
 import { API } from "../../constants/appConstants";
 import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./managerStyledComponents";
 import Tag from "../../interfaces/tagInterface";
-import Desing from "../../interfaces/designInterface";
+import Design from "../../interfaces/designInterface";
 import { toast } from "react-toastify";
 
 
@@ -11,12 +11,12 @@ import { toast } from "react-toastify";
 
 export default function DesignManager() {
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const [designs, setDesigns] = useState<Desing[]>([]);
-  const [designsToShow, setDesignsToShow] = useState<Desing[]>([]);
+  const [designs, setDesigns] = useState<Design[]>([]);
+  const [designsToShow, setDesignsToShow] = useState<Design[]>([]);
   const [loading, setLoading] = useState(false);
   const [deletingDesign, setDeletingDesign] = useState<null|number>(null);
   const [tags, setTags] = useState<Tag[]>([]);
-  const [editingDesign, setEditingDesign] = useState<null|Desing>(null);
+  const [editingDesign, setEditingDesign] = useState<null|Design>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
 

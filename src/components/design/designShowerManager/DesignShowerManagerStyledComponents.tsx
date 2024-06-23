@@ -93,6 +93,7 @@ export const StyledShowerManager = styled.div`
     .floatingInfo{
       display: none;
       height: 0;
+      
     }
     &[open] .floatingInfo{
       display: block;

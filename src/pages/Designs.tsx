@@ -3,7 +3,7 @@ import { primaryColor, secondaryColor } from "../constants/styleConstants"
 import Navbar from "../components/global/navbar/Navbar"
 import DesignsContainer from "../components/design/designContainer/DesignContainer"
 import {useState } from "react"
-import Desing from "../interfaces/designInterface"
+import Design from "../interfaces/designInterface"
 import DesignShowerManager from "../components/design/designShowerManager/DesignShowerManager"
 import { useLoaderData } from "react-router-dom"
 import Tag from "../interfaces/tagInterface"
@@ -13,7 +13,7 @@ export default function Designs() {
   // const [loading, setLoading] = useState(true);
   const [arragmentState, setArragmentState] = useState<"column"|"grid">("column");
 
-  const {designs:designData, tags: preloadedTags} = useLoaderData() as {designs:Desing[], tags:Tag[]};
+  const {designs:designData, tags: preloadedTags} = useLoaderData() as {designs:Design[], tags:Tag[]};
 
   function switchArrangment() {
     arragmentState === "column" ? setArragmentState("grid") : setArragmentState("column")

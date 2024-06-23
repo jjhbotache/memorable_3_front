@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Navbar from "../components/global/navbar/Navbar";
 import { useEffect, useState } from "react";
-import Desing from "../interfaces/designInterface";
+import Design from "../interfaces/designInterface";
 import { API } from "../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import DesignsContainer from "../components/design/designContainer/DesignContainer";
@@ -9,11 +9,14 @@ import ArrangmentSwitch from "../components/design/arrangmentSwitch/ArrangmentSw
 import { primaryColor, secondaryColor } from "../constants/styleConstants";
 import myFetch from "../helpers/myFetch";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../redux/slices/filterReducer";
 
 export default function Cart() {
-  const [lovedDesigns, setlovedDesigns] = useState<Desing[]>([]);
+  const [lovedDesigns, setlovedDesigns] = useState<Design[]>([]);
   const [arragment, setArragment] = useState<"column" | "grid">("column");
   const navigate = useNavigate();
+  const dispacher = useDispatch();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || "{}")
@@ -23,6 +26,12 @@ export default function Cart() {
     };
     // get the loved designs
     fetchLovedDesigns();
+    dispacher(
+      setFilter({
+        name: "",
+        tags: [],
+      })
+    )
 
   }, []);
 
@@ -43,7 +52,7 @@ export default function Cart() {
   function fetchLovedDesigns() {
     myFetch(API+"/designs/public")
       .then(res=>res.json())
-      .then((data:Desing[]) => {
+      .then((data:Design[]) => {
         console.log(data);
         // filter by addedToCart
         data = data.filter(design => design.addedToCart)

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Desing from "../../../interfaces/designInterface";
+import Design from "../../../interfaces/designInterface";
 import { DesignsStyledContainer } from "./designContainerStyledComponents";
 import DesignComponent from "../designComponent/DesignComponent";
 import { useSelector } from "react-redux";
@@ -9,13 +9,13 @@ import { fetchAiFilteredDesigns } from "../../../helpers/provider";
 import isElementVisible from "../../../helpers/isElementVisible";
 
 interface DesignContainerProps {
-  designs: Desing[];
+  designs: Design[];
   arragment: "grid" | "column";
   aiSearch?: boolean;
 }
 export default function DesignsContainer({designs,arragment,aiSearch=false}:DesignContainerProps) {
-  const [designsToShow, setdesignsToShow] = useState<Desing[]>([]);
-  const [aiFilteredDesigns, setAiFilteredDesigns] = useState<Desing[]>([]);
+  const [designsToShow, setdesignsToShow] = useState<Design[]>([]);
+  const [aiFilteredDesigns, setAiFilteredDesigns] = useState<Design[]>([]);
   const [iaLoading, setIaLoading] = useState<boolean>(false);
   const [showTakeToAiResults, setShowTakeToAiResults] = useState<boolean>(false);
   const filter:Filter = useSelector((state:any)=>state.filter);
@@ -98,7 +98,7 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
     <DesignsStyledContainer  $styleBehavior={arragment}>
       <small className="foundDesigns">{designsToShow.length} Diseño{designsToShow.length>1&&"s"} encontrado{designsToShow.length>1&&"s"}</small>
       {
-        (designsToShow.length != 0) ? designsToShow.map((design:Desing) => {
+        (designsToShow.length != 0) ? designsToShow.map((design:Design) => {
           return(
             <DesignComponent design={design} displayStyle={arragment} key={design.id} />
           )
@@ -123,7 +123,7 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
         </h2>
       </div>
       {
-        (aiFilteredDesigns.length != 0) && aiFilteredDesigns.map((design:Desing) => {
+        (aiFilteredDesigns.length != 0) && aiFilteredDesigns.map((design:Design) => {
           return(
             <DesignComponent ref={aiDesignsRef} design={design} displayStyle={arragment} key={design.id} />
           )

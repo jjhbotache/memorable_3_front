@@ -1,14 +1,14 @@
 import { useState, forwardRef, ForwardedRef } from "react";
-import Desing from "../../../interfaces/designInterface";
+import Design from "../../../interfaces/designInterface";
 import { DesignComponentStyledContainer } from "./designComponentStyledComponents";
-import { API } from "../../../constants/appConstants";
 import { toast } from "react-toastify";
-import User from "../../../interfaces/userInterface";
 import { useNavigate } from "react-router-dom";
+import onChangeCartFunction from "../../../helpers/cartFuntions";
+import onChangeLovedFunction from "../../../helpers/lovedFunctions";
 
 interface DesignComponentProps {
   displayStyle: "grid" | "column";
-  design: Desing;
+  design: Design;
 }
 
 const DesignComponent = forwardRef(
@@ -18,38 +18,13 @@ const DesignComponent = forwardRef(
     const navigate = useNavigate();
 
     function onChangeLoved() {
-      const user: User = JSON.parse(localStorage.getItem("user") || "{}");
-
-      if (!user.google_sub) {
-        toast.error("Debes iniciar sesión para poder agregar a favoritos");
-        return;
-      }
-
-      if (loved) {
-        deleteFavorite(user);
-      } else {
-        addFavorite(user);
-      }
-    }
-
-    function addFavorite(user: User) {
-      fetch(API + "/favorite/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_sub: user.google_sub,
-          design_id: design.id,
-        }),
-      })
-        .then((res) => res.json())
+      onChangeLovedFunction(loved,design)
         .then((data) => {
-          toast.success("Agregado a favoritos. Clickea para ver tus favoritos", {
-            onClick: () => navigate("/loved"),
-          });
           console.log(data);
-          setLoved(true);
+          setLoved(!loved);
+          !loved
+            ? toast.success("Agregado a favoritos, clickea para ver tus favoritos", { autoClose: 1000, onClick: () => navigate("/loved") })
+            : toast.success("Eliminado de favoritos", { autoClose: 1000 });
         })
         .catch((err) => {
           console.log(err);
@@ -57,86 +32,20 @@ const DesignComponent = forwardRef(
         });
     }
 
-    function deleteFavorite(user: User) {
-      fetch(API + "/favorite/remove", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_sub: user.google_sub,
-          design_id: design.id,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          toast.success("Eliminado de favoritos", { autoClose: 1000 });
-          console.log(data);
-          setLoved(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Ocurrió un error al eliminar de favoritos");
-        });
-    }
-
     function onChangeCart() {
-      const user: User = JSON.parse(localStorage.getItem("user") || "{}");
-
-      if (!user.google_sub) {
-        toast.error("Debes iniciar sesión para poder agregar al carrito");
-        return;
-      }
-
-      if (addedToCart) {
-        deleteFromCart();
-      } else {
-        addToCart();
-      }
-    }
-
-    function addToCart() {
-      fetch(API + "/cart/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_sub: JSON.parse(localStorage.getItem("user") || "{}").google_sub,
-          design_id: design.id,
-        }),
-      })
-        .then((res) => res.json())
+      onChangeCartFunction(addedToCart, design)
         .then((data) => {
-          toast.success("Agregado al carrito, clickea para ir al carrito", {
-            onClick: () => navigate("/cart"),
-          });
           console.log(data);
-          setAddedToCart(true);
+          const newCartValue = !addedToCart;
+          setAddedToCart(newCartValue);
+          newCartValue
+            ? toast.success("Agregado al carrito, clickea para ir al carrito", {onClick: () => navigate("/cart")})
+            : toast.success("Eliminado del carrito", { autoClose: 1000 })
         })
         .catch((err) => {
           console.log(err);
           toast.error("Ocurrió un error al agregar al carrito");
-        });
-    }
-
-    function deleteFromCart() {
-      fetch(API + "/cart/remove", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_sub: JSON.parse(localStorage.getItem("user") || "{}").google_sub,
-          design_id: design.id,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          toast.success("Eliminado del carrito", { autoClose: 1000 });
-          console.log(data);
-          setAddedToCart(false);
         })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Ocurrió un error al eliminar del carrito");
-        });
     }
 
     // reusable mini components

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { API } from "../../constants/appConstants";
 import { ContactFormStyled } from "./contactFormStyled";
 import { toast } from "react-toastify";
-
-const text = "https://api.whatsapp.com/send?phone=573232512182&text=Hola, me gustaría contactar con memorable!"
+import { fetchSpecificExtrainfo } from "../../helpers/provider";
+const whatsappPhone = fetchSpecificExtrainfo("whatsapp_phone");
+const text = "Hola, me gustaría contactar con memorable!"
+const url = `https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -62,7 +64,7 @@ export default function ContactForm() {
   }
 
   function sendToWhatsapp() {
-    window.open(text, "_blank");
+    window.open(url, "_blank");
   }
 
   return(
