@@ -112,6 +112,7 @@ export default function DesignElement (){
       body: JSON.stringify({
       to_phone: prompt("Escribe tu número de whatsapp"),
       design_img_url: design?.img_url,
+      design_id: design?.id,
       quantity: quantity,
       wine: wineChoosed,
       buy: true,
@@ -135,6 +136,7 @@ export default function DesignElement (){
       body: JSON.stringify({
         to_phone:prompt("Escribe tu número de whatsapp"),
         design_img_url: design?.img_url,
+        design_id: design?.id,
         buy:false,
         name: user ? user.name : "",
       }),
