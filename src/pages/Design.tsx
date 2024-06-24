@@ -15,6 +15,7 @@ import { levenshteinDistance } from '../helpers/orderBySimilarity';
 import DesignComponent from '../components/design/designComponent/DesignComponent';
 import Design from '../interfaces/designInterface';
 import { API } from '../constants/appConstants';
+import LoadingScreen from '../components/global/LoadingScreen';
 
 
 
@@ -32,18 +33,22 @@ export default function DesignElement (){
   const [addedOnCart, setaddedOnCart] = useState<boolean>(design?.addedToCart || false);
   const [loved, setLoved] = useState<boolean>(design?.loved || false);
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   
   // const user: User = JSON.parse(localStorage.getItem("user") || "{}");}
   const navigate = useNavigate();
   
   useEffect(() => {
+    setLoading(true);
     Promise.all([
       fetchSpecificExtrainfo("bottle_price"),
       fetchSpecificExtrainfo("wines")
     ]).then(([bottlePrice, wines]) => {
       setBottlePrice(bottlePrice.value);
       setWines(JSON.parse(wines.value));
-    });
+    })
+    .finally(() => setLoading(false));  
 
     fetchPublicDesigns()
       .then((designs:Design[]) => {
@@ -72,7 +77,8 @@ export default function DesignElement (){
       .catch((err) => {
         console.log(err);
         setSimilarDesigns(null);
-      });
+      })
+      .finally(() => setLoading(false));
 
   }, []);
 
@@ -80,6 +86,7 @@ export default function DesignElement (){
     if(!id) navigate("/designs");
     console.log("id",id);
     
+    setLoading(true);
     fetchPublicDesigns(parseInt(id || "0"))
       .then((design:Design) => {
         setaddedOnCart(design.addedToCart);
@@ -91,7 +98,9 @@ export default function DesignElement (){
       .catch((err) => {
         console.log(err);
         navigate("/designs");
-      });
+      })
+      .finally(() => setLoading(false));
+
   }, [id]);
     
 
@@ -104,6 +113,7 @@ export default function DesignElement (){
 
     const user: User = JSON.parse(localStorage.getItem("user") || "{}");
 
+    setLoading(true);
     fetch(API + "/whatsapp/design/response", {
       method: "POST",
       headers: {
@@ -124,10 +134,17 @@ export default function DesignElement (){
       console.log(data);
       toast.success("Te contactaremos a tu whatsapp para finalizar la compra!");
     })
+    .catch((err) => {
+      console.log(err);
+      toast.error("Ocurrió un error al finalizar la compra");
+    })
+    .finally(() => setLoading(false));
 
   }
   function onRequestEditDesign() {
     const user: User = JSON.parse(localStorage.getItem("user") || "{}");
+
+    setLoading(true);
     fetch(API + "/whatsapp/design/response", {
       method: "POST",
       headers: {
@@ -146,6 +163,11 @@ export default function DesignElement (){
       console.log(data);
       toast.success("Te contactaremos a tu whatsapp para personalizar tu diseño!");
     })
+    .catch((err) => {
+      console.log(err);
+      toast.error("Ocurrió un error al solicitar la personalización");
+    })
+    .finally(() => setLoading(false));
       
   }
   function onShare() {
@@ -155,6 +177,7 @@ export default function DesignElement (){
   }
   
   function onAddToCart() {
+    setLoading(true);
     onChangeCart(addedOnCart,loadedDesign)
       .then(() => {
         setaddedOnCart(!addedOnCart)
@@ -163,8 +186,10 @@ export default function DesignElement (){
       .catch(() => {
         toast.error("Ocurrió un error al agregar al carrito");
       })
+      .finally(() => setLoading(false));
   }
   function onChangeLoved() {
+    setLoading(true);
     onChangeLovedFunction(loved,loadedDesign)
       .then((data) => {
         console.log(data);
@@ -178,91 +203,99 @@ export default function DesignElement (){
         console.log(err);
         toast.error("Ocurrió un error al agregar a favoritos");
       })
+      .finally(() => setLoading(false));
+
   }
 
   return (
     <StyledDesign>
       <Navbar />
-      <div className="product-section">
-        <div className="image-wrapper">
-          <div className="icons">
-            <i onClick={onChangeLoved} className={(loved ? "fi fi-ss-heart " : "fi fi-bs-heart ") + "heart"}></i>
-            <i onClick={onShare} className="fi fi-sr-share" title='Comparte con whatsapp'></i>
-          </div>
-          <img src={loadedDesign.img_url} alt="Design" />
-        </div>
-        <div className="details-wrapper">
-          <h1 className="title">{loadedDesign.name}</h1>
-          <div className="tags">
-            <span className="title">Tags:</span>
-            <div className="tags-wrapper">
-              {loadedDesign.tags.map((tag: TagInterface) => (
-                <Tag key={tag.id} tag={tag} />
-              ))}
+      {
+        loading 
+          ?<LoadingScreen/>
+          :<>
+            <div className="product-section">
+              <div className="image-wrapper">
+                <div className="icons">
+                  <i onClick={onChangeLoved} className={(loved ? "fi fi-ss-heart " : "fi fi-bs-heart ") + "heart"}></i>
+                  <i onClick={onShare} className="fi fi-sr-share" title='Comparte con whatsapp'></i>
+                </div>
+                <img src={loadedDesign.img_url} alt="Design" />
+              </div>
+              <div className="details-wrapper">
+                <h1 className="title">{loadedDesign.name}</h1>
+                <div className="tags">
+                  <span className="title">Tags:</span>
+                  <div className="tags-wrapper">
+                    {loadedDesign.tags.map((tag: TagInterface) => (
+                      <Tag key={tag.id} tag={tag} />
+                    ))}
+                  </div>
+                </div>
+                {/* quantity */}
+                <div className="row">
+                  <p className="price">${formatNumber(((bottlePrice || 0) * quantity))  }</p>
+                  <div className="quantity-wrapper">
+                    <label>Cantidad:</label>
+                    <input
+                      className="quantity-input"
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    />
+                  </div>
+                </div>
+                {/* wine */}
+                <div className="row">
+                  <select className="dropdown" onChange={e=>{
+                    setWineChoosed(e.target.value);
+                  }}>
+                    <option value="">Seleccionar vino</option>
+                    {wines.map((wine) => (
+                      <option key={wine} value={wine}>
+                        {wine}
+                      </option>
+                    ))}
+                  </select>
+                  <Link to="/wines" className="row wichToUse">
+                    <i className='fi fi-sr-info'></i>
+                    <p>¿Cuál debería elegir?</p>
+                  </Link>
+                </div>
+                <div className="payment-methods">
+                  <label>Métodos de pago:</label>
+                  <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
+                  <img src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
+                  <img src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
+                </div>
+                <div className="edit">
+                  <small onClick={onRequestEditDesign} ><i className='fi fi-sr-info'></i>Te gusta pero quieres hacerle algunos cambios? Habla con nosotros!</small>
+                </div>
+                <div className="btns">
+                  <button onClick={onAddToCart} className="button cartBtn">
+                    {addedOnCart ? "Eliminar del carrito" : "Agregar al carrito"}
+                    <i className="fi fi-rr-shopping-cart"/>
+                    {addedOnCart && <i className="addedIco fi fi-ss-check-circle"></i>}
+                  </button>
+                  <button onClick={onBuy}  className="button">Comprar</button>
+                </div>
+              </div>
             </div>
-          </div>
-          {/* quantity */}
-          <div className="row">
-            <p className="price">${formatNumber(((bottlePrice || 0) * quantity))  }</p>
-            <div className="quantity-wrapper">
-              <label>Cantidad:</label>
-              <input
-                className="quantity-input"
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value))}
-              />
-            </div>
-          </div>
-          {/* wine */}
-          <div className="row">
-            <select className="dropdown" onChange={e=>{
-              setWineChoosed(e.target.value);
-            }}>
-              <option value="">Seleccionar vino</option>
-              {wines.map((wine) => (
-                <option key={wine} value={wine}>
-                  {wine}
-                </option>
-              ))}
-            </select>
-            <Link to="/wines" className="row wichToUse">
-              <i className='fi fi-sr-info'></i>
-              <p>¿Cuál debería elegir?</p>
-            </Link>
-          </div>
-          <div className="payment-methods">
-            <label>Métodos de pago:</label>
-            <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
-            <img src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
-          </div>
-          <div className="edit">
-            <small onClick={onRequestEditDesign} ><i className='fi fi-sr-info'></i>Te gusta pero quieres hacerle algunos cambios? Habla con nosotros!</small>
-          </div>
-          <div className="btns">
-            <button onClick={onAddToCart} className="button cartBtn">
-              {addedOnCart ? "Eliminar del carrito" : "Agregar al carrito"}
-              <i className="fi fi-rr-shopping-cart"/>
-              {addedOnCart && <i className="addedIco fi fi-ss-check-circle"></i>}
-            </button>
-            <button onClick={onBuy}  className="button">Comprar</button>
-          </div>
-        </div>
-      </div>
-      <div className="similar-designs">
-        <h2 className="title">Tambien te podrian gustar . . .</h2>
-        {/* Add similar designs here */}
-        {
-          similarDesigns!==null && <>
-            {similarDesigns.map((design) => (
-              <DesignComponent displayStyle='grid' design={design} key={design.id} />
-            ))}
-          </>
-        }
+            <div className="similar-designs">
+              <h2 className="title">Tambien te podrian gustar . . .</h2>
+              {/* Add similar designs here */}
+              {
+                similarDesigns!==null && <>
+                  {similarDesigns.map((design) => (
+                    <DesignComponent displayStyle='grid' design={design} key={design.id} />
+                  ))}
+                </>
+              }
 
-      </div>
+            </div>
+          </>
+      }
     </StyledDesign>
   );
 };
@@ -346,7 +379,7 @@ const StyledDesign = styled.div`
         width: 100%;
       }
       .tags {
-        font-size: clamp(.6em, 1.2vw, .8em);
+        font-size: clamp(.8em, 1.2vw, .9em);
         display: flex;
         justify-content: space-evenly;
         align-items: center;

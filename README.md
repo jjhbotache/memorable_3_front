@@ -20,4 +20,6 @@ By working on this project, we aim to improve our skills in managing application
 - on admin, add download option ✅
 - add footer ✅
 - real explain us and wines ✅
-- design whatsapp bot
+- design whatsapp bot ✅
+- adding loading on desing ✅
+- adding on error ✅
