@@ -3,7 +3,7 @@ import Navbar from '../components/global/navbar/Navbar';
 import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import TagInterface from '../interfaces/tagInterface';
 import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from '../constants/styleConstants';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import formatNumber from '../helpers/formatNumber';
 import { fetchPublicDesigns, fetchSpecificExtrainfo } from '../helpers/provider';
 import Tag from '../components/global/Tag';
@@ -16,8 +16,10 @@ import DesignComponent from '../components/design/designComponent/DesignComponen
 import Design from '../interfaces/designInterface';
 import { API } from '../constants/appConstants';
 import LoadingScreen from '../components/global/LoadingScreen';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '../components/global/Modal';
+import numberVerifier from '../helpers/numberVerifier';
+import { setUser } from '../redux/slices/userReducer';
 
 export default function DesignElement (){
   const { id } = useParams();
@@ -33,11 +35,17 @@ export default function DesignElement (){
   const [addedOnCart, setaddedOnCart] = useState<boolean>(design?.addedToCart || false);
   const [loved, setLoved] = useState<boolean>(design?.loved || false);
 
+
+  // bring the user global state
+  const user:User = useSelector((state: any) => state.user);
+  const [numberModalOpen, setNumberModalOpen] = useState<boolean>(false);
+  const onResolveNumberModal = useRef<(d:string)=>void | undefined>();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   
-  // const user: User = JSON.parse(localStorage.getItem("user") || "{}");}
   const navigate = useNavigate();
+  const dispacher = useDispatch();
   
   useEffect(() => {
     setLoading(true);
@@ -103,15 +111,55 @@ export default function DesignElement (){
 
   }, [id]);
     
-
-  function onBuy() {
+  // -----------------
+  async function onBuy() {
     if(!wineChoosed) {
       toast.dismiss();
       toast.error("Por favor selecciona un vino");
       return;
     }
+    let contactNumber:number = 0;
+    if(!user.phone) {
+      setNumberModalOpen(true);
+      const number:string = await new Promise((resolve) => {
+        onResolveNumberModal.current = (d:string) => {
+          setNumberModalOpen(false);
+          console.log(d);
+          resolve(d);
+        }
+      })
+      if (!numberVerifier(number) || number === "CANCELADO") {
+        toast.dismiss();
+        toast.error("Número de whatsapp inválido, reintenta por favor");
+        return;
+      }else{
+        contactNumber = parseInt(number);
+        if(user.google_sub){
+          setLoading(true);
+          toast.info("Estamos agregando tu número de whatsapp, espera un momento...");
+          await fetch(API + `/user/set_number/${user.google_sub}/${contactNumber}` )
+          .then((res) => res.json())
+          .then((data) => {
+            if(data.detail)  throw new Error(data.detail);
+            console.log(data);
+            toast.dismiss();
+            toast.success("Número de whatsapp actualizado!");
+            dispacher(setUser(
+              {
+                ...user,
+                phone: contactNumber
+              }
+            ))
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Ocurrió un error al actualizar el número de whatsapp");
+          })
+          
+        }
+      }
+    }
 
-    const user: User = JSON.parse(localStorage.getItem("user") || "{}");
 
     setLoading(true);
     fetch(API + "/whatsapp/design/response", {
@@ -120,7 +168,7 @@ export default function DesignElement (){
       "Content-Type": "application/json",
       },
       body: JSON.stringify({
-      to_phone: prompt("Escribe tu número de whatsapp"),
+      to_phone: contactNumber.toString(),
       design_img_url: design?.img_url,
       design_id: design?.id,
       quantity: quantity,
@@ -141,8 +189,52 @@ export default function DesignElement (){
     .finally(() => setLoading(false));
 
   }
-  function onRequestEditDesign() {
-    const user: User = JSON.parse(localStorage.getItem("user") || "{}");
+
+  async function onRequestEditDesign() {
+    let contactNumber:number = 0;
+
+    if(!user.phone) {
+      setNumberModalOpen(true);
+      const number:string = await new Promise((resolve) => {
+        onResolveNumberModal.current = (d:string) => {
+          setNumberModalOpen(false);
+          console.log(d);
+          resolve(d);
+        }
+      })
+      if (!numberVerifier(number) || number === "CANCELADO") {
+        toast.dismiss();
+        toast.error("Número de whatsapp inválido, reintenta por favor");
+        return;
+      }else{
+        contactNumber = parseInt(number);
+        if(user.google_sub){
+          setLoading(true);
+          toast.info("Estamos agregando tu número de whatsapp, espera un momento...");
+          await fetch(API + `/user/set_number/${user.google_sub}/${contactNumber}` )
+          .then((res) => res.json())
+          .then((data) => {
+            if(data.detail)  throw new Error(data.detail);
+            console.log(data);
+            toast.dismiss();
+            toast.success("Número de whatsapp actualizado!");
+            dispacher(setUser(
+              {
+                ...user,
+                phone: contactNumber
+              }
+            ))
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Ocurrió un error al actualizar el número de whatsapp");
+          })
+          
+        }
+      }
+    }
+
+
 
     setLoading(true);
     fetch(API + "/whatsapp/design/response", {
@@ -151,7 +243,7 @@ export default function DesignElement (){
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        to_phone:prompt("Escribe tu número de whatsapp"),
+        to_phone:contactNumber.toString(),
         design_img_url: design?.img_url,
         design_id: design?.id,
         buy:false,
@@ -170,6 +262,7 @@ export default function DesignElement (){
     .finally(() => setLoading(false));
       
   }
+  // -----------------
   function onShare() {
     const urlToShare = window.location.href;
     const url = `https://api.whatsapp.com/send?text=${urlToShare}`
@@ -214,6 +307,11 @@ export default function DesignElement (){
         loading 
           ?<LoadingScreen/>
           :<>
+            { (numberModalOpen && onResolveNumberModal.current)  && <Modal
+              onResolve={onResolveNumberModal.current}
+              title="Ingresa tu número de whatsapp"
+              msg="Para poder contactarte y continuar el proceso, necesitamos tu número de whatsapp"
+              />}
             <div className="product-section">
               <div className="image-wrapper">
                 <div className="icons">

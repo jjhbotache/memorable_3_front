@@ -24,7 +24,7 @@ export default function LoadingScreen({show=true, forElement=false}:Props) {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 999999;
+      z-index: 9988;
     `}
     background: radial-gradient(
       ${primaryColor}ff 0%,

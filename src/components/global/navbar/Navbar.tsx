@@ -158,6 +158,17 @@ export default function Navbar() {
       : navigate("/cart");
   }
 
+  function deleteNumber() {
+    fetch(API + "/user/delete-phone/" + user.google_sub, {method: "DELETE"})
+      .then(res=>res.json())
+      .then(res => {
+        if(res.details) throw new Error(res.details);
+        dispacher(setUser({...user, phone: null}));
+        toast.success("Numero eliminado correctamente");
+      })
+      .catch(() => toast.error("Error al eliminar el numero, intenta de nuevo."));
+  }
+
   
   // reusable components
   const Icons = () =><>
@@ -222,7 +233,7 @@ export default function Navbar() {
               <ul>
                 <li> <strong> Nombre:</strong>{" "+user.name}</li>
                 <li> <strong> Email:</strong>{" "+user.email}</li>
-                <li> <strong> Celular:</strong>{" "+ (user.phone || "No registrado")}</li>
+                <li> <strong> Celular:</strong>{" "+ (user.phone || "No registrado")} <i className="fi fi-ss-trash-xmark" onClick={deleteNumber}></i> </li>
               </ul>
               <button className={"deleteAccountBtn " + (readyToDeleteAccount && "reallyShaking") } onClick={ !readyToDeleteAccount ?()=>setReadyToDeleteAccount(true) : deleteAccount
               }> { readyToDeleteAccount ? "seguro?":"Eliminar cuenta"}</button>

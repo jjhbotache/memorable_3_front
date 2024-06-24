@@ -224,7 +224,17 @@ export const Sidebar = styled.div`
           text-align: center;
           font-size: .8rem;
           word-break: break-all;
-
+          display: flex;
+          gap: .2rem;
+          i{
+            font-size: .8rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            &:hover{
+              transform: scale(1.2);
+              color: #f00;
+            }
+          }
         }
       }
       .deleteAccountBtn{
@@ -289,7 +299,7 @@ export const Sidebar = styled.div`
         border-radius: .2rem;
         text-align: center;
         padding: .2rem 0;
-        
+
         transition: all 0.2s ease-in-out;
         &:hover{
           transform: scale(1.1);
