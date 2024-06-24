@@ -14,6 +14,7 @@ import onChangeLovedFunction from '../helpers/lovedFunctions';
 import { levenshteinDistance } from '../helpers/orderBySimilarity';
 import DesignComponent from '../components/design/designComponent/DesignComponent';
 import Design from '../interfaces/designInterface';
+import { API } from '../constants/appConstants';
 
 
 
@@ -30,6 +31,7 @@ export default function DesignElement (){
   const [quantity, setQuantity] = useState<number>(1);
   const [addedOnCart, setaddedOnCart] = useState<boolean>(design?.addedToCart || false);
   const [loved, setLoved] = useState<boolean>(design?.loved || false);
+
   
   // const user: User = JSON.parse(localStorage.getItem("user") || "{}");}
   const navigate = useNavigate();
@@ -100,15 +102,49 @@ export default function DesignElement (){
       return;
     }
 
-    const whatsappPhone = fetchSpecificExtrainfo("whatsapp_phone");
-    const user:User = JSON.parse(localStorage.getItem("user") || "{}");
-    const text = `
-    Hola!, ${user.name ? `Soy ${user.name} y m`:"M"}e gustaría comprar el diseño ${loadedDesign.id})${loadedDesign.name} en ${quantity} botellas de ${wineChoosed}
-    `
-    const url = `https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`
+    const user: User = JSON.parse(localStorage.getItem("user") || "{}");
 
-    window.open(url, "_blank");
+    fetch(API + "/whatsapp/design/response", {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+      to_phone: prompt("Escribe tu número de whatsapp"),
+      design_img_url: design?.img_url,
+      quantity: quantity,
+      wine: wineChoosed,
+      buy: true,
+      name: user ? user.name : "",
+      }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      toast.success("Te contactaremos a tu whatsapp para finalizar la compra!");
+    })
 
+  }
+  function onRequestEditDesign() {
+    const user: User = JSON.parse(localStorage.getItem("user") || "{}");
+    fetch(API + "/whatsapp/design/response", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to_phone:prompt("Escribe tu número de whatsapp"),
+        design_img_url: design?.img_url,
+        buy:false,
+        name: user ? user.name : "",
+      }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      toast.success("Te contactaremos a tu whatsapp para personalizar tu diseño!");
+    })
+      
   }
   function onShare() {
     const urlToShare = window.location.href;
@@ -199,6 +235,9 @@ export default function DesignElement (){
             <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
             <img src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
             <img src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
+          </div>
+          <div className="edit">
+            <small onClick={onRequestEditDesign} ><i className='fi fi-sr-info'></i>Te gusta pero quieres hacerle algunos cambios? Habla con nosotros!</small>
           </div>
           <div className="btns">
             <button onClick={onAddToCart} className="button cartBtn">
@@ -330,8 +369,8 @@ const StyledDesign = styled.div`
           font-weight: 300;
           color: ${primaryColor};
           width: auto;
-          margin: 0;
-          margin-right: 1em;
+          margin:0 1em;
+          
         }
         .tags-wrapper{
           display: flex; 
@@ -370,7 +409,7 @@ const StyledDesign = styled.div`
       .wichToUse{
         margin-left: .4em;
         gap: clamp(.3em,2vw,.5em);
-        color: ${primaryColor};
+        color: ${primaryColor}ee;
         font-size: clamp(.8rem, 2vw, 1rem);
         transition: all .3s;
         &:hover{
@@ -411,6 +450,26 @@ const StyledDesign = styled.div`
           &:hover{
             transform: scale(1.1);
           }
+        }
+      }
+      .edit{
+        display:flex ;
+        gap: 1em;
+        align-items: center;
+        justify-content: start;
+        font-size: clamp(.9rem, 2vw, 1rem);
+        color: ${primaryColor}ee;
+        cursor: pointer;
+        small{
+          display: flex;
+          gap: .5em;
+          align-items: center;
+        }
+        transition: all .2s;
+        &:hover{
+          text-decoration: underline;
+          text-shadow: 0 0 2px ${tertiaryColor};
+          transform: scale(1.05);
         }
       }
       .btns{
