@@ -84,22 +84,20 @@ export default function Navbar() {
         img_url: response.profileObj.imageUrl,
       }),
     })
+    .then(res => res.json())
+    .then(res=>{
+      const user:User = res.user;
+      if(res.details) throw new Error(res.details);
+      dispacher(setUser({
+        google_sub: user.google_sub,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        img_url: user.img_url,
+      }));
+      verifyAdmin();
+    })
 
-    dispacher(setUser({
-      google_sub: response.profileObj.googleId,
-      name: response.profileObj.name,
-      email: response.profileObj.email,
-      phone: null,
-      img_url: response.profileObj.imageUrl,
-    }));
-    localStorage.setItem("user", JSON.stringify({
-      google_sub: response.profileObj.googleId,
-      name: response.profileObj.name,
-      email: response.profileObj.email,
-      phone: null,
-      img_url: response.profileObj.imageUrl,
-    }));
-    verifyAdmin();
   }
   
   function closeSession() {

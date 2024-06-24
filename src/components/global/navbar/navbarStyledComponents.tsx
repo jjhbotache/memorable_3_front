@@ -151,6 +151,7 @@ export const Sidebar = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1em;
+    overflow-y: auto;
     h1{
       margin-top: .5rem;
       margin-bottom: 1em;
