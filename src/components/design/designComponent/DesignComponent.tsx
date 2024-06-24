@@ -60,7 +60,7 @@ const DesignComponent = forwardRef(({ displayStyle, design }: DesignComponentPro
           <i className="fi fi-rr-shopping-cart"/>
           {!!addedToCart && <i className="addedIco fi fi-ss-check-circle"></i>}
         </button>
-        <button className="buy">Comprar</button>
+        <button onClick={()=>navigate("/designs/"+design.id)} className="watchDesign">ver diseño</button>
       </div>
     );
 
