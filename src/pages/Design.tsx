@@ -566,7 +566,7 @@ const StyledDesign = styled.div`
       font-size: 2em;
       font-weight: 300;
       margin: 1em 0;
-      padding: 2em 0;
+      padding: 2em 3em;
       color: ${secondaryColor};
       text-align: center;
       background: linear-gradient(
