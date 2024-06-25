@@ -158,8 +158,9 @@ export default function DesignElement (){
           
         }
       }
+    }else{
+      contactNumber = parseInt(user.phone);
     }
-
 
     setLoading(true);
     fetch(API + "/whatsapp/design/response", {
@@ -232,6 +233,8 @@ export default function DesignElement (){
           
         }
       }
+    }else{
+      contactNumber = parseInt(user.phone);
     }
 
 
