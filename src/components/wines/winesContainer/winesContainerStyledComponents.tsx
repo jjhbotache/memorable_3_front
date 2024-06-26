@@ -59,7 +59,7 @@ export const StyledWinesContainer = styled.div`
       margin-bottom: 5%;
     }
     small{
-      font-size: clamp(.9em, 2.5vw, 1.2em);
+      font-size: clamp(1.1em, 2.5vw, 1.6em);
       color: ${primaryColor};
       font-weight: 300;
       margin-left: 80%;
