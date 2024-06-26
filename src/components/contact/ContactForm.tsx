@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { API } from "../../constants/appConstants";
 import { ContactFormStyled } from "./contactFormStyled";
 import { toast } from "react-toastify";
 import { fetchSpecificExtrainfo, sendContactForm } from "../../helpers/provider";
