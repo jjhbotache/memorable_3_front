@@ -1,4 +1,4 @@
-import styled  from 'styled-components';
+import styled, { keyframes }  from 'styled-components';
 import Navbar from '../components/global/navbar/Navbar';
 import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import TagInterface from '../interfaces/tagInterface';
@@ -370,9 +370,12 @@ export default function DesignElement (){
                   <img src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
                   <img src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
                 </div>
-                <div className="edit">
-                  <small onClick={onRequestEditDesign} ><i className='fi fi-sr-info'></i>Te gusta pero quieres hacerle algunos cambios? Habla con nosotros!</small>
+                
+                <div className="edit" onClick={onRequestEditDesign}>
+                  <i className='fi fi-sr-info'></i>
+                  Te gusta pero quieres hacerle algunos cambios? Habla con nosotros!
                 </div>
+
                 <div className="btns">
                   <button onClick={onAddToCart} className="button cartBtn">
                     {addedOnCart ? "Eliminar del carrito" : "Agregar al carrito"}
@@ -384,7 +387,10 @@ export default function DesignElement (){
               </div>
             </div>
             <div className="similar-designs">
-              <h2 className="title">Tambien te podrian gustar . . .</h2>
+              <h2 className="title">
+                También te podrían gustar . . .
+                <i className='fi fi-br-angle-down downArrow'></i>
+              </h2>
               {/* Add similar designs here */}
               {
                 similarDesigns!==null && <>
@@ -401,7 +407,18 @@ export default function DesignElement (){
   );
 };
 
-// create an animation that slides the tags to the right
+const bouncingDownRow = keyframes`
+  0%{
+    transform: translateY(-10px);
+  }
+  50%{
+    transform: translateY(0px);
+  }
+  100%{
+    transform: translateY(-10px);
+  }
+`;
+
 
 
 const StyledDesign = styled.div`
@@ -444,21 +461,17 @@ const StyledDesign = styled.div`
         gap: .2em;
         flex-direction: column;
         font-size: clamp(1.2em, 2vw, 1.8em);
+        box-sizing: border-box;
         i{
+          box-sizing: border-box;
           background: ${secondaryColor};
           border: 1px solid ${primaryColor};
           border-radius: 50%;
-          display: grid;
-          place-items: center;
           padding: .3em;
           color: ${primaryColor};
           transition: all .3s;
           cursor: pointer;
   
-          &::before, &::after{
-            display: grid;
-            place-items: center;
-          }
           &:hover{
             transform: scale(1.1);
             background: ${primaryColor};
@@ -480,7 +493,7 @@ const StyledDesign = styled.div`
         width: 100%;
       }
       .tags {
-        font-size: clamp(.8em, 1.2vw, .9em);
+        font-size: clamp(.9em, 1.2vw, 1.2em);
         display: flex;
         justify-content: space-evenly;
         align-items: center;
@@ -544,10 +557,14 @@ const StyledDesign = styled.div`
       }
       .wichToUse{
         margin-left: .4em;
-        gap: clamp(.3em,2vw,.5em);
+        gap: clamp(.5em,2vw,.5em);
         color: ${primaryColor}ee;
-        font-size: clamp(.8rem, 2vw, 1rem);
         transition: all .3s;
+        font-size: clamp(1rem, 2vw, 1.1rem) !important;
+        text-decoration: underline !important;
+       i{
+          max-width: 1em;
+       }
         &:hover{
           text-decoration: underline;
           text-shadow: 0 0 2px ${tertiaryColor};
@@ -593,14 +610,10 @@ const StyledDesign = styled.div`
         gap: 1em;
         align-items: center;
         justify-content: start;
-        font-size: clamp(.9rem, 2vw, 1rem);
+        font-size: clamp(1.3rem, 2vw, 1.5rem);
         color: ${primaryColor}ee;
+        text-decoration: underline;
         cursor: pointer;
-        small{
-          display: flex;
-          gap: .5em;
-          align-items: center;
-        }
         transition: all .2s;
         &:hover{
           text-decoration: underline;
@@ -666,33 +679,28 @@ const StyledDesign = styled.div`
       width: 100%;
       font-size: 2em;
       font-weight: 300;
-      margin: 1em 0;
-      padding: 2em 3em;
+      margin: 1em -2em;
+      padding: 2em 1em;
       color: ${secondaryColor};
       text-align: center;
       background: linear-gradient(
         180deg,
         ${primaryColor}00  0%,
-        ${primaryColor}ee 15%,
+        ${primaryColor}ee 10%,
         ${primaryColor} 50%,
-        ${primaryColor}ee 85%,
+        ${primaryColor}ee 90%,
         ${primaryColor}00 100%
       );
-      &::after{
-        content: "";
-        width: 100%;
-        height: 100%;
+
+      .downArrow{
         position: absolute;
-        top: 0;
-        left: 0;
-        background: linear-gradient(
-          90deg,
-          ${secondaryColor}  0%,
-          ${secondaryColor}11 5%,
-          ${secondaryColor}00 50%,
-          ${secondaryColor}11 95%,
-          ${secondaryColor} 100%
-        );
+        left: 50%;
+        bottom: 1em;
+        transform: translateX(-50%);
+        font-size: .7em;
+        color: ${secondaryColor};
+        transition: all .3s;
+        animation: ${bouncingDownRow} 1s infinite;
       }
     }
     margin-top: 20px;
