@@ -757,6 +757,7 @@ const StyledDesign = styled.div`
     justify-content: space-evenly;
     padding: 0 1vw;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
 
 `;
