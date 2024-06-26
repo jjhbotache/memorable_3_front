@@ -186,8 +186,8 @@ export default function DesignElement (){
       toast.success("Te contactaremos a tu whatsapp para continuar con tu compra!");
       sendContactForm(
         {
-          name: user ? user.name : "Alguien sin registrar",
-          email: user ? user.email  : "sin email",
+          name: user.name || "Alguien sin registrar",
+          email: user.email  || "sin email",
           subject: "Solicitud de compra exitosa",
           message: `Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
           mi numero de whatsapp es: ${contactNumber}` 
@@ -199,8 +199,8 @@ export default function DesignElement (){
       toast.error("Ocurrió un error al solicitar la compra, puedes contactarnos directamente a nuestro whatsapp");
       sendContactForm(
         {
-          name: user ? user.name : "Alguien sin registrar",
-          email: user ? user.email : "sin email",
+          name: user.name || "Alguien sin registrar",
+          email: user.email || "sin email",
           subject: "Solicitud de compra FALLIDA",
           message: `
           Hola, me gustaría comprar el diseño con id: ${design?.id} y nombre: ${design?.name}
@@ -284,8 +284,8 @@ export default function DesignElement (){
       toast.success("Te contactaremos a tu whatsapp para personalizar tu diseño!");
       sendContactForm(
         {
-          name: user ? user.name : "Alguien sin registrar",
-          email: user ? user.email  : "sin email",
+          name: user.name || "Alguien sin registrar",
+          email: user.email  || "sin email",
           subject: "Solicitud de personalización exitosa",
           message: `Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
           mi numero de whatsapp es: ${contactNumber}` 
@@ -297,8 +297,8 @@ export default function DesignElement (){
       toast.error("Ocurrió un error al solicitar la personalización, puedes contactarnos directamente a nuestro whatsapp");
       sendContactForm(
         {
-          name: user ? user.name : "Alguien sin registrar",
-          email: user ? user.email : prompt("Ingresa tu email para contactarte") || "sin email",
+          name: user.name || "Alguien sin registrar",
+          email: user.email || "sin email",
           subject: "Solicitud de personalización FALLIDA",
           message: `
           Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
