@@ -1,37 +1,39 @@
 import { createBrowserRouter } from "react-router-dom";
-import { lazy } from "react";
 import { fetchPublicDesigns, fetchTags } from "../helpers/provider";
-import { Suspense } from "react";
-import LoadingScreen from "../components/global/LoadingScreen";
 import Error from "../pages/Error";
+import App from "../app";
 
-const App = lazy(() => import('../app'));
-const Us = lazy(() => import('../pages/Us'));
-const Wines = lazy(() => import('../pages/Wines'));
-const Contact = lazy(() => import('../pages/Contact'));
-const Admin = lazy(() => import('../pages/Admin'));
-const Designs = lazy(() => import('../pages/Designs'));
-const Loved = lazy(() => import('../pages/Loved'));
-const Cart = lazy(() => import('../pages/Cart'));
-const Design = lazy(() => import('../pages/Design'));
+// const App = lazy(() => import('../app'));
+import Us from '../pages/Us'
+import Wines from '../pages/Wines'
+import Contact from '../pages/Contact'
+import Admin from '../pages/Admin'
+import Designs from '../pages/Designs'
+import Loved from '../pages/Loved'
+import Cart from '../pages/Cart'
+import Design from '../pages/Design'
 
 
 
 
 
 const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
+  console.log("start loader");
   // get route
 
+  
   const results = await Promise.all([
-    fetchPublicDesigns(
-      params.id ? params.id : null
-    ),
+    fetchPublicDesigns(params.id ? params.id : null),
     fetchTags()
   ])
-  console.log("results");
+
+
+  console.log("loader results");
   console.log(results);
   
   const [designs, tags] = results;
+  console.log("designs");
+  
   return { designs, tags };
 };
 
@@ -42,95 +44,55 @@ const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <App />
-      </Suspense>
-    ),
+    element: <App />,
     loader: designsAndTagsLoader,
     errorElement: <Error />,
   },
   {
     path: "us",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Us />
-      </Suspense>
-    ),
+    element: <Us />,
     errorElement: <Error />,
   },
   {
     path: "wines",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Wines />
-      </Suspense>
-    ),
+    element: <Wines />,
     errorElement: <Error />,
   },
   {
     path: "contact",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Contact />
-      </Suspense>
-    ),
+    element: <Contact />,
     errorElement: <Error />,
   },
   {
     path: "admin",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Admin />
-      </Suspense>
-    ),
+    element: <Admin />,
     errorElement: <Error />,
   },
   {
     path: "designs",
     loader: designsAndTagsLoader,
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Designs />
-      </Suspense>
-    ),
+    element: <Designs />,
     errorElement: <Error />,
   },
   {
     path: "designs/:id",
     loader: designsAndTagsLoader,
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Design/>
-      </Suspense>
-    ),
+    element: <Design/>,
     errorElement: <Error />,
   },
   {
     path: "loved",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Loved />
-      </Suspense>
-    ),
+    element: <Loved />,
     errorElement: <Error />,
   },
   {
     path: "cart",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Cart />
-      </Suspense>
-    ),
+    element: <Cart />,
     errorElement: <Error />,
   },
   {
     path: "*",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Error />
-      </Suspense>
-    ),
+    element: <Error />,
     errorElement: <Error />,
   },
 ]);

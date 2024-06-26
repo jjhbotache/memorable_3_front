@@ -8,6 +8,7 @@ import {
 import { router } from './router/router'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingScreen from './components/global/LoadingScreen';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -25,8 +26,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       pauseOnFocusLoss={false}
       />
       <Provider store={store}>
-        <RouterProvider router={router}/>
+        <RouterProvider 
+          router={router}
+          fallbackElement={<LoadingScreen/>}
+        />
       </Provider>
-      <ToastContainer />
   </>,
 )
