@@ -29,5 +29,5 @@ By working on this project, we aim to improve our skills in managing application
 - wine kind fs bigger ✅
 - whats contact bg doesn't work ✅
 - edit design, put closer to the wine and bigger ✅
-<!-- - add whats floating btn -->
+- add whats floating btn ✅
 - fix buy and edit

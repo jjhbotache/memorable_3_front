@@ -5,6 +5,7 @@ import styled from "styled-components";
 export const ContactFormStyled = styled.div`
   @media screen and (width < ${mdScreen}px){
     flex-basis: 95%;
+    padding: 1em 0;
   }
   flex-basis: 50%;
   display: flex;
@@ -16,7 +17,7 @@ export const ContactFormStyled = styled.div`
           /* turn down the opacity of the bg image */
           background-color: rgba(255,255,255,.7);
           background-blend-mode: lighten;
-          background-size: cover;
+          background-size: auto 150%;
           background-position: center;
           flex-basis: 95%;
         }

@@ -12,6 +12,7 @@ import { useLoaderData } from "react-router-dom";
 import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
 import Footer from "./components/global/Footer";
+import FloatingWhatsappBtn from "./components/global/FloatingWhatsappBtn";
 
 export default function App() {
   const { designs , tags } = useLoaderData() as { designs: Desing[], tags: Tag[] };
@@ -60,6 +61,8 @@ export default function App() {
         <TagsPresentation preloadedTags={tags.slice(0, 7)} />
       </MainContainer>
       <Footer/>
+
+      <FloatingWhatsappBtn/>
     </>
   )
 };

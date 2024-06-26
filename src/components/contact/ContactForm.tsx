@@ -18,7 +18,7 @@ export default function ContactForm() {
 
   useEffect(() => {
     async function main(){
-      const whatsappPhone = await fetchSpecificExtrainfo("whatsapp_phone");
+      const {value:whatsappPhone} = await fetchSpecificExtrainfo("whatsapp_phone");
       setUrl(`https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`);
     }
     main();

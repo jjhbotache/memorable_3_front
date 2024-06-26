@@ -9,6 +9,7 @@ import { router } from './router/router'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingScreen from './components/global/LoadingScreen';
+import FloatingWhatsappBtn from './components/global/FloatingWhatsappBtn';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           router={router}
           fallbackElement={<LoadingScreen/>}
         />
+        <FloatingWhatsappBtn/>
       </Provider>
   </>,
 )
