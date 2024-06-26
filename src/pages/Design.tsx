@@ -205,7 +205,7 @@ export default function DesignElement (){
           message: `
           Hola, me gustaría comprar el diseño con id: ${design?.id} y nombre: ${design?.name}
           mi numero de whatsapp es: ${contactNumber}
-          Error: ${JSON.stringify(err)}
+          Error: ${err}
           `
         }
       )
@@ -303,7 +303,7 @@ export default function DesignElement (){
           message: `
           Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
           mi numero de whatsapp es: ${contactNumber}
-          Error: ${JSON.stringify(err)}
+          Error: ${err}
           `
         }
       )
