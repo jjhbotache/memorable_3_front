@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { fetchSpecificExtrainfo } from "../../helpers/provider";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const text = "Hola, me gustaría contactar con memorable!"
