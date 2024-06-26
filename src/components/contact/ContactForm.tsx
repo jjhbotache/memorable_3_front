@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API } from "../../constants/appConstants";
 import { ContactFormStyled } from "./contactFormStyled";
 import { toast } from "react-toastify";
 import { fetchSpecificExtrainfo } from "../../helpers/provider";
-const whatsappPhone = fetchSpecificExtrainfo("whatsapp_phone");
+
 const text = "Hola, me gustaría contactar con memorable!"
-const url = `https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`
+
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -14,6 +14,15 @@ export default function ContactForm() {
     subject: "",
     message: ""
   });
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    async function main(){
+      const whatsappPhone = await fetchSpecificExtrainfo("whatsapp_phone");
+      setUrl(`https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`);
+    }
+    main();
+  }, []);
 
   function sendMail(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

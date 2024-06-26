@@ -610,7 +610,7 @@ const StyledDesign = styled.div`
         gap: 1em;
         align-items: center;
         justify-content: start;
-        font-size: clamp(1.3rem, 2vw, 1.5rem);
+        font-size: clamp(1rem, 2vw, 1.2rem);
         color: ${primaryColor}ee;
         text-decoration: underline;
         cursor: pointer;
