@@ -24,7 +24,7 @@ By working on this project, we aim to improve our skills in managing application
 - adding loading on desing ✅
 - adding on error ✅
 
-- fix main page charge
+- fix main page charge ✅
 - "tambien te podrian gustar" add down row
 - wine kind fs bigger
 - whats contact bg doesn't work
