@@ -196,7 +196,7 @@ export default function DesignElement (){
     })
     .catch((err) => {
       console.log(err);
-      toast.error("Ocurrió un error al solicitar la compra, puedes contactarnos directamente a nuestro whatsapp");
+      toast.warning("Pronto te contactaremos a tu whatsapp para continuar con tu compra!");
       sendContactForm(
         {
           name: user.name || "Alguien sin registrar",
@@ -204,6 +204,8 @@ export default function DesignElement (){
           subject: "Solicitud de compra FALLIDA",
           message: `
           Hola, me gustaría comprar el diseño con id: ${design?.id} y nombre: ${design?.name}
+          cantidad: ${quantity}
+          vino: ${wineChoosed}
           mi numero de whatsapp es: ${contactNumber}
           Error: ${JSON.stringify(err)}
           `
@@ -294,7 +296,7 @@ export default function DesignElement (){
     })
     .catch((err) => {
       console.log(err);
-      toast.error("Ocurrió un error al solicitar la personalización, puedes contactarnos directamente a nuestro whatsapp");
+      toast.warning("Pronto nos pondremos en contacto contigo al whatsapp para personalizar tu diseño");
       sendContactForm(
         {
           name: user.name || "Alguien sin registrar",

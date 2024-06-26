@@ -97,6 +97,10 @@ export default function Navbar() {
       }));
       verifyAdmin();
     })
+    .catch((err) => {
+      console.log(err);
+      toast.error("Error al iniciar o crear cuenta, intenta de nuevo");
+    });
 
   }
   
@@ -224,7 +228,7 @@ export default function Navbar() {
                 <div className="small">Hola</div>
                 <h1 className="name">{user.name}</h1>
               </div>
-              <img src={user.img_url}/>
+              <img src={user.img_url} alt="profileImg"/>
             </div>
             <details className="btn" >
               <summary>Tu informacion</summary>

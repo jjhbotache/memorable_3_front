@@ -17,24 +17,35 @@ import Design from '../pages/Design'
 
 
 
-const designsAndTagsLoader = async ({params}:{params: {id?: number}}) => {
+const designsAndTagsLoader = async ({params}:{params: {id?: number}}) : Promise<any> => {
   console.log("start loader");
   // get route
 
+  try{
+    
+    const results = await Promise.all([
+      fetchPublicDesigns(params.id ? params.id : null),
+      fetchTags()
+    ])
   
-  const results = await Promise.all([
-    fetchPublicDesigns(params.id ? params.id : null),
-    fetchTags()
-  ])
+  
+    console.log("loader results");
+    console.log(results);
+    
+    const [designs, tags] = results;
 
+    // make a promise that resolves after 5 seconds to test loading screen
+    // await new Promise(resolve => setTimeout(resolve, 50000));
 
-  console.log("loader results");
-  console.log(results);
+    return { designs, tags };
+  }  catch (error) {
+    // wait 5 secs and use recursion to try again
+    console.log("error loading designs and tags");
+    console.log(error);
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    return designsAndTagsLoader({params});
+  }
   
-  const [designs, tags] = results;
-  console.log("designs");
-  
-  return { designs, tags };
 };
 
 

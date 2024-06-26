@@ -31,3 +31,4 @@ By working on this project, we aim to improve our skills in managing application
 - edit design, put closer to the wine and bigger ✅
 - add whats floating btn ✅
 - fix buy and edit ✅
+- fix login problem
