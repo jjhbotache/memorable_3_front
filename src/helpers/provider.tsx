@@ -1,5 +1,6 @@
 // src/helpers/myFetch.tsx
 import { API } from '../constants/appConstants.tsx';
+import { ContactFormData } from '../interfaces/contactFormInterface.tsx';
 import myFetch from './myFetch.tsx';
 
 // Función para obtener diseños públicos
@@ -52,6 +53,28 @@ export async function fetchSpecificExtrainfo(name:string) {
     return data;
   } catch (error) {
     console.error("Error fetching bottle price:", error);
+    throw error;
+  }
+}
+
+
+export async function sendContactForm(data: ContactFormData) {
+  try {
+    const response = await fetch(`${API}/contact-us`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        recipent: "",
+        from_email: data.email,
+        from_name: data.name,
+        subject: data.subject,
+        message: data.message
+      })
+    });
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error sending contact form:", error);
     throw error;
   }
 }

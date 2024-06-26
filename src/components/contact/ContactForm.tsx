@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { API } from "../../constants/appConstants";
 import { ContactFormStyled } from "./contactFormStyled";
 import { toast } from "react-toastify";
-import { fetchSpecificExtrainfo } from "../../helpers/provider";
+import { fetchSpecificExtrainfo, sendContactForm } from "../../helpers/provider";
+import { ContactFormData } from "../../interfaces/contactFormInterface";
 
 const text = "Hola, me gustaría contactar con memorable!"
 
@@ -36,20 +37,11 @@ export default function ContactForm() {
       if (data.subject === ""){ toast.error("El campo asunto es obligatorio"); return}
       if (data.message === ""){ toast.error("El campo mensaje es obligatorio"); return}
     }
-
-
+  
+  
     setLoading(true);
-    fetch(API+"/contact-us",{
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        recipent: "",
-        from_email: data.email,
-        from_name: data.name,
-        subject: data.subject,
-        message: data.message
-      })
-    }).then(res => res.json()).then(res => {
+    sendContactForm(data as unknown as ContactFormData)
+      .then(res => {
       if (res.status === "ok") {
         toast.success("Mensaje enviado correctamente")
         setForm({

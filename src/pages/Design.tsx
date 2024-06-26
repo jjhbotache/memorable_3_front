@@ -5,7 +5,7 @@ import TagInterface from '../interfaces/tagInterface';
 import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from '../constants/styleConstants';
 import { useEffect, useRef, useState } from 'react';
 import formatNumber from '../helpers/formatNumber';
-import { fetchPublicDesigns, fetchSpecificExtrainfo } from '../helpers/provider';
+import { fetchPublicDesigns, fetchSpecificExtrainfo, sendContactForm } from '../helpers/provider';
 import Tag from '../components/global/Tag';
 import onChangeCart from '../helpers/cartFuntions';
 import { toast } from 'react-toastify';
@@ -181,11 +181,34 @@ export default function DesignElement (){
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      toast.success("Te contactaremos a tu whatsapp para finalizar la compra!");
+      const {status} = JSON.parse( data.msg.replace(/'/g, '"'))
+      if(status !== "0") throw new Error(data);
+      toast.success("Te contactaremos a tu whatsapp para continuar con tu compra!");
+      sendContactForm(
+        {
+          name: user ? user.name : "Alguien sin registrar",
+          email: user ? user.email  : "sin email",
+          subject: "Solicitud de compra exitosa",
+          message: `Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
+          mi numero de whatsapp es: ${contactNumber}` 
+        }
+      )
     })
     .catch((err) => {
       console.log(err);
-      toast.error("Ocurrió un error al finalizar la compra");
+      toast.error("Ocurrió un error al solicitar la compra, puedes contactarnos directamente a nuestro whatsapp");
+      sendContactForm(
+        {
+          name: user ? user.name : "Alguien sin registrar",
+          email: user ? user.email : "sin email",
+          subject: "Solicitud de compra FALLIDA",
+          message: `
+          Hola, me gustaría comprar el diseño con id: ${design?.id} y nombre: ${design?.name}
+          mi numero de whatsapp es: ${contactNumber}
+          Error: ${err}
+          `
+        }
+      )
     })
     .finally(() => setLoading(false));
 
@@ -256,11 +279,34 @@ export default function DesignElement (){
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      const {status} = JSON.parse( data.msg.replace(/'/g, '"'))
+      if(status !== "0") throw new Error(data);
       toast.success("Te contactaremos a tu whatsapp para personalizar tu diseño!");
+      sendContactForm(
+        {
+          name: user ? user.name : "Alguien sin registrar",
+          email: user ? user.email  : "sin email",
+          subject: "Solicitud de personalización exitosa",
+          message: `Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
+          mi numero de whatsapp es: ${contactNumber}` 
+        }
+      )
     })
     .catch((err) => {
       console.log(err);
-      toast.error("Ocurrió un error al solicitar la personalización");
+      toast.error("Ocurrió un error al solicitar la personalización, puedes contactarnos directamente a nuestro whatsapp");
+      sendContactForm(
+        {
+          name: user ? user.name : "Alguien sin registrar",
+          email: user ? user.email : prompt("Ingresa tu email para contactarte") || "sin email",
+          subject: "Solicitud de personalización FALLIDA",
+          message: `
+          Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
+          mi numero de whatsapp es: ${contactNumber}
+          Error: ${err}
+          `
+        }
+      )
     })
     .finally(() => setLoading(false));
       
