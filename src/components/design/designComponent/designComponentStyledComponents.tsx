@@ -102,6 +102,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
     border-radius: 1rem;
     border: 2px solid ${primaryColor};
     aspect-ratio: 1/1;
+    cursor:pointer;
   }
   .btns{
     display: flex;
