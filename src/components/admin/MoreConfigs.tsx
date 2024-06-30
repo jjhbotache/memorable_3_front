@@ -5,16 +5,20 @@ import { toast } from "react-toastify";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { API } from "../../constants/appConstants";
 import { fetchExtraInfo } from "../../helpers/provider";
+import { Link } from "react-router-dom";
 
 export default function MoreConfigs() {
   const [loading, setLoading] = useState<boolean>(false);
   const [extraInfos, setExtraInfos] = useState<ExtraInfo[]>([]);
   const [editingExtrainfo, setEditingExtrainfo] = useState<boolean>(false);
+  const [token, setToken] = useState<string>("");
 
   const formExtrainfoRef = useRef<HTMLFormElement>(null);
+  const tokenInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchAndSetExtraInfo();
+    fetchToken();
   }, []);
 
 
@@ -24,6 +28,70 @@ export default function MoreConfigs() {
     });
   }
 
+  function fetchToken() {
+    setLoading(true);
+    myFetch(API + "/token/read")
+      .then(res => res.json())
+      .then(data => {
+        if (data.token) {
+          setToken(data.token);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        toast.error("Error al obtener el token");
+      })
+      .finally(() => setLoading(false));
+  }
+
+  function updateToken(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    // if the token state is empty, then create a new token
+    if (!token) {
+      myFetch(API + "/token/create/"+encodeURIComponent(tokenInputRef.current?.value || ""), { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "Token created") {
+            setToken(tokenInputRef.current?.value || "");
+            toast.success("Token creado correctamente");
+          } else {
+            toast.error("Error al crear el token");
+            console.log(data);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          toast.error("Error al crear el token");
+        })
+        .finally(() => setLoading(false));
+    }
+
+    const newToken = tokenInputRef.current?.value;
+    if (newToken) {
+      setLoading(true);
+      myFetch(API + "/token/update/" + encodeURIComponent(newToken), { method: "PUT" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "Token updated") {
+            setToken(newToken);
+            toast.success("Token actualizado correctamente");
+          } else {
+            toast.error("Error al actualizar el token");
+            console.log(data);
+            
+          }
+        })
+        .catch(err => {
+          console.log(err);          
+          toast.error("Error al actualizar el token");
+        })
+        .finally(() => setLoading(false));
+    } else {
+      toast.error("El token no puede estar vacío");
+    }
+  }
+
+  
   function exportDb() {
     setLoading(true);
     myFetch(API + "/db/export")
@@ -183,8 +251,7 @@ export default function MoreConfigs() {
         <button type="submit"><i className="fi fi-sr-plus"></i></button>
       }
     </form>
-    {
-      extraInfos && extraInfos.map((ei:ExtraInfo, index:number) => {
+    { extraInfos && extraInfos.map((ei:ExtraInfo, index:number) => {
         return <div key={index} className="row">
           <h3>{ei.name}{"  :  "} {ei.value}</h3>
           <button onClick={()=>editExtraInfo(ei)}><i className="fi fi-sr-pencil"></i></button>
@@ -192,6 +259,16 @@ export default function MoreConfigs() {
         </div>
       })
     }
+    <div className="row">
+      <h2>Token actual: </h2>
+      <span>{token}</span>
+    </div>
+    <Link to="https://anlusoftware.blogspot.com/">Obtener un token nuevo</Link>
+    <form className="row" onSubmit={updateToken}>
+      <h2>Actualizar token: </h2>
+      <input type="text" ref={tokenInputRef} placeholder="Nuevo token" />
+      <button type="submit"><i className="fi fi-sr-disk"></i> Guardar</button>
+    </form>
   </Container>
 };
 

@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../components/global/Modal';
 import numberVerifier from '../helpers/numberVerifier';
 import { setUser } from '../redux/slices/userReducer';
+import Footer from '../components/global/Footer';
 
 export default function DesignElement (){
   const { id } = useParams();
@@ -195,8 +196,8 @@ export default function DesignElement (){
       )
     })
     .catch((err) => {
-      console.log(err);
-      toast.warning("Pronto te contactaremos a tu whatsapp para continuar con tu compra!");
+      console.log(err.msg);
+      toast.success("Pronto te contactaremos a tu whatsapp para continuar con tu compra!",{autoClose: 10000});
       sendContactForm(
         {
           name: user.name || "Alguien sin registrar",
@@ -207,7 +208,7 @@ export default function DesignElement (){
           cantidad: ${quantity}
           vino: ${wineChoosed}
           mi numero de whatsapp es: ${contactNumber}
-          Error: ${JSON.stringify(err)}
+          Error: ${err.msg || JSON.stringify(err) || "No se ha podido obtener el error"}
           `
         }
       )
@@ -295,8 +296,8 @@ export default function DesignElement (){
       )
     })
     .catch((err) => {
-      console.log(err);
-      toast.warning("Pronto nos pondremos en contacto contigo al whatsapp para personalizar tu diseño");
+      console.log(err.msg);
+      toast.success("Pronto nos pondremos en contacto contigo al whatsapp para personalizar tu diseño",{autoClose: 10000});
       sendContactForm(
         {
           name: user.name || "Alguien sin registrar",
@@ -305,7 +306,7 @@ export default function DesignElement (){
           message: `
           Hola, me gustaría personalizar el diseño con id: ${design?.id} y nombre: ${design?.name}
           mi numero de whatsapp es: ${contactNumber}
-          Error: ${JSON.stringify(err)}
+          Error: ${err.msg || JSON.stringify(err) || "No se ha podido obtener el error"}
           `
         }
       )
@@ -349,6 +350,10 @@ export default function DesignElement (){
       })
       .finally(() => setLoading(false));
 
+  }
+
+  function alertToBuy() {
+    toast.info("Para comprar, selecciona un vino y presiona el botón de comprar de abajo");
   }
 
   return (
@@ -414,9 +419,9 @@ export default function DesignElement (){
                 </div>
                 <div className="payment-methods">
                   <label>Métodos de pago:</label>
-                  <img src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
-                  <img src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
-                  <img src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
+                  <img onClick={alertToBuy} src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
+                  <img onClick={alertToBuy} src="https://seeklogo.com/images/B/bancolombia-logo-932DD4816B-seeklogo.com.png" alt="" />
+                  <img onClick={alertToBuy} src="https://static.vecteezy.com/system/resources/thumbnails/019/006/277/small_2x/money-cash-icon-png.png" alt="" />
                 </div>
                 
                 <div className="edit" onClick={onRequestEditDesign}>
@@ -449,6 +454,7 @@ export default function DesignElement (){
               }
 
             </div>
+            <Footer/>
           </>
       }
     </StyledDesign>
