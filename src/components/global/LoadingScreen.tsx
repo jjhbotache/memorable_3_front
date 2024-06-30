@@ -98,7 +98,8 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9988;
+  z-index: 9988;;
+  box-sizing: border-box;
   background: radial-gradient(
     ${primaryColor}ff 0%,
     ${primaryColor}ee 85%,
@@ -117,8 +118,7 @@ const Container = styled.div`
   
   .takingTooLong {
     position: absolute;
-    padding: 3em;
-    margin: 2em;
+    
     text-align: center;
     color: white;
     width: 100%;
@@ -130,7 +130,7 @@ const Container = styled.div`
     box-sizing: border-box;
 
     h3 {
-      margin-top: 1em;
+      margin-top: 3em;
     }
 
     h2 {
@@ -138,6 +138,7 @@ const Container = styled.div`
     }
 
     .tip {
+      margin-bottom: 3em;
       font-size: 1.2em;
       font-style: italic;
       max-width: 80%;

@@ -35,7 +35,6 @@ const designsAndTagsLoader = async ({params}:{params: {id?: number}}) : Promise<
     const [designs, tags] = results;
 
     // make a promise that resolves after 5 seconds to test loading screen
-    // await new Promise(resolve => console.log("hi")); // for debuggings
 
     return { designs, tags };
   }  catch (error) {
