@@ -56,13 +56,13 @@ export const StyledWinesContainer = styled.div`
       align-items: center;
       line-height: .7em;
       margin-top: 25%;
-      margin-bottom: 5%;
+      margin-bottom: 1%;
     }
     small{
       font-size: clamp(1.1em, 2.5vw, 1.6em);
       color: ${primaryColor};
       font-weight: 300;
-      margin-left: 80%;
+      margin-left: 5%;
       @media screen and (width < ${mdScreen}px){
         margin-left: 0;
       }
