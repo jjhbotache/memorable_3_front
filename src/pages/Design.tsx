@@ -195,7 +195,7 @@ export default function DesignElement (){
         }
       )
     })
-    .catch((err) => {
+    .catch(async(err) => {
       console.log(err.msg);
       toast.success("Pronto te contactaremos a tu whatsapp para continuar con tu compra!",{autoClose: 10000});
       sendContactForm(
@@ -212,6 +212,11 @@ export default function DesignElement (){
           `
         }
       )
+      // open a new window with the whatsapp link
+      const {value:whatsappPhone} = await fetchSpecificExtrainfo("whatsapp_phone");
+      const text = `Hola, me gustaría comprar ${quantity} botellas del diseño ${design?.id})${design?.name} y del vino ${wineChoosed}`
+      const url = `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${text}`
+      window.open(url, "_blank");
     })
     .finally(() => setLoading(false));
 
@@ -295,7 +300,7 @@ export default function DesignElement (){
         }
       )
     })
-    .catch((err) => {
+    .catch(async (err) => {
       console.log(err.msg);
       toast.success("Pronto nos pondremos en contacto contigo al whatsapp para personalizar tu diseño",{autoClose: 10000});
       sendContactForm(
@@ -310,6 +315,11 @@ export default function DesignElement (){
           `
         }
       )
+      // open a new window with the whatsapp link
+      const {value:whatsappPhone} = await fetchSpecificExtrainfo("whatsapp_phone");
+      const text = `Hola, me gustaría personalizar el diseño ${design?.id})${design?.name}`
+      const url = `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${text}`
+      window.open(url, "_blank");
     })
     .finally(() => setLoading(false));
       
