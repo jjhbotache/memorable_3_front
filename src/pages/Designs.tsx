@@ -12,7 +12,7 @@ import Footer from "../components/global/Footer"
 export default function Designs() {
   // const [designData, setDesignsData] = useState<Desing[]>([]);
   // const [loading, setLoading] = useState(true);
-  const [arragmentState, setArragmentState] = useState<"column"|"grid">("column");
+  const [arragmentState, setArragmentState] = useState<"column"|"grid">("grid");
 
   const {designs:designData, tags: preloadedTags} = useLoaderData() as {designs:Design[], tags:Tag[]};
 
