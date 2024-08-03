@@ -133,11 +133,17 @@ export default function MoreConfigs() {
         method: "POST",
         body: formData
       })
-      .then(res => res.json())
+      .then(res => res.blob())
       .then(res => {
-        console.log(res);
-        form.reset();
-        toast.success("Base de datos importada");
+        // download file
+        const url = window.URL.createObjectURL(res);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'old_sql_db.sql';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        toast.success("Base de datos importada!");
+        toast.info("Se ha descargado el archivo de la base de datos anterior");
       })
       .catch(err => {
         console.error(err);
@@ -232,7 +238,7 @@ export default function MoreConfigs() {
     </div>
     <form className="row" onSubmit={importDb}>
       <h2>Import db: </h2>
-      <input type="file" name="db" accept=".db" />
+      <input type="file" name="db" accept=".sql" />
       <button type="submit"><i className="fi fi-sr-disk"></i></button>
     </form>
 
