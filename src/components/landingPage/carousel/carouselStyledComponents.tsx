@@ -48,7 +48,7 @@ export const CarouselContainer = styled.div`
   }
   .row{
     &:nth-child(1){
-      margin-top: -50%;
+      margin-top: -25%;
     }
 
     display: flex;

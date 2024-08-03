@@ -49,16 +49,16 @@ export default function TagsPresentation({preloadedTags}:Props) {
       <div className="mainTagsDescription">
         <h1>¿&nbsp;Qué momento te gustaría hacer <br/><span style={{fontFamily:"Hellovalentina"}}>{" Memorable "}</span>?</h1>
         <div className="tagsContainer">
-          {
+            <div className="tag" onClick={()=>onChosedTag()}>
+              <span>Dejame ver todos ! ! !</span>
+            </div>
+            {
             tags.map(tag => (
               <div className="tag" key={tag.id} onClick={()=>onChosedTag(tag)}>
                 <span>{tag.name}</span>
               </div>
             ))
             }
-            <div className="tag" onClick={()=>onChosedTag()}>
-              <span>Déjame ver diseños . . .</span>
-            </div>
         </div>
       </div>
       <div className="extraInfo">

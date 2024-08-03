@@ -1,5 +1,4 @@
 import { useEffect} from "react";
-import Navbar from "./components/global/navbar/Navbar";
 import { gapi } from "gapi-script";
 import { API, googleClientId } from "./constants/appConstants";
 import memorableIcon from "./assets/svgs/memorableIcon.svg";
@@ -11,8 +10,6 @@ import User from "./interfaces/userInterface";
 import { useLoaderData } from "react-router-dom";
 import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
-import Footer from "./components/global/Footer";
-import FloatingWhatsappBtn from "./components/global/FloatingWhatsappBtn";
 
 export default function App() {
   const { designs , tags } = useLoaderData() as { designs: Desing[], tags: Tag[] };
@@ -42,7 +39,7 @@ export default function App() {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data));
         toast.success("Bienvenido de vuelta "+ (user as User).name.split(" ")[0] ,{
           pauseOnFocusLoss: false
         });
@@ -50,19 +47,15 @@ export default function App() {
     }
   }, []);
 
-
+  
 
 
   return(
     <>
-      <Navbar/>
       <MainContainer>
         <Carousel preloadedImgs={designs.map(design => design.img_url)} />
         <TagsPresentation preloadedTags={tags.slice(0, 7)} />
       </MainContainer>
-      <Footer/>
-
-      <FloatingWhatsappBtn/>
     </>
   )
 };

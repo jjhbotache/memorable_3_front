@@ -368,7 +368,6 @@ export default function DesignElement (){
 
   return (
     <StyledDesign>
-      <Navbar />
       {
         loading 
           ?<LoadingScreen/>
@@ -464,7 +463,6 @@ export default function DesignElement (){
               }
 
             </div>
-            <Footer/>
           </>
       }
     </StyledDesign>

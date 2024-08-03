@@ -1,19 +1,15 @@
 import styled from "styled-components"
 import { mdScreen, primaryColor, secondaryColor } from "../constants/styleConstants"
-import Navbar from "../components/global/navbar/Navbar"
 import contactSvg from "../assets/svgs/contact us.svg"
 import ContactForm from "../components/contact/ContactForm"
-import Footer from "../components/global/Footer"
 
 export default function Contact() {
   return(
     <StyledContact>
-      <Navbar/>
       <div className="main">
         <img src={contactSvg} alt="contactSvg"/>
         <ContactForm/>
       </div>
-      <Footer/>
     </StyledContact>
   )
 };

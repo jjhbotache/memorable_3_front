@@ -61,7 +61,7 @@ export default function Navbar() {
       })
       .then(() => setAdmin(true))
       .catch(() => {
-        console.log("not an admin");
+        // console.log("not an admin");
         setAdmin(false);
       })
   }

@@ -39,7 +39,6 @@ export default function Cart() {
 
   return(
     <Container>
-      <Navbar/>
       <div className="main">
         <h1 className="pageTitle">Mis carrito</h1>
         <div className="swithContainer">
@@ -47,7 +46,6 @@ export default function Cart() {
         </div>
         <DesignsContainer designs={lovedDesigns} arragment={arragment} />
       </div>
-      <Footer/>
     </Container>
   )
 

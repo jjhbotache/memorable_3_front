@@ -1,13 +1,11 @@
 import styled from "styled-components"
 import { primaryColor, secondaryColor } from "../constants/styleConstants"
-import Navbar from "../components/global/navbar/Navbar"
 import DesignsContainer from "../components/design/designContainer/DesignContainer"
 import {useState } from "react"
 import Design from "../interfaces/designInterface"
 import DesignShowerManager from "../components/design/designShowerManager/DesignShowerManager"
 import { useLoaderData } from "react-router-dom"
 import Tag from "../interfaces/tagInterface"
-import Footer from "../components/global/Footer"
 
 export default function Designs() {
   // const [designData, setDesignsData] = useState<Desing[]>([]);
@@ -22,7 +20,6 @@ export default function Designs() {
 
   return(
     <DesignPage>
-      <Navbar/>
       <div className="main">
         <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} tags={preloadedTags} />
         {/* {loading */}
@@ -31,7 +28,6 @@ export default function Designs() {
         :<DesignsContainer designs={designData} arragment={arragmentState} aiSearch={true}/> 
         }
       </div>
-      <Footer/>
     </DesignPage>  
   )
 };
@@ -39,12 +35,13 @@ export default function Designs() {
 
 const DesignPage = styled.div`
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   background: ${secondaryColor};
   color:${primaryColor};
   .main{
     width: 100%;
     max-width: 800px;
+    min-height: 100%;
     margin: 1em auto;
   }
   `

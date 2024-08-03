@@ -43,7 +43,6 @@ export default function Admin() {
   return(
     <>
       <AdminPage>
-        <Navbar />
         <div className="main">
           <select className="select" value={tableEditing} onChange={e=>setTableEditing(e.target.value)} >
             <option value="">Selecciona una tabla</option>
@@ -63,7 +62,6 @@ export default function Admin() {
 };
 
 const AdminPage = styled.main`
-  height: 100vh;
   width: 100%;
   box-sizing: border-box;
   padding: 0;

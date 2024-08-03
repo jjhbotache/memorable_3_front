@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Navbar from "../components/global/navbar/Navbar";
 import { useEffect, useState } from "react";
 import Design from "../interfaces/designInterface";
 import { API } from "../constants/appConstants";
@@ -9,7 +8,6 @@ import ArrangmentSwitch from "../components/design/arrangmentSwitch/ArrangmentSw
 import { primaryColor, secondaryColor } from "../constants/styleConstants";
 import { toast } from "react-toastify";
 import myFetch from "../helpers/myFetch";
-import Footer from "../components/global/Footer";
 
 export default function Loved() {
   const [lovedDesigns, setlovedDesigns] = useState<Design[]>([]);
@@ -30,7 +28,6 @@ export default function Loved() {
 
   return(
     <Container>
-      <Navbar/>
       <div className="main">
         <h1 className="pageTitle">Mis favoritos</h1>
         <div className="swithContainer">
@@ -38,7 +35,6 @@ export default function Loved() {
         </div>
         <DesignsContainer designs={lovedDesigns} arragment={arragment} />
       </div>
-      <Footer/>
     </Container>
   )
 

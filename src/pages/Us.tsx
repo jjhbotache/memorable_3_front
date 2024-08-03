@@ -1,19 +1,15 @@
 import styled from "styled-components";
-import Navbar from "../components/global/navbar/Navbar";
 import UsDescription from "../components/us/usDescription/UsDescription";
 import UsSlider from "../components/us/usSlider/UsSlider";
 import { mdScreen, primaryColor } from "../constants/styleConstants";
-import Footer from "../components/global/Footer";
 
 export default function Us() {
   return(
     <UsDescriptionStyled>
-      <Navbar/>
       <div className="main">
         <UsSlider/>
         <UsDescription/>
       </div>
-      <Footer/>
     </UsDescriptionStyled>
   )
 };
