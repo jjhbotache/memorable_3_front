@@ -1,5 +1,4 @@
 import styled, { keyframes }  from 'styled-components';
-import Navbar from '../components/global/navbar/Navbar';
 import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import TagInterface from '../interfaces/tagInterface';
 import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from '../constants/styleConstants';
@@ -20,7 +19,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../components/global/Modal';
 import numberVerifier from '../helpers/numberVerifier';
 import { setUser } from '../redux/slices/userReducer';
-import Footer from '../components/global/Footer';
 
 export default function DesignElement (){
   const { id } = useParams();

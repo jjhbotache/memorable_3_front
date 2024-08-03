@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import Navbar from "../components/global/navbar/Navbar"
 import { useEffect, useState } from "react";
 import myFetch from "../helpers/myFetch";
 import { API } from "../constants/appConstants";
@@ -62,7 +61,8 @@ export default function Admin() {
 };
 
 const AdminPage = styled.main`
-  width: 100%;
+  width:
+   100%;
   box-sizing: border-box;
   padding: 0;
   margin: 0;

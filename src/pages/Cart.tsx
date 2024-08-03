@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Navbar from "../components/global/navbar/Navbar";
 import { useEffect, useState } from "react";
 import Design from "../interfaces/designInterface";
 import { API } from "../constants/appConstants";
@@ -11,7 +10,6 @@ import myFetch from "../helpers/myFetch";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../redux/slices/filterReducer";
-import Footer from "../components/global/Footer";
 
 export default function Cart() {
   const [lovedDesigns, setlovedDesigns] = useState<Design[]>([]);

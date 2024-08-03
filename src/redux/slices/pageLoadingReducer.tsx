@@ -4,7 +4,7 @@ const pageLoading = createSlice({
   name: "pageLoading",
   initialState: false,
   reducers: {
-    setPageLoading: (state, action) => {
+    setPageLoading: (_, action) => {
       return action.payload;
     },
   },
