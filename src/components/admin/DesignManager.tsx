@@ -157,6 +157,10 @@ export default function DesignManager() {
       searchInputRef.current && (searchInputRef.current.value = "");
       // reset form
       (e.target as HTMLFormElement).reset();
+      // clean each checkbox and input  
+      const checkboxes = document.querySelectorAll("input[type=checkbox]");
+      checkboxes.forEach(c => (c as HTMLInputElement).checked = false);
+      
 
     })
     .catch(err => {
