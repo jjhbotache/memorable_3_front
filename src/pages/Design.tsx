@@ -442,7 +442,10 @@ export default function DesignElement (){
                     <i className="fi fi-rr-shopping-cart"/>
                     {addedOnCart && <i className="addedIco fi fi-ss-check-circle"></i>}
                   </button>
-                  <button onClick={onBuy}  className="button">Comprar</button>
+                  <button onClick={onBuy}  className="button">
+                    <small>contáctanos para</small>
+                    Comprar
+                  </button>
                 </div>
               </div>
             </div>
@@ -695,10 +698,11 @@ const StyledDesign = styled.div`
             width: 100%;
           }
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 1em;
           padding: 10px 20px;
+          font-size: 1.2em;
           margin-top: 10px;
           background-color: ${tertiaryColor};
           color: ${primaryColor};
@@ -710,6 +714,11 @@ const StyledDesign = styled.div`
               background-color: ${primaryColor};
               color: ${tertiaryColor};
             }
+
+          small{
+            font-size: .7em;
+            font-weight: 300;
+          }
         }
         .button[disabled]{
           background: ${tertiaryColor}44;
