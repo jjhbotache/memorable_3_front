@@ -156,7 +156,7 @@ export default function DesignManager() {
       toast.success("Diseño editado");
       searchInputRef.current && (searchInputRef.current.value = "");
       // reset form
-      (e.currentTarget as HTMLFormElement).reset();
+      (e.target as HTMLFormElement).reset();
 
     })
     .catch(err => {
