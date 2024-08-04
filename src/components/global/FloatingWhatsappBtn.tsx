@@ -43,7 +43,6 @@ const Container = styled.div`
   padding: .5em;
   font-size: 1.5em;
   border-radius: 50%;
-  aspect-ratio: 1;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   cursor: pointer;
   transition: all 0.3s;

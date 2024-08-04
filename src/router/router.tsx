@@ -34,7 +34,6 @@ const designsAndTagsLoader = async ({params}:{params: {id?: number}}) : Promise<
       fetchTags()
     ])
   
-  
     
     const [designs, tags] = results;
 

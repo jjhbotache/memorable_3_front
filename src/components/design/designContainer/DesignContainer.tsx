@@ -17,6 +17,7 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
   const [designsToShow, setdesignsToShow] = useState<Design[]>([]);
   const [aiFilteredDesigns, setAiFilteredDesigns] = useState<Design[]>([]);
   const [iaLoading, setIaLoading] = useState<boolean>(false);
+  const [aiAlreadyScrolled, setaiAlreadyScrolled] = useState<boolean>(false);
   const [showTakeToAiResults, setShowTakeToAiResults] = useState<boolean>(false);
   const filter:Filter = useSelector((state:any)=>state.filter);
 
@@ -39,6 +40,8 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
   }, []);
   const scrollToAiTitle = () => {
   if (aiTitleRef.current) {
+    setShowTakeToAiResults(false);
+    setaiAlreadyScrolled(true);
     const { top } = aiTitleRef.current.getBoundingClientRect();
     const offset = 100; // Cantidad de píxeles que quieres que el scroll se detenga por encima del elemento
     window.scrollBy({
@@ -51,8 +54,6 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
   useEffect(() => {
 
     // filter by name
-    console.log("filtered designs");
-    console.log(designs);
     
     let designsFiltered =designs ? designs.filter(design => design.name.toLowerCase().includes(filter.name.toLowerCase())) : [];
 
@@ -108,9 +109,9 @@ export default function DesignsContainer({designs,arragment,aiSearch=false}:Desi
       }
 
       {
-        aiSearch && <>
+        aiSearch &&  <>
 
-        {showTakeToAiResults && <button className="takeToAiResults" onClick={scrollToAiTitle}>
+        {(showTakeToAiResults && aiAlreadyScrolled==false) && <button className="takeToAiResults" onClick={scrollToAiTitle}>
           Ver {aiFilteredDesigns.length} Diseño{aiFilteredDesigns.length!=1 && "s"} sugerido{aiFilteredDesigns.length!=1 && "s"} por IA
           <i className="fi fi-br-angle-small-down"></i>
         </button>}

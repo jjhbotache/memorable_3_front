@@ -15,9 +15,9 @@ const infoDeployment = keyframes`
 export const StyledShowerManager = styled.div`
   display: flex;
   margin: 1em auto 2em auto;
-  width: 98%;
+  width: 95%;
   /* max-width: 95vw; */
-  gap: clamp(1px , calc(1.5vw - .2em), 1em);
+  gap: clamp(.5em , calc(1.5vw - .2em), 1em);
   font-family: "Fragmentcore";
   box-sizing: border-box;
   flex-wrap: wrap;

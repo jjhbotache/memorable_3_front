@@ -249,7 +249,7 @@ export default function Navbar() {
           <hr className="divider"/>
           <ul className="menu">
             {links.map((link, index) => (
-              link.name && <Link to={link.url} key={index}>
+              link.name && <Link to={link.url} key={index} onClick={()=>setOpenMenu("close")}>
                 <li>{link.name}</li>
               </Link>
             ))}

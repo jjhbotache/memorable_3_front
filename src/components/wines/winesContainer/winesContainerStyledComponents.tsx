@@ -10,7 +10,7 @@ export const StyledWinesContainer = styled.div`
     box-sizing: border-box;
   }
   box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
-  padding: 1em 2em;
+  padding: 1em ;
   box-sizing: border-box;
   
 
@@ -56,7 +56,7 @@ export const StyledWinesContainer = styled.div`
       align-items: center;
       line-height: .7em;
       margin-top: 25%;
-      margin-bottom: 1%;
+      margin-bottom: 5%;
     }
     small{
       font-size: clamp(1.1em, 2.5vw, 1.6em);
@@ -68,10 +68,21 @@ export const StyledWinesContainer = styled.div`
       }
     }
     p{
+      max-width: 90%;
       font-size: 1.2em;
-      font-weight: 300;
+      font-weight:500;
       text-align: justify;
-      margin-right: 1em;
+      margin: auto;
+      line-height: 1.2em;
+      padding: .8em;
+      border-radius: calc(2em - 1em );
+      background: rgba(255,255,255,0.75);
+
+      @media screen and (width > ${mdScreen}px){
+        margin: unset;
+        margin-right: auto;
+        background-color: unset;
+      }
     }
     .imgContainer{
       /* put it from the first row to the second */
