@@ -65,8 +65,15 @@ export default function DesignManager() {
   function createDesign(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-
+    
     const formData = new FormData(e.target as HTMLFormElement);
+    // make sure that the name, the img and the ai files are not empty
+    if(!formData.get("name") || !formData.get("img") || !formData.get("ai")) {
+      toast.error("Completa todos los campos");
+      return;
+    }
+
+
     // print all the data to send
     const tags = formData.getAll("tags");
     const stringTags = tags?.join(",");
