@@ -186,7 +186,9 @@ export default function DesignManager() {
     <summary>Add design</summary>
     <StyledForm onSubmit={createDesign}>
       <input type="text" placeholder="Name" name="name" ref={nameInputRef} />
+      <label >Imagen</label>
       <input type="file" name="img" accept=".png" onChange={setInputName}/>
+      <label >Ai</label>
       <input type="file" name="ai" accept=".ai" />
 
       <hr className="divider" />
