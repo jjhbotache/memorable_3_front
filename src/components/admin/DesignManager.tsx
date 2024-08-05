@@ -208,7 +208,7 @@ export default function DesignManager() {
       {designsToShow.map(d => (
         <div key={d.id} className="row">
           <img src={d.img_url} alt={d.name} />
-          <p>{d.name}</p>
+          <p>{d.id}) {d.name}</p>
           {/* tags */}
           <details>
             <summary>Tags</summary>
