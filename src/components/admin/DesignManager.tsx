@@ -88,7 +88,11 @@ export default function DesignManager() {
       loadDesgins();
 
     })
-    .catch(err => console.log(err))
+    .catch(err =>{
+      toast.error("Error al crear el diseño")
+      console.log(err);
+      
+    })
     .finally(() => setLoading(false));
   }
 
