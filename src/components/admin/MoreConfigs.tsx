@@ -103,7 +103,8 @@ export default function MoreConfigs() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'data.db';
+      // get the date and set it as the download name
+      a.download = 'db_'+new Date().toISOString().split("T")[0]+'.sql';
       a.click();
       window.URL.revokeObjectURL(url);
 
