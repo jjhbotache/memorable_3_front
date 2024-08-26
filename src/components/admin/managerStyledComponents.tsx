@@ -81,7 +81,7 @@ export const ElementsContainer = styled.div`
     border: 1px solid black;
   }
 
-  .row{
+  .col{
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -142,6 +142,30 @@ export const ElementsContainer = styled.div`
       cursor: not-allowed;
     }
 
+  }
+
+  .row{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    width: 100%;
+    .more-options{
+      display: flex;
+      gap: 1rem;
+      button{
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid black;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        transition: all .1s ease-in-out;
+        &:hover:not([disabled]){
+          background-color: ${primaryColor};
+          color: ${secondaryColor};
+        }
+      }
+    }
   }
 
   details{

@@ -189,6 +189,18 @@ export default function DesignManager() {
   function downloadImg(d:Design) {
     downloadImgWithFetch(d.img_url, d.name.toLowerCase().replace(/ /g, "_"))
   }
+
+  function copy(d:Design) {
+    const url = `${window.location.origin}/designs/${d.id}`;
+    navigator.clipboard.writeText(url)
+    .then(() => {
+      toast.success("Link copiado al portapapeles");
+    })
+    .catch(err => {
+      console.log(err);
+      toast.error("Error al copiar el link");
+    });
+  }
   
 
   return(
@@ -219,20 +231,25 @@ export default function DesignManager() {
       <input type="text" onChange={onFilter} className="searcher" placeholder="Search your design" ref={searchInputRef}/>
     {designsToShow.length===0 && loading? <p>Loading...</p> : designsToShow.length===0 && <p>No hay disños para mostrar</p>}
       {designsToShow.map(d => (
-        <div key={d.id} className="row">
+        <div key={d.id} className="col">
           <img src={d.img_url} alt={d.name} />
           <p>{d.id}) {d.name}</p>
-          {/* tags */}
-          <details>
-            <summary>Tags</summary>
-            <div className="floatingContent">
-              <ul>
-                {d.tags?.map((t:Tag) => (
-                  <li key={t.id}>{t.name}</li>
-                ))}
-              </ul>
+          {/* tags and more options*/}
+          <div className="row">
+            <details>
+              <summary>Tags</summary>
+              <div className="floatingContent">
+                <ul>
+                  {d.tags?.map((t:Tag) => (
+                    <li key={t.id}>{t.name}</li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+            <div className="more-options">
+              <button onClick={()=>copy(d)}><i className="fi fi-br-link-alt"></i></button>
             </div>
-          </details>
+          </div>
           <div className="btns">
             <button disabled={deletingDesign===d.id} onClick={()=>deleteDesign(d.id)}>Eliminar</button>
             <a href={d.ai_url.replace("http://","https://")} download={d.name.toLowerCase().replace(/ /g, "_")}>AI</a>
