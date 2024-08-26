@@ -1,5 +1,6 @@
 export function downloadImgWithFetch(imgUrl:string, filename:string) {
-  fetch(imgUrl)
+  
+  fetch(imgUrl.replace("http://", "https://"))
     .then(response => response.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(blob);

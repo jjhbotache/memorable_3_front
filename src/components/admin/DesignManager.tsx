@@ -235,7 +235,7 @@ export default function DesignManager() {
           </details>
           <div className="btns">
             <button disabled={deletingDesign===d.id} onClick={()=>deleteDesign(d.id)}>Eliminar</button>
-            <a href={d.ai_url} download={d.name.toLowerCase().replace(/ /g, "_")}>AI</a>
+            <a href={d.ai_url.replace("http://","https://")} download={d.name.toLowerCase().replace(/ /g, "_")}>AI</a>
             <button onClick={()=>downloadImg(d)}>PNG</button>
             <button onClick={()=>{setEditingDesign(d)}}>Editar</button>
           </div>
