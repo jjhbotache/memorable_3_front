@@ -82,6 +82,8 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
 
     // randomize the order
     // const designsFilteredRandomized = orderRandomizer(designsFiltered);
+
+    if (filter.name == "") designsFiltered = orderRandomizer(designsFiltered);
     setdesignsToShow(designsFiltered);
 
     // AI filtered designs
