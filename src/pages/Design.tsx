@@ -1,5 +1,5 @@
 import styled, { keyframes }  from 'styled-components';
-import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import TagInterface from '../interfaces/tagInterface';
 import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from '../constants/styleConstants';
 import { useEffect, useRef, useState } from 'react';
@@ -22,9 +22,8 @@ import { setUser } from '../redux/slices/userReducer';
 
 export default function DesignElement (){
   const { id } = useParams();
-  const {designs:loadedDesign} = useLoaderData() as {designs:Design};
 
-  const [design, setDesign] = useState<Design | undefined>(loadedDesign);
+  const [design, setDesign] = useState<Design | undefined>();
   const [bottlePrice, setBottlePrice] = useState<number | undefined>();
   const [wines, setWines] = useState<string[]>([]);
   const [similarDesigns, setSimilarDesigns] = useState<Design[] | null>([]);
@@ -41,51 +40,69 @@ export default function DesignElement (){
   const onResolveNumberModal = useRef<(d:string)=>void | undefined>();
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingSuggestedDesigns, setLoadingSuggestedDesigns] = useState<boolean>(false);
 
   
   const navigate = useNavigate();
   const dispacher = useDispatch();
   
   useEffect(() => {
-    setLoading(true);
-    Promise.all([
-      fetchSpecificExtrainfo("bottle_price"),
-      fetchSpecificExtrainfo("wines")
-    ]).then(([bottlePrice, wines]) => {
-      setBottlePrice(bottlePrice.value);
-      setWines(JSON.parse(wines.value));
-    })
-    .finally(() => setLoading(false));  
+    async function main(id:number) {
+      setLoading(true);
+      setLoadingSuggestedDesigns(true);
 
-    fetchPublicDesigns()
-      .then((designs:Design[]) => {
-        // get the designs that have the same tags
-        const similarTagsDesigns = designs.filter((d) => d.tags.some((tag:TagInterface) => loadedDesign.tags.some((t) => t.id === tag.id)));
-        // designs ordered by similarity in the name according the levenshtein distance
-        const similarNameDesigns = designs.sort((a,b) => {
-          const distanceA = levenshteinDistance(a.name, loadedDesign.name);
-          const distanceB = levenshteinDistance(b.name, loadedDesign.name);
-          return distanceA - distanceB;
-        }).slice(0,10);
-
-        const similarDesigns = [...similarTagsDesigns, ...similarNameDesigns].filter((d) => d.id !== loadedDesign.id);
-        console.log(similarDesigns);
-
-        // filter the designs duplicated
-        const filteredDesigns:Design[] = [];
-        similarDesigns.forEach((design) => {
-          if(!filteredDesigns.some((d) => d.id === design.id)) filteredDesigns.push(design);
+      const loadedDesign:Design = await fetchPublicDesigns(id);
+      
+      Promise.all([
+        fetchSpecificExtrainfo("bottle_price"),
+        fetchSpecificExtrainfo("wines")
+      ]).then(([bottlePrice, wines]) => {
+        setBottlePrice(bottlePrice.value);
+        setWines(JSON.parse(wines.value));
+      })
+      .finally(() => setLoading(false));  
+      
+      fetchPublicDesigns()
+        .then((designs:Design[]) => {
+          // get the designs that have the same tags
+          const similarTagsDesigns = designs.filter((d) => d.tags.some((tag:TagInterface) => loadedDesign.tags.some((t) => t.id === tag.id)));
+          // designs ordered by similarity in the name according the levenshtein distance
+          const similarNameDesigns = designs.sort((a,b) => {
+            const distanceA = levenshteinDistance(a.name, loadedDesign.name);
+            const distanceB = levenshteinDistance(b.name, loadedDesign.name);
+            return distanceA - distanceB;
+          }).slice(0,10);
+  
+          const similarDesigns = [...similarTagsDesigns, ...similarNameDesigns].filter((d) => d.id !== loadedDesign.id);
+          console.log(similarDesigns);
+  
+          // filter the designs duplicated
+          const filteredDesigns:Design[] = [];
+          similarDesigns.forEach((design) => {
+            if(!filteredDesigns.some((d) => d.id === design.id)) filteredDesigns.push(design);
+          });
+          
+  
+  
+          setSimilarDesigns(filteredDesigns);
+        })
+        .catch((err) => {
+          console.log(err);
+          setSimilarDesigns(null);
+        })
+        .finally(() => {
+          setLoadingSuggestedDesigns(false)
         });
-        
+      
+      
+    }
+    if (id){
+      main(parseInt(id));
+      
+    }else{
+      navigate("/designs");
+    }
 
-
-        setSimilarDesigns(filteredDesigns);
-      })
-      .catch((err) => {
-        console.log(err);
-        setSimilarDesigns(null);
-      })
-      .finally(() => setLoading(false));
 
   }, []);
 
@@ -331,7 +348,8 @@ export default function DesignElement (){
   
   function onAddToCart() {
     setLoading(true);
-    onChangeCart(addedOnCart,loadedDesign)
+    if(design === undefined) return;
+    onChangeCart(addedOnCart,design)
       .then(() => {
         setaddedOnCart(!addedOnCart)
         toast.success("Agregado al carrito", {autoClose: 1000});
@@ -343,7 +361,8 @@ export default function DesignElement (){
   }
   function onChangeLoved() {
     setLoading(true);
-    onChangeLovedFunction(loved,loadedDesign)
+    if(design === undefined) return;
+    onChangeLovedFunction(loved,design)
       .then((data) => {
         console.log(data);
         setLoved(!loved);
@@ -367,7 +386,7 @@ export default function DesignElement (){
   return (
     <StyledDesign>
       {
-        loading 
+        loading || design == undefined
           ?<LoadingScreen/>
           :<>
             { (numberModalOpen && onResolveNumberModal.current)  && <Modal
@@ -381,14 +400,14 @@ export default function DesignElement (){
                   <i onClick={onChangeLoved} className={(loved ? "fi fi-ss-heart " : "fi fi-bs-heart ") + "heart"}></i>
                   <i onClick={onShare} className="fi fi-sr-share" title='Comparte con whatsapp'></i>
                 </div>
-                <img src={loadedDesign.img_url} alt="Design" />
+                <img src={design.img_url} alt="Design" />
               </div>
               <div className="details-wrapper">
-                <h1 className="title">{loadedDesign.name}</h1>
+                <h1 className="title">{design.name}</h1>
                 <div className="tags">
                   <span className="title">Tags:</span>
                   <div className="tags-wrapper">
-                    {loadedDesign.tags.map((tag: TagInterface) => (
+                    {design.tags.map((tag: TagInterface) => (
                       <Tag key={tag.id} tag={tag} />
                     ))}
                   </div>
@@ -449,21 +468,24 @@ export default function DesignElement (){
                 </div>
               </div>
             </div>
-            <div className="similar-designs">
-              <h2 className="title">
-                También te podrían gustar . . .
-                <i className='fi fi-br-angle-down downArrow'></i>
-              </h2>
-              {/* Add similar designs here */}
-              {
-                similarDesigns!==null && <>
-                  {similarDesigns.map((design) => (
-                    <DesignComponent displayStyle='grid' design={design} key={design.id} />
-                  ))}
-                </>
-              }
+            {
+              !loadingSuggestedDesigns && 
+              <div className="similar-designs">
+                <h2 className="title">
+                  También te podrían gustar . . .
+                  <i className='fi fi-br-angle-down downArrow'></i>
+                </h2>
+                {/* Add similar designs here */}
+                {
+                  similarDesigns!==null && <>
+                    {similarDesigns.map((design) => (
+                      <DesignComponent displayStyle='grid' design={design} key={design.id} />
+                    ))}
+                  </>
+                }
 
-            </div>
+              </div>
+            }
           </>
       }
     </StyledDesign>

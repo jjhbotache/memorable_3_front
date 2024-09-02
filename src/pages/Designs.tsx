@@ -8,11 +8,9 @@ import { useLoaderData } from "react-router-dom"
 import Tag from "../interfaces/tagInterface"
 
 export default function Designs() {
-  // const [designData, setDesignsData] = useState<Desing[]>([]);
-  // const [loading, setLoading] = useState(true);
   const [arragmentState, setArragmentState] = useState<"column"|"grid">("grid");
 
-  const {designs:designData, tags: preloadedTags} = useLoaderData() as {designs:Design[], tags:Tag[]};
+  const {designs:designData, tags: preloadedTags} = useLoaderData() as {designs:Design[], tags:Tag[]};  
 
   function switchArrangment() {
     arragmentState === "column" ? setArragmentState("grid") : setArragmentState("column")
@@ -40,7 +38,7 @@ const DesignPage = styled.div`
   color:${primaryColor};
   .main{
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     min-height: 100%;
     margin: 1em auto;
   }

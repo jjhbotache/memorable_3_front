@@ -89,7 +89,6 @@ export const router = createBrowserRouter([
       },
       {
         path: "designs/:id",
-        loader: designsAndTagsLoader,
         element: <Design/>,
       },
       {

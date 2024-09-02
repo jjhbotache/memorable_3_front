@@ -7,7 +7,12 @@ import Design from "../../interfaces/designInterface";
 import { toast } from "react-toastify";
 import { downloadImgWithFetch } from "../../interfaces/downloadImg";
 
-
+interface CustomFormData {
+  name: string;
+  img?: File;
+  ai?: File;
+  tags: Tag[];
+}
 
 
 export default function DesignManager() {
@@ -122,12 +127,8 @@ export default function DesignManager() {
 
   function onEdit(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    interface CustomFormData {
-      name: string;
-      img?: File;
-      ai?: File;
-      tags: Tag[];
-    }
+    
+    
     const formData = new FormData(e.currentTarget);
     const data:CustomFormData = {
       name: formData.get("name") as string,
@@ -202,7 +203,8 @@ export default function DesignManager() {
     });
   }
   
-
+  console.log(editingDesign);
+  
   return(
     <>
     <AddDropdown>
@@ -227,6 +229,7 @@ export default function DesignManager() {
       <button disabled={loading!}>{loading?"Creando...":"Crear" }</button>
     </StyledForm>
     </AddDropdown>
+
     <ElementsContainer>
       <input type="text" onChange={onFilter} className="searcher" placeholder="Search your design" ref={searchInputRef}/>
     {designsToShow.length===0 && loading? <p>Loading...</p> : designsToShow.length===0 && <p>No hay disños para mostrar</p>}
@@ -259,14 +262,15 @@ export default function DesignManager() {
         </div>
       ))}
     </ElementsContainer>
-    <EditorContainer 
+
+    {editingDesign != null && <EditorContainer 
       className="editor" 
-      open={editingDesign != null}
+      open={true}
       onClick={e=>{if((e.target as HTMLDivElement).classList.contains("editor")) setEditingDesign(null)}}>
       <div className="main">
         <i className="fi-rr-cross-small close" onClick={()=>setEditingDesign(null)}></i>
         <h1>Editar Diseño</h1>
-        <form onSubmit={onEdit}>
+        <form onSubmit={onEdit}>  
           <label htmlFor="name">Nombre del diseño</label>
           <input className="required" type="text" name="name" placeholder="Name" defaultValue={editingDesign?.name}/>
           <img src={editingDesign?.img_url}/>
@@ -275,7 +279,8 @@ export default function DesignManager() {
           <label htmlFor="ai">Adobe illustrator file</label>
           <input type="file" name="ai" accept=".ai" />
           <hr className="divider"/>
-          <p>Tags</p>
+          <p>Tags:</p>
+
           {/* create a list of checkboxes for each tag */}
           {tags.map(t => (
             <label key={t.id}>
@@ -287,7 +292,8 @@ export default function DesignManager() {
           <button type="submit" disabled={loading}>{loading?"editando...":"editar"}</button>
         </form>
       </div>
-    </EditorContainer>
+    </EditorContainer>}
+    
     </>
   )
 };
