@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { mdScreen } from "../../../constants/styleConstants";
 
 export const StyledWinesContainer = styled.div`
   width: 100%;
@@ -14,7 +14,8 @@ export const StyledWinesContainer = styled.div`
   box-sizing: border-box;
   
 
-  color: ${primaryColor};
+  color: var(--primaryColor);
+  background-color: var(--background);
 
   display: flex;
   flex-direction: column;
@@ -34,7 +35,8 @@ export const StyledWinesContainer = styled.div`
     margin: 3em 0;
     height: auto;
     padding-left: 1em;
-    background: ${tertiaryColor};
+    background: var(--tertiaryColor);
+    color: var(--primaryColor);
     border-radius: 0 2em 2em 0;
 
     @media screen and (width < ${mdScreen}px){
@@ -60,7 +62,7 @@ export const StyledWinesContainer = styled.div`
     }
     small{
       font-size: clamp(1.1em, 2.5vw, 1.6em);
-      color: ${primaryColor};
+      color: var(--primaryColor);
       font-weight: 300;
       margin-left: 5%;
       @media screen and (width < ${mdScreen}px){
@@ -77,8 +79,10 @@ export const StyledWinesContainer = styled.div`
       padding: .8em;
       border-radius: calc(2em - 1em );
       background: rgba(255,255,255,0.75);
+      color: var(--secondaryColor);
 
       @media screen and (width > ${mdScreen}px){
+        color: var(--primaryColor );
         margin: unset;
         margin-right: auto;
         background-color: unset;
@@ -105,9 +109,9 @@ export const StyledWinesContainer = styled.div`
         width: 80vw;
         max-width: 300px;
         border-radius: 1em;
-        border-left: .5em solid ${primaryColor};
+        border-left: .5em solid var(--primaryColor);
         @media screen and (width < ${mdScreen}px){
-          border: .2em solid ${primaryColor};
+          border: .2em solid var(--primaryColor);
         }
       }
     }

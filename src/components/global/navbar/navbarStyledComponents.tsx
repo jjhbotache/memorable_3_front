@@ -144,14 +144,24 @@ export const Sidebar = styled.div`
     width: 300px;
     max-width:60vw;
     background-color: ${secondaryColor};
-    padding: 0 1rem;
+    padding: 0 0 0 1rem ;
     z-index: 10;
     color: ${primaryColor};
     font-size: 2.1rem;
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 1.5em;
     overflow-y: auto;
+
+    &>div:first-child{
+      padding-right: .3em;
+    }
+
+    &::-webkit-scrollbar {
+     display: none;
+    }
+
+
     h1{
       margin-top: .5rem;
       margin-bottom: 1em;
@@ -184,7 +194,6 @@ export const Sidebar = styled.div`
       width: 100%;
       background: ${tertiaryColor};
       color: ${primaryColor};
-      border: ${primaryColor} solid 1px;
       border-radius: .2rem;
       box-sizing: border-box;
       cursor: pointer;
@@ -263,6 +272,7 @@ export const Sidebar = styled.div`
 
   .onCompactedOptions{
     display: none;
+    
     @media screen and (max-width: ${mdScreen}px){
       display: flex;
       justify-content: space-between;
@@ -281,6 +291,7 @@ export const Sidebar = styled.div`
     }
     .ico,a{
       text-decoration: none;
+      margin-bottom: .3em;
     }
     .menu{
       width: 100%;
@@ -288,24 +299,42 @@ export const Sidebar = styled.div`
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: .2rem;
+      gap: .7em;
       margin: .2em;
       a{
-          color: ${primaryColor};
+          border-radius: .4em;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          color: var(--primaryColor);
           text-decoration: none;
+          transition: all 0.2s ease-in-out;
+          background: var(--secondaryColor);
+          box-shadow:  .4em .4em .6em #808080,
+                      -.4em -.4em .6em #ffffff;
+
+        &:hover{
+          transform: scale(1.1);
+          box-shadow:  22px 22px 44px #808080,
+                      -22px -22px 44px #ffffff;
         }
+
+        &:active {
+          transform: scale(1);
+          box-shadow: 0.75em 0.75em 1.3em #808080,
+                      -0.75em -0.75em 1.3em #ffffff;
+        }
+        
+      }
       li{
-        background: ${tertiaryColor};
-        border: 1px solid ${primaryColor};
+        
+
+        /* border: 1px solid ${primaryColor}; */
         border-radius: .2rem;
         text-align: center;
         padding: .2rem 0;
 
         transition: all 0.2s ease-in-out;
-        &:hover{
-          transform: scale(1.1);
-          box-shadow: 0 0 1em ${primaryColor};
-        }
+
       }
     }
     .divider{

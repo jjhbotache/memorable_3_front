@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoadingScreen from './components/global/LoadingScreen';
 
 
+
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>
       <ToastContainer
@@ -33,3 +35,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </Provider>
   </>,
 )
+

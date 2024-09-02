@@ -25,12 +25,13 @@ export const StyledShowerManager = styled.div`
     font-family: "Fragmentcore";
     display: flex;
     flex: 8;
-    border: 1px solid ${primaryColor};
+    border: 1px solid var(--primaryColor);
     border-radius: .3em;
     padding: .2em .5em ;
     height: 2.2em;
     font-size: medium;
     color: ${primaryColor};
+    background: ${secondaryColor};
     &:focus-visible{
       outline: 2px solid ${secondaryColor};
     }
@@ -45,6 +46,7 @@ export const StyledShowerManager = styled.div`
     border-radius: .3em;
     position: relative;
     cursor: pointer;
+    color: var(--secondaryColor);
     @media screen and (width < ${mdScreen}px){
       flex: unset;
       width: 50%;

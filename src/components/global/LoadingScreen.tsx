@@ -13,15 +13,15 @@ const tips = [
   "Cada botella cuenta una historia, ¿cuál es la tuya?",
   "El vino es la respuesta, ¿cuál era la pregunta?",
   // consejos de diseño
-  "Escribe la situación para la que necesitas tu diseño en el buscador, la IA buscará por ti.",
+  "Escribe la situación para la que necesitas tu diseño en el buscador, la IA buscará por ti!!!",
   "Guarda tus diseños favoritos dando clic en el corazón.",
-  "¿Quieres un diseño perfecto? Pide una modificación a tu diseño favorito.",
-  "Puedes ver tus diseños favoritos dando clic en el corazón en la barra de navegación o menú.",
-  "Puedes contactarnos para cualquier duda o sugerencia en la sección de contacto.",
-  "Agrega tus diseños favoritos al carrito para comprarlos luego.",
+  "¿Quieres un diseño perfecto? Pide una modificación a tu diseño favorito!",
+  "Puedes ver tus diseños favoritos dando clic en el corazón en la barra de navegación o menú!",
+  "Puedes contactarnos para cualquier duda o sugerencia en la sección de contacto!",
+  "Agrega tus diseños favoritos al carrito para comprarlos luego!",
   "¡Nuestra barra de búsqueda utiliza inteligencia artificial para encontrar el diseño perfecto para ti!",
-  "¿No encuentras lo que buscas? Contáctanos y un diseñador te ayudará a crearlo.",
-  "¿El diseño está perfecto pero necesitas un cambio? Pide una modificación desde la página del diseño.",
+  "¿No encuentras lo que buscas? Contáctanos y un diseñador te ayudará a crearlo!",
+  "¿El diseño está perfecto pero necesitas un cambio? Pide una modificación desde la página del diseño!",
 ];
 
 export default function LoadingScreen({show = true}:Props){

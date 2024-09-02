@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { mdScreen, primaryColor, secondaryColor } from "../constants/styleConstants"
+import { mdScreen } from "../constants/styleConstants"
 import contactSvg from "../assets/svgs/contact us.svg"
 import ContactForm from "../components/contact/ContactForm"
 
@@ -16,8 +16,8 @@ export default function Contact() {
 
 
 const StyledContact = styled.div`
-  background: ${secondaryColor};
-  color: ${primaryColor};
+  background: var(--secondaryColor);
+  color: var(--primaryColor);
   height: 100vh;
   display: flex;
   flex-direction: column;

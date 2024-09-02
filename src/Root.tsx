@@ -4,16 +4,30 @@ import Footer from "./components/global/Footer";
 import FloatingWhatsappBtn from "./components/global/FloatingWhatsappBtn";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./components/global/LoadingScreen";
+import styled from 'styled-components';
+import { darkBackground, darkPrimaryColor, darkTertiaryColor, primaryColor, secondaryColor, tertiaryColor } from './constants/styleConstants';
+
+
 
 export default function Root() {
   const pageLoading = useSelector((state: any) => state.pageLoading);
+  const theme = useSelector((state: any) => state.theme);
   
+  const GlobalStylesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    --primaryColor: ${theme === "dark" ? secondaryColor : primaryColor};
+    --secondaryColor: ${theme === "dark" ? darkPrimaryColor : secondaryColor};
+    --tertiaryColor: ${theme === "dark" ? darkTertiaryColor : tertiaryColor};
+    --background: ${theme === "dark" ? darkBackground : secondaryColor};
+  `;
 
-  return pageLoading? <LoadingScreen/>:<>
+  return pageLoading? <LoadingScreen/>:<GlobalStylesContainer>
     <Navbar/>
     <Outlet/>
     <Footer/>
     <FloatingWhatsappBtn/>
-  </>
+  </GlobalStylesContainer>
   
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import UsDescription from "../components/us/usDescription/UsDescription";
 import UsSlider from "../components/us/usSlider/UsSlider";
-import { mdScreen, primaryColor } from "../constants/styleConstants";
+import { mdScreen} from "../constants/styleConstants";
 
 export default function Us() {
   return(
@@ -18,7 +18,8 @@ const UsDescriptionStyled = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  color: ${primaryColor};
+  color: var(--primaryColor);
+  background-color: var(--background);
   .main{
     height: 100%;
     display: flex;

@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { primaryColor } from "../constants/styleConstants"
 import DesignsContainer from "../components/design/designContainer/DesignContainer"
 import {useState } from "react"
 import Design from "../interfaces/designInterface"
@@ -16,6 +15,7 @@ export default function Designs() {
     arragmentState === "column" ? setArragmentState("grid") : setArragmentState("column")
   }
 
+  
   return(
     <DesignPage>
         <DesignShowerManager arragment={arragmentState} onSwitchArrangment={()=>switchArrangment()} tags={preloadedTags} />
@@ -32,9 +32,9 @@ export default function Designs() {
 /* src/pages/Designs.tsx */
 const DesignPage = styled.div`
   width: 100%;
-  color: ${primaryColor};
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
-
+  flex-grow: 1;
+  background: var(--background);
+  box-sizing: border-box;
 `;

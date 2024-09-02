@@ -10,9 +10,14 @@ import User from "./interfaces/userInterface";
 import { useLoaderData } from "react-router-dom";
 import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "./redux/slices/userReducer";
+
 
 export default function App() {
   const { designs , tags } = useLoaderData() as { designs: Desing[], tags: Tag[] };
+  const dispatch = useDispatch();
+  const user = useSelector((state:any) => state.user);
   
 
 
@@ -27,24 +32,27 @@ export default function App() {
     }
 
     gapi.load('client:auth2', start);
-
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if(user?.google_sub){
+    if (! user.google_sub) {
+      console.log("no user, looking in ls");
+      const lsUser = JSON.parse(localStorage.getItem("user") || "{}");
+      if (lsUser.google_sub) return
       fetch(API + "/user-login-signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user)
       })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem("user", JSON.stringify(data));
+        console.log("setting on login: ", data);
+        dispatch(setUser(data));
         toast.success("Bienvenido de vuelta "+ (user as User).name.split(" ")[0] ,{
           pauseOnFocusLoss: false
         });
       })
+    }else{
+      localStorage.setItem("user", JSON.stringify(user));
     }
+
   }, []);
 
   
@@ -52,7 +60,7 @@ export default function App() {
 
   return(
     <>
-      <MainContainer>
+      <MainContainer >
         <Carousel preloadedImgs={designs.map(design => design.img_url)} />
         <TagsPresentation preloadedTags={tags.slice(0, 7)} />
       </MainContainer>
@@ -64,4 +72,9 @@ const MainContainer = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
+  
+
+  /* use them */
+  color: var(--primaryColor);
+  background: var(--background);
 `;  

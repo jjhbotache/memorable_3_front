@@ -508,7 +508,9 @@ const bouncingDownRow = keyframes`
 
 const StyledDesign = styled.div`
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   color: ${primaryColor};
 
   .product-section {

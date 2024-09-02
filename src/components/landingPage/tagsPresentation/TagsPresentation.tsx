@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { mdScreen, primaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { mdScreen } from "../../../constants/styleConstants";
 import UsDescription from "../../us/usDescription/UsDescription";
 import WinesContainer from "../../wines/winesContainer/WinesContainer";
 import ContactForm from "../../contact/ContactForm";
@@ -90,7 +90,6 @@ const TagsDescription = styled.main`
   box-shadow: -20px 0 50px rgba(0,0,0,.5);
   @media screen and (max-width: ${mdScreen}px){
     box-shadow: 0px 0 50px rgba(0,0,0,.5);
-    background: rgba(255,255,255,.2);
     overflow: hidden;
     
     }
@@ -99,13 +98,13 @@ const TagsDescription = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    backdrop-filter: blur(2px);
   }
 
 
   h1{
     font-size: 3em;
     font-weight: 300;
-    color: ${primaryColor};
     text-align: center;
   }
   .tagsContainer{
@@ -121,20 +120,27 @@ const TagsDescription = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${tertiaryColor};
-    border: 1px solid ${primaryColor};
+    background: var(--tertiaryColor);
+    color: var(--primaryColor);
+    border: none;
     padding: .3em .5em;
     font-size: 1.2em;
     border-radius: 99999px;
     font-weight: 300;
     cursor: pointer;
-    transition: .1s;
+    transition: .2s;
+    box-sizing: border-box;
 
     &:hover{
-      background: ${primaryColor};
-      color: ${tertiaryColor};
       transform: scale(1.3);
+      box-shadow: 0 0 10px rgba(0,0,0,.5);
+      border: none;
     };
+    &:active{
+      transform: scale(.9);
+      box-shadow: 0 0 10px rgba(0,0,0,.5) inset;
+    }
+
   }
   .extraInfo{
     display: none;
@@ -149,7 +155,7 @@ const TagsDescription = styled.main`
     .divider{
       width: 80%;
       height: 1px;
-      background: ${primaryColor};
+      background: var(--primaryColor);
     }
   }
 `;

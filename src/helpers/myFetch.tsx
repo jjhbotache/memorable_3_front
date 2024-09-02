@@ -1,3 +1,5 @@
+import store from "../redux/store";
+
 interface Options {
   method?: string;
   body?: string | FormData;
@@ -6,7 +8,9 @@ interface Options {
 
 
 export default function myFetch(url:string, options?:Options) {
-  const google_sub = JSON.parse(localStorage.getItem("user") || "{}").google_sub;
+  const user = store.getState().user;
+
+  const google_sub = user.google_sub;
   return fetch(url, {
     ...options,
     headers: {

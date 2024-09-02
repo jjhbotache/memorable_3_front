@@ -10,14 +10,18 @@ import { Link, useNavigate } from "react-router-dom";
 import myFetch from "../../../helpers/myFetch";
 import { toast } from "react-toastify";
 import User from "../../../interfaces/userInterface";
+import { setTheme } from "../../../redux/slices/themeSlice";
 
 
 export default function Navbar() {
-  const user:User = useSelector((state:any) => state.user);
   const [openMenu, setOpenMenu] = useState("close");
   const dispacher = useDispatch();
   const [admin, setAdmin] = useState(false);
   const [readyToDeleteAccount, setReadyToDeleteAccount] = useState<boolean>(false);
+
+  const theme = useSelector((state:any) => state.theme);
+  const user = useSelector((state:any) => state.user);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -25,7 +29,11 @@ export default function Navbar() {
     // get from local storage the user info if exists
     // debugger
     const userLS = localStorage.getItem("user");
+    
+    
     if(userLS){
+      console.log("setting from local storage: ", JSON.parse(userLS));
+      
       dispacher(setUser(JSON.parse(userLS)));
     }
     verifyAdmin();
@@ -87,6 +95,8 @@ export default function Navbar() {
     .then(res => res.json())
     .then(res=>{
       const user:User = res.user;
+      console.log("setting on login: ", user);
+      
       if(res.details) throw new Error(res.details);
       dispacher(setUser({
         google_sub: user.google_sub,
@@ -174,8 +184,9 @@ export default function Navbar() {
   
   // reusable components
   const Icons = () =><>
-    <i onClick={goToLoved} className=" ico fi fi-ss-heart"></i>
+    <i onClick={()=>dispatch(setTheme())} className={(theme === "dark" ? "ico fi fi-rr-sun":"ico fi fi-rr-moon")}/>
     <i onClick={goToCart} className=" ico fi fi-rr-shopping-cart"></i>
+    <i onClick={goToLoved} className=" ico fi fi-ss-heart"></i>
   </>
 
   return(
@@ -201,6 +212,7 @@ export default function Navbar() {
         <i className="fi fi-rr-menu-burger"></i>
       </div>
     </Nav>
+    
     <Sidebar>
       <motion.div  variants={bgVariants} animate={openMenu}  className="background" onClick={()=>setOpenMenu("close")} />
 

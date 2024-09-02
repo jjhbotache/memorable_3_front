@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { primaryColor, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { primaryColor } from "../../../constants/styleConstants";
 
 interface DesignsContainerProps {
   $styleBehavior?: "grid" | "column";
@@ -34,16 +34,19 @@ const floating = keyframes`
 
 export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   ${props => props.$styleBehavior === "column" ? 
-  css`
+  css` 
+  /* column */
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    
   `:
   css`
+  /* grid */
     display: flex;
     flex-wrap: wrap;
-    padding: .2em .2em ;
+    padding: .2em .1em ;
     justify-content: space-evenly;
     `
   }
@@ -51,32 +54,36 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
 
 
   gap: 1vw;
-  height: 100%;
+  flex-grow: 1;
+  padding: 1em;
+
   border-radius: 1rem;
-  box-shadow: 0 0 1rem -.2rem ${primaryColor};
+  box-shadow: 0 0 1rem -.2rem black;
   width: 95%;
   margin: 1rem auto;
-  padding: 1vw;
+  background-color: var(--secondaryColor);
+  color: var(--primaryColor);
+  box-sizing: border-box;
 
   .foundDesigns{
     margin-right: auto;
     margin-top: .2rem;
     flex-basis: 100%;
   }
-
   .aiDesingsHeader{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    background: linear-gradient(
+    /* background: linear-gradient(
       180deg,
       transparent 0%,
-      ${tertiaryColor}dd 25%,
-      ${tertiaryColor}dd 75%,
+      var(--primaryColor)dd 25%,
+      var(--primaryColor)dd 75%,
       transparent 100%
-    );
+    ); */
+    background: var(--tertiaryColor);
     padding: 1rem 0;
     margin: 1rem 0;
     position: relative;
@@ -87,10 +94,10 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
       height: 100%;
       background: linear-gradient(
         90deg,
-        ${secondaryColor} 0%,
+        var(--secondaryColor) 0%,
         transparent 5%,
         transparent 95%,
-        ${secondaryColor} 100%
+        var(--secondaryColor) 100%
       );
     }
   }
@@ -107,8 +114,8 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     position: fixed;
     z-index: 2;
     bottom: 2rem;
-    background: ${primaryColor};
-    color: ${secondaryColor};
+    background: var(--tertiaryColor);
+    color: var(--secondaryColor);
     border: none;
     padding: .5rem 1rem;
     border-radius: 999rem;

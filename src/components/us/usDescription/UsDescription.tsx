@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { mdScreen, primaryColor } from "../../../constants/styleConstants";
+import { mdScreen } from "../../../constants/styleConstants";
 
 export default function UsDescription() {
   return(
@@ -17,7 +17,8 @@ const UsDescriptionStyled = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: ${primaryColor};
+  color: var(--primaryColor);
+  background-color: var(--background);
   width: 50%;
   min-width: 300px;
   box-sizing: border-box;

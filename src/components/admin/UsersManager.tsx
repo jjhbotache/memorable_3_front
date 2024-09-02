@@ -23,7 +23,7 @@ export default function UsersManager() {
     myFetch(API + "/users")
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        
         // filter the current user
         res = res.filter((t:User) => t.google_sub !== JSON.parse(localStorage.getItem("user") || "{}").google_sub);
         setUsers(res);
