@@ -11,7 +11,7 @@ html, body, #root {
   font-family: 'Fragmentcore', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100%; /* Asegúrate de que ocupen toda la altura */
+  min-height: 100%; /* Asegúrate de que ocupen toda la altura */
   
 }
 

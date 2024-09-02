@@ -5,7 +5,7 @@ import FloatingWhatsappBtn from "./components/global/FloatingWhatsappBtn";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./components/global/LoadingScreen";
 import styled from 'styled-components';
-import { darkBackground, darkPrimaryColor, darkTertiaryColor, primaryColor, secondaryColor, tertiaryColor } from './constants/styleConstants';
+import { darkBackground, darkPrimaryColor, darkSecondaryColor, darkTertiaryColor, primaryColor, secondaryColor, tertiaryColor } from './constants/styleConstants';
 
 
 
@@ -17,8 +17,8 @@ export default function Root() {
     display: flex;
     flex-direction: column;
     height: 100%;
-    --primaryColor: ${theme === "dark" ? secondaryColor : primaryColor};
-    --secondaryColor: ${theme === "dark" ? darkPrimaryColor : secondaryColor};
+    --primaryColor: ${theme === "dark" ? darkPrimaryColor : primaryColor};
+    --secondaryColor: ${theme === "dark" ? darkSecondaryColor : secondaryColor};
     --tertiaryColor: ${theme === "dark" ? darkTertiaryColor : tertiaryColor};
     --background: ${theme === "dark" ? darkBackground : secondaryColor};
   `;

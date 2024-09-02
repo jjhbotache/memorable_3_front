@@ -308,7 +308,7 @@ export const Sidebar = styled.div`
           color: var(--primaryColor);
           text-decoration: none;
           transition: all 0.2s ease-in-out;
-          background: var(--secondaryColor);
+          background: var(--tertiaryColor);
           box-shadow:  .4em .4em .6em #808080,
                       -.4em -.4em .6em #ffffff;
 

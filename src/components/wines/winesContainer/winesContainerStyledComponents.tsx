@@ -78,8 +78,8 @@ export const StyledWinesContainer = styled.div`
       line-height: 1.2em;
       padding: .8em;
       border-radius: calc(2em - 1em );
-      background: rgba(255,255,255,0.75);
-      color: var(--secondaryColor);
+      background: var(--secondaryColor);
+      color: var(--primaryColor);
 
       @media screen and (width > ${mdScreen}px){
         color: var(--primaryColor );

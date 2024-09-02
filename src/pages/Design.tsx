@@ -1,7 +1,7 @@
 import styled, { keyframes }  from 'styled-components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import TagInterface from '../interfaces/tagInterface';
-import { mdScreen, primaryColor, secondaryColor, tertiaryColor } from '../constants/styleConstants';
+import { mdScreen } from '../constants/styleConstants';
 import { useEffect, useRef, useState } from 'react';
 import formatNumber from '../helpers/formatNumber';
 import { fetchPublicDesigns, fetchSpecificExtrainfo, sendContactForm } from '../helpers/provider';
@@ -511,7 +511,9 @@ const StyledDesign = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  color: ${primaryColor};
+  color: var(--primaryColor);
+  background-color: var(--background);
+
 
   .product-section {
     display: flex;
@@ -535,7 +537,7 @@ const StyledDesign = styled.div`
         max-width:80vh;
         border-radius: 1vw;
         padding: .2em;
-        border : 2px solid ${primaryColor};
+        border : 2px solid var(--primaryColor);
   
         /* max-width: 100%; */
         aspect-ratio: 1;
@@ -551,18 +553,18 @@ const StyledDesign = styled.div`
         box-sizing: border-box;
         i{
           box-sizing: border-box;
-          background: ${secondaryColor};
-          border: 1px solid ${primaryColor};
+          background: var(--secondaryColor);
+          border: 1px solid var(--primaryColor);
           border-radius: 50%;
           padding: .3em;
-          color: ${primaryColor};
+          color: var(--primaryColor);
           transition: all .3s;
           cursor: pointer;
   
           &:hover{
             transform: scale(1.1);
-            background: ${primaryColor};
-            color: ${tertiaryColor};
+            background: var(--primaryColor);
+            color: var(--tertiaryColor);
           }
         }
       }
@@ -588,22 +590,14 @@ const StyledDesign = styled.div`
         overflow-y: visible;
         margin-bottom: 3em;
 
-        border-top: 1px solid ${primaryColor};
-        border-bottom: 1px solid ${primaryColor};
+        border-top: 1px solid var(--primaryColor);
+        border-bottom: 1px solid var(--primaryColor);
         padding: .2em 0;
-        background: linear-gradient(
-          180deg,
-          ${tertiaryColor}  0%,
-          ${tertiaryColor}dd 15%,
-          ${tertiaryColor}00 50%,
-          ${tertiaryColor}dd 85%,
-          ${tertiaryColor} 100%
-        );
         
         .title{
           font-size: 1.5em;
           font-weight: 300;
-          color: ${primaryColor};
+          color: var(--primaryColor);
           width: auto;
           margin:0 1em;
           
@@ -616,6 +610,11 @@ const StyledDesign = styled.div`
           overflow-y: visible;
           width: 100%;
           padding: 0 1em;
+
+          .tag{
+            color : var(--primaryColor);
+            background: var(--secondaryColor);
+          }
 
           &::-webkit-scrollbar {
             display: none;
@@ -634,7 +633,7 @@ const StyledDesign = styled.div`
       .price {
         font-size: 1.4em;
         font-weight: 200;
-        color: green;
+        color: var(--primaryColor);
         width: 25%;
       }
       .quantity-wrapper {
@@ -645,7 +644,7 @@ const StyledDesign = styled.div`
       .wichToUse{
         margin-left: .4em;
         gap: clamp(.5em,2vw,.5em);
-        color: ${primaryColor}ee;
+        color: var(--primaryColor)ee;
         transition: all .3s;
         font-size: clamp(1rem, 2vw, 1.1rem) !important;
         text-decoration: underline !important;
@@ -654,7 +653,7 @@ const StyledDesign = styled.div`
        }
         &:hover{
           text-decoration: underline;
-          text-shadow: 0 0 2px ${tertiaryColor};
+          text-shadow: 0 0 2px var(--tertiaryColor);
           transform: scale(1.05);
         }
       }
@@ -666,7 +665,7 @@ const StyledDesign = styled.div`
         margin: 10px 0;
         padding: 10px;
         width: 50%;
-        border: 1px solid ${primaryColor};
+        border: 1px solid var(--primaryColor);
         border-radius: 5px;
       }
       .payment-methods {
@@ -682,10 +681,10 @@ const StyledDesign = styled.div`
           min-height: 25px;
           min-width: 25px;
           object-fit: contain;
-          background: ${tertiaryColor}22;
+          background: var(--tertiaryColor)22;
           padding: .3vw;
           border-radius: .2em;
-          border: 1px solid ${primaryColor};
+          border: 1px solid var(--primaryColor);
           transition: all .1s;
           &:hover{
             transform: scale(1.1);
@@ -698,13 +697,13 @@ const StyledDesign = styled.div`
         align-items: center;
         justify-content: start;
         font-size: clamp(1rem, 2vw, 1.2rem);
-        color: ${primaryColor}ee;
+        color: var(--primaryColor)ee;
         text-decoration: underline;
         cursor: pointer;
         transition: all .2s;
         &:hover{
           text-decoration: underline;
-          text-shadow: 0 0 2px ${tertiaryColor};
+          text-shadow: 0 0 2px var(--tertiaryColor);
           transform: scale(1.05);
         }
       }
@@ -728,15 +727,15 @@ const StyledDesign = styled.div`
           padding: 10px 20px;
           font-size: 1.2em;
           margin-top: 10px;
-          background-color: ${tertiaryColor};
-          color: ${primaryColor};
-          border: 1px solid ${primaryColor};
+          background-color: var(--tertiaryColor);
+          color: var(--primaryColor);
+          border: 1px solid var(--primaryColor);
           border-radius: 5px;
           cursor: pointer;
           transition: all 0.3s;
             &:hover {
-              background-color: ${primaryColor};
-              color: ${tertiaryColor};
+              background-color: var(--primaryColor);
+              color: var(--tertiaryColor);
             }
 
           small{
@@ -745,8 +744,8 @@ const StyledDesign = styled.div`
           }
         }
         .button[disabled]{
-          background: ${tertiaryColor}44;
-          color: ${primaryColor}44;
+          background: var(--tertiaryColor)44;
+          color: var(--primaryColor)44;
           cursor: not-allowed
         }
         .cartBtn{
@@ -756,9 +755,9 @@ const StyledDesign = styled.div`
             top: -10px;
             right: -10px;
             font-size: 1.5em;
-            background: ${secondaryColor};
+            background: var(--secondaryColor);
             border-radius: 50%;
-            color:${primaryColor}
+            color:var(--primaryColor)
           }
         }
       }
@@ -767,6 +766,8 @@ const StyledDesign = styled.div`
     /* ------ */
   }
   .similar-designs {
+    background: var(--tertiaryColor);
+    backdrop-filter: blur(10px);
     &>.title{
       position: relative;
       width: 100%;
@@ -774,16 +775,9 @@ const StyledDesign = styled.div`
       font-weight: 300;
       margin: 1em -2em;
       padding: 2em 1em;
-      color: ${secondaryColor};
+      color: var(--primaryColor);
       text-align: center;
-      background: linear-gradient(
-        180deg,
-        ${primaryColor}00  0%,
-        ${primaryColor}ee 10%,
-        ${primaryColor} 50%,
-        ${primaryColor}ee 90%,
-        ${primaryColor}00 100%
-      );
+      
 
       .downArrow{
         position: absolute;
@@ -791,7 +785,7 @@ const StyledDesign = styled.div`
         bottom: 1em;
         transform: translateX(-50%);
         font-size: .7em;
-        color: ${secondaryColor};
+        color: var(--primaryColor);
         transition: all .3s;
         animation: ${bouncingDownRow} 1s infinite;
       }
