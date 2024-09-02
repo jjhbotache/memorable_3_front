@@ -133,13 +133,13 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
               </>}
             </h2>
           </div>
-          {/* {
+          {
             (aiFilteredDesigns.length != 0) && aiFilteredDesigns.map((design: Design) => {
               return (
                 <DesignComponent ref={aiDesignsRef} design={design} displayStyle={arragment} key={design.id} />
               )
             })
-          } */}
+          }
         </>
       }
     </DesignsStyledContainer>
