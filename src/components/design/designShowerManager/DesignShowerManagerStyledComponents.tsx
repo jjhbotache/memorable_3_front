@@ -46,7 +46,7 @@ export const StyledShowerManager = styled.div`
     border-radius: .3em;
     position: relative;
     cursor: pointer;
-    color: var(--secondaryColor);
+    color: ${primaryColor};
     @media screen and (width < ${mdScreen}px){
       flex: unset;
       width: 50%;
