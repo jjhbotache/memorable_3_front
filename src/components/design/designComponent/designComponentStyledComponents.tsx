@@ -12,13 +12,12 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
     align-items: center;
     width: 100%;
     max-width: 95vw;
-    height: 50%;
-    max-height: 200px;
+    height: 35vh;
+    max-height: 300px;
     padding: .2em;
     box-sizing: border-box;
     img{
       height: 100%;
-      max-height: 50vw;
     }
     .rightSide{
       display: flex;
@@ -109,7 +108,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
     display: flex;
     gap: .7vw;
     
-
+    
     .addCart{
       position: relative;
       .addedIco{
@@ -125,8 +124,8 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
 
     button{
       border: 1px solid var(--primaryColor);
-      background: var(--tertiaryColor);
-      color: var(--primaryColor);
+      background: var(--primaryColor);
+      color: var(--secondaryColor);
       border-radius: 1rem;
       padding: .3em .6em;
       cursor: pointer;
