@@ -78,7 +78,8 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     width: 100%;
     gap: 1rem;
     background: var(--tertiaryColor);
-    padding: 1rem 0;
+    padding: 1rem 2em;
+    text-align: center;
     margin: 1rem 0;
     position: relative;
     &::after{
