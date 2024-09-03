@@ -8,6 +8,7 @@ import orderRandomizer from "../../../helpers/orderRandomizer";
 import { fetchAiFilteredDesigns } from "../../../helpers/provider";
 import isElementVisible from "../../../helpers/isElementVisible";
 import { levenshteinDistance } from "../../../helpers/orderBySimilarity";
+import CoolSpinner from "../../global/CoolSpinner";
 
 interface DesignContainerProps {
   designs: Design[];
@@ -120,8 +121,10 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
         <h1>No se encontraron diseños con coincidencia exacta</h1>
       }
 
+        
       {
-        (aiSearch && aiFilteredDesigns.length > 0 )&& <>
+        (aiSearch && aiFilteredDesigns.length > 0 )
+        ? <>
           {(showTakeToAiResults && aiAlreadyScrolled == false) && <button className="takeToAiResults" onClick={scrollToAiTitle}>
             Ver {aiFilteredDesigns.length} Diseño{aiFilteredDesigns.length != 1 && "s"} sugerido{aiFilteredDesigns.length != 1 && "s"} por IA
             <i className="fi fi-br-angle-small-down"></i>
@@ -141,6 +144,12 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
             })
           }
         </>
+        :
+        iaLoading && <div className="aiDesingsHeader">
+          <h2>La IA esta buscando diseños que te podrian gustar!</h2>
+          <CoolSpinner />
+        </div>
+
       }
     </DesignsStyledContainer>
   )

@@ -76,13 +76,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     align-items: center;
     justify-content: center;
     width: 100%;
-    /* background: linear-gradient(
-      180deg,
-      transparent 0%,
-      var(--primaryColor)dd 25%,
-      var(--primaryColor)dd 75%,
-      transparent 100%
-    ); */
+    gap: 1rem;
     background: var(--tertiaryColor);
     padding: 1rem 0;
     margin: 1rem 0;
@@ -114,7 +108,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     position: fixed;
     z-index: 2;
     bottom: 2rem;
-    background: var(--tertiaryColor);
+    background: var(--primaryColor);
     color: var(--secondaryColor);
     border: none;
     padding: .5rem 1rem;
