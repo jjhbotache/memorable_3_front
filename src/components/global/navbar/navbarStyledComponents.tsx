@@ -143,7 +143,7 @@ export const Sidebar = styled.div`
     max-height: 100vh;
     width: 300px;
     max-width:60vw;
-    background-color: ${secondaryColor};
+    background-color: white;
     padding: 0 0 0 1rem ;
     z-index: 10;
     color: ${primaryColor};
