@@ -128,7 +128,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
       background: var(--tertiaryColor);
       color: var(--primaryColor);
       border-radius: 1rem;
-      padding: .2em .4em;
+      padding: .3em .6em;
       cursor: pointer;
       transition: all .2s;
   

@@ -299,7 +299,7 @@ export const Sidebar = styled.div`
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: .7em;
+      gap: .05em;
       margin: .2em;
       a{
           border-radius: .4em;
@@ -309,8 +309,8 @@ export const Sidebar = styled.div`
           text-decoration: none;
           transition: all 0.2s ease-in-out;
           background: var(--tertiaryColor);
-          box-shadow:  .4em .4em .6em #808080,
-                      -.4em -.4em .6em #ffffff;
+          box-shadow:  .25em .25em .2em #808080,
+                      -.25em -.25em .2em #ffffff;
 
         &:hover{
           transform: scale(1.1);
