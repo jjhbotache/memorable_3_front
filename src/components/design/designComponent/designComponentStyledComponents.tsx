@@ -132,8 +132,15 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior:"grid" 
       transition: all .2s;
   
       &:hover{
-        background: var(--primaryColor);
-        color: var(--tertiaryColor);
+        background: var(--secondaryColor);
+        color: var(--primaryColor);
+        transform: scale(1.1);
+        box-shadow: 0 0 5px 1px darkgrey;
+      }
+
+      &:active{
+        transform: scale(.9);
+        box-shadow: 0 0 5px 1px darkgray inset;
       }
   
       &.addCart{
