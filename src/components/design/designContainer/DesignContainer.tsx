@@ -56,7 +56,9 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
   useEffect(() => {
     // filter by name
     let designsFiltered = designs ? designs.filter(design => 
-      levenshteinDistance(design.name.toLowerCase(), filter.name.toLowerCase()) < design.name.toLowerCase().length/4 ||
+      levenshteinDistance(design.name.toLowerCase(), filter.name.toLowerCase()) < (
+        Math.abs(design.name.length - filter.name.length)*1.5
+      ) ||
       design.name.toLowerCase().includes(filter.name.toLowerCase()) ||
       filter.name.toLowerCase().includes(design.name.toLowerCase()) ||
       design.tags.map(tag => tag.name.toLowerCase()).includes(filter.name.toLowerCase()) ||
