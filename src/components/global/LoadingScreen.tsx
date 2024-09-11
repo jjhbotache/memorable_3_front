@@ -62,10 +62,10 @@ export default function LoadingScreen({show = true}:Props){
       <img src="/wine.gif" alt="wine"/>
       {takingTooLong && (
         <div className="takingTooLong">
-          <h3>
+          <span>
             Podemos llegar a tardar hasta un minuto
             <h2>Gracias por tu paciencia!</h2>
-          </h3>
+          </span>
 
           <motion.div
             animate={{
@@ -129,8 +129,13 @@ const Container = styled.div`
     align-items: center;
     box-sizing: border-box;
 
-    h3 {
-      margin-top: 3em;
+    span {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      gap: 1em;
+      padding-top: 3em;
     }
 
     h2 {

@@ -43,8 +43,8 @@ export default function App() {
       })
       .then(res => res.json())
       .then(data => {
-        console.log("setting on login: ", data);
-        dispatch(setUser(data));
+        data.user && dispatch(setUser(data.user))
+        
         toast.success("Bienvenido de vuelta "+ (user as User).name.split(" ")[0] ,{
           pauseOnFocusLoss: false
         });
