@@ -27,12 +27,13 @@ export default function DesignShowerManager({onSwitchArrangment,arragment,tags}:
 
   function onCheckTag(tagId: number) {
       const tag: Tag | undefined = tags?.find(tag => tag.id === tagId);
+      
       if (tag) {
           if (filter.tags && filter.tags.includes(tag)) {
               dispacher(
                   setFilter({
                       name: filter.name,
-                      tags: filter.tags.filter(tag => tag !== tag)
+                      tags: filter.tags.filter(t => t.id !== tag.id)
                   })
               )
           } else {
@@ -68,7 +69,9 @@ export default function DesignShowerManager({onSwitchArrangment,arragment,tags}:
               {/* list of tags checkbox */}
               {tags && tags.map((tag)=>
                 <label key={tag.id}>
-                  <input type="checkbox" checked={filter.tags && filter.tags.find(t=>t.id===tag.id) ? true : false} onChange={()=>onCheckTag(tag.id)}/>
+                  <input type="checkbox" 
+                  checked={filter.tags && filter.tags.find(t=>t.id===tag.id) ? true : false} 
+                  onChange={()=>onCheckTag(tag.id)}/>
                   {tag.name}
                 </label>
               )}

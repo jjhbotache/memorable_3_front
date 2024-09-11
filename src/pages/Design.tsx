@@ -610,6 +610,12 @@ const StyledDesign = styled.div`
           overflow-y: visible;
           width: 100%;
           padding: 0 1em;
+          /* hide the scrollbar */
+          scrollbar-width: none;
+          -ms-overflow-style: none; 
+          &::-webkit-scrollbar {
+            display: none;
+          }
 
           .tag{
             color : var(--primaryColor);
