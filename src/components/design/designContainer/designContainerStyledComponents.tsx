@@ -38,7 +38,6 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   /* column */
     display: flex;
     flex-direction: column;
-    align-items: center;
     box-sizing: border-box;
     
   `:
@@ -53,8 +52,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
 
 
 
-  gap: 1vw;
-  flex-grow: 1;
+  gap: clamp(5vh, 2vw, 1rem);
   padding: 1em;
 
   border-radius: 1rem;
