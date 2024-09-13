@@ -64,12 +64,14 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
     align-items: center;
     flex-direction: column;
     position: relative;
-    max-width: 300px;
+    width: 48%;
+    min-width: 200px;
+    max-width: 250px;
     margin-bottom: 2em;
 
     .heart {
       z-index: 2;
-      font-size: 1.5em;
+      font-size: .9em;
       cursor: pointer;
       position: absolute;
       top: .4em;

@@ -52,8 +52,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
 
 
 
-  gap: clamp(5vh, 2vw, 1rem);
-  padding: 1em;
+  gap: .3em;
 
   border-radius: 1rem;
   box-shadow: 0 0 1rem -.2rem black;
@@ -65,7 +64,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
 
   .foundDesigns{
     margin-right: auto;
-    margin-top: .2rem;
+    margin: .8rem ;
     flex-basis: 100%;
   }
   .aiDesingsHeader{
