@@ -33,13 +33,15 @@ const floating = keyframes`
 
 
 export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
+  
   ${props => props.$styleBehavior === "column" ? 
   css` 
   /* column */
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    
+    background: #000;
+    gap: 4rem;
   `:
   css`
   /* grid */
@@ -47,12 +49,12 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     flex-wrap: wrap;
     padding: .2em .1em ;
     justify-content: space-evenly;
+    gap: .4rem;
     `
   }
 
 
 
-  gap: .3em;
 
   border-radius: 1rem;
   box-shadow: 0 0 1rem -.2rem black;
@@ -66,6 +68,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
     margin-right: auto;
     margin: .8rem ;
     flex-basis: 100%;
+    gap: 2em;
   }
   .aiDesingsHeader{
     display: flex;

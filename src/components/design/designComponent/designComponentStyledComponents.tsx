@@ -11,7 +11,6 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
   ${props => props.$styleBehavior === "column" ? css`
     /* column */
     gap: .5em;
-    background: #00000022;
     flex-wrap: wrap;
     overflow: hidden;
     height: 100%;
@@ -65,7 +64,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
     flex-direction: column;
     position: relative;
     width: 48%;
-    min-width: 200px;
+    min-width: 100px;
     max-width: 250px;
     margin-bottom: 2em;
 
