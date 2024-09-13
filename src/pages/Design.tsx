@@ -108,11 +108,12 @@ export default function DesignElement (){
 
   useEffect(() => {
     if(!id) navigate("/designs");
-    console.log("id",id);
     
     setLoading(true);
     fetchPublicDesigns(parseInt(id || "0"))
       .then((design:Design) => {
+        console.log("design",design);
+        
         setaddedOnCart(design.addedToCart);
         setLoved(design.loved);
         setDesign(design);

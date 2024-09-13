@@ -63,6 +63,7 @@ export const DesignsStyledContainer = styled.div<DesignsContainerProps>`
   background-color: var(--secondaryColor);
   color: var(--primaryColor);
   box-sizing: border-box;
+  padding: 1rem;
 
   .foundDesigns{
     margin-right: auto;

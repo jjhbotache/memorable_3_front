@@ -8,7 +8,9 @@ export async function fetchPublicDesigns(id:number | null = null) {
   try {
     
     const response = await myFetch(
-      id ? `${API}/design/public/${id}` : `${API}/designs/public`
+      id 
+        ?`${API}/design/public/${id}`
+        : `${API}/designs/public`
     );
     const data = await response.json();
     return data;
