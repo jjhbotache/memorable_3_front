@@ -14,11 +14,13 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
     background: #00000022;
     flex-wrap: wrap;
     overflow: hidden;
-    height: 50vh;
+    height: 100%;
+    min-height: 50vh;
+    align-items: stretch;
+
 
     .rightSide {
       flex: 1;
-      height: 100%;
       display: flex;
       flex-direction: column;
       padding: 1vw;
@@ -47,6 +49,12 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
     img{
       width: auto;
       height: 100%;
+
+      object-fit: contain;
+      margin: auto;
+      overflow: hidden;
+
+      max-width: 300px;
     }
 
 
