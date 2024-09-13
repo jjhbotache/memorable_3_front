@@ -3,13 +3,18 @@ import { AddDropdown, EditorContainer, ElementsContainer, StyledForm } from "./m
 import myFetch from "../../helpers/myFetch";
 import { API } from "../../constants/appConstants";
 import Tag from "../../interfaces/tagInterface";
+import { Reorder } from "framer-motion";
+import { toast } from "react-toastify";
 
+let timeout: number;
 
 export default function TagsManager() {
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [deletingTag, setDeletingTag] = useState<null|number>(null);
   const [editingTag, setEditingTag] = useState<null|Tag>(null);
+
+
 
   useEffect(() => {
     fetchTags();
@@ -21,7 +26,7 @@ export default function TagsManager() {
       .then(res => res.json())
       .then(res => {
         console.log(res);
-        setTags(res);
+        setTags(res.sort((a:Tag, b:Tag) => (a.order||-1)-(b.order||-1)))
       })
       .catch(err => console.log(err))
       .finally(() => setLoading(false));
@@ -68,6 +73,9 @@ export default function TagsManager() {
   }
 
   function deleteTag(id:number) {
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este tag?")) {
+      return;
+    }
     setDeletingTag(id);
     myFetch(API + "/tag/delete", {
       method: "DELETE",
@@ -85,7 +93,6 @@ export default function TagsManager() {
       .finally(() => setDeletingTag(null));
   }
 
-    
   function onEdit(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget));
@@ -110,6 +117,45 @@ export default function TagsManager() {
       .catch(err => console.log(err));
   }
 
+  function handleReorder(newOrder: Tag[]) {
+    setTags(newOrder);
+    const orderToUpdate = newOrder.reduce((acc, t, i) => {
+      acc[t.id] = i+1;
+      return acc;
+    }, {} as { [key: string]: number });
+    
+    debounceUpdateTagOrder(orderToUpdate);
+  }
+
+  function updateTagOrder(newOrder: { [key: string]: number }) {
+    myFetch(API + "/tags/update-order", {
+      method: "PUT",
+      body: JSON.stringify(newOrder),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log("Order updated:", res);
+        toast.success("Order updated");
+      })
+      .catch(err => console.log(err));
+  }
+
+  function debounce(func: (...args: any[]) => void, wait: number) {
+    
+    return function executedFunction(...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  const debounceUpdateTagOrder = debounce(updateTagOrder, 100);
 
   return(
     <>
@@ -120,17 +166,20 @@ export default function TagsManager() {
       <button disabled={loading!}>{loading?"Creando...":"Crear" }</button>
     </StyledForm>
     </AddDropdown>
+    <small> Drag to reorder</small>
     <ElementsContainer>
       {tags.length===0 && loading? <p>Loading...</p> : tags.length===0 && <p>No tags</p>}
-      {tags.map(t => (
-        <div key={t.id} className="row">
-          <p>{t.name}</p>
-          <div className="btns">
-            <button disabled={deletingTag===t.id} onClick={()=>deleteTag(t.id)}>Eliminar</button>
-            <button onClick={()=>{setEditingTag(t)}}>Editar</button>
-          </div>
-        </div>
-      ))}
+      <Reorder.Group axis="y" values={tags} onReorder={handleReorder} >
+        {tags.map(t => (
+          <Reorder.Item key={t.id} value={t} className="row">
+            <p>{t.name}</p>
+            <div className="btns">
+              <button disabled={deletingTag===t.id} onClick={()=>deleteTag(t.id)}>Eliminar</button>
+              <button onClick={()=>{setEditingTag(t)}}>Editar</button>
+            </div>
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
     </ElementsContainer>
     <EditorContainer 
       className="editor" 

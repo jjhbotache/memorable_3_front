@@ -67,7 +67,7 @@ export default function DesignShowerManager({onSwitchArrangment,arragment,tags}:
             <div className="tagsContainer">
               <button onClick={()=>{ dispacher(setFilter({name:filter.name,tags:[]})) }}>Limpiar filtros</button>
               {/* list of tags checkbox */}
-              {tags && tags.map((tag)=>
+              {tags && tags.sort((a:Tag, b:Tag) => (a.order||-1)-(b.order||-1)).map((tag)=>
                 <label key={tag.id}>
                   <input type="checkbox" 
                   checked={filter.tags && filter.tags.find(t=>t.id===tag.id) ? true : false} 

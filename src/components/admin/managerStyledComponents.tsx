@@ -187,6 +187,30 @@ export const ElementsContainer = styled.div`
       box-sizing: border-box;
     }
   }
+
+  .btns{
+    display: flex;
+    button:first-child,a:first-child{
+      border-radius: 1em 0 0 1em;
+      }
+    button:last-child,a:last-child{
+      border-radius: 0 1em 1em 0;
+    }
+  }
+  button{
+    /* basic styles for btns */
+    text-align: center;
+    text-decoration: none;
+    color: ${primaryColor};
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #f0f0f0;
+    &:hover:not([disabled]){
+      background-color: ${primaryColor};
+      color: ${secondaryColor};
+    }
+  }
 `
 
 interface StyledManagerProps {
