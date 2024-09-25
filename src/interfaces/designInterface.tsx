@@ -7,5 +7,5 @@ export default interface Design {
   img_url: string;
   tags: Tag[];
   loved: boolean;
-  addedToCart: boolean;
+  addedtocart: boolean;
 }

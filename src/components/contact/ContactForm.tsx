@@ -86,4 +86,4 @@ export default function ContactForm() {
       <i onClick={sendToWhatsapp} className=" whatsappIco fi fi-brands-whatsapp"></i>
     </ContactFormStyled>    
   )
-};
+}

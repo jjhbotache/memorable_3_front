@@ -24,7 +24,7 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
   const [showTakeToAiResults, setShowTakeToAiResults] = useState<boolean>(false);
   const filter: Filter = useSelector((state: any) => state.filter);
 
-  let searchTimeout = useRef<any>();
+  const searchTimeout = useRef<any>();
   const aiTitleRef = useRef<HTMLHeadingElement>(null);
   const aiDesignsRef = useRef<HTMLDivElement>(null);
 
@@ -76,8 +76,8 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
     
     // put first, the designs that have filter.name in their name
     designsFiltered.sort((a, b) => {
-      let aName = a.name.toLowerCase();
-      let bName = b.name.toLowerCase();
+      const aName = a.name.toLowerCase();
+      const bName = b.name.toLowerCase();
       if (aName.includes(filter.name.toLowerCase()) && !bName.includes(filter.name.toLowerCase())) return -1;
       return 0;
     });
@@ -106,9 +106,9 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
           );
         })
       }, 2000);
-    };
+    }
 
-  }, [filter, designs]);
+  }, [filter, designs, aiSearch]);
 
   return (
     <DesignsStyledContainer $styleBehavior={arragment}>
@@ -155,4 +155,4 @@ export default function DesignsContainer({ designs, arragment, aiSearch = false 
       }
     </DesignsStyledContainer>
   )
-};
+}

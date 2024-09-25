@@ -43,7 +43,7 @@ export default function Loved() {
       .then(res=>res.json())
       .then((data:Design[]) => {
         console.log(data);
-        // filter by addedToCart
+        // filter by addedtocart
         data = data.filter(design => design.loved)
         
         setlovedDesigns(data)

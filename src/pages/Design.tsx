@@ -30,7 +30,7 @@ export default function DesignElement (){
   
   const [wineChoosed, setWineChoosed] = useState<string | undefined>();
   const [quantity, setQuantity] = useState<number>(1);
-  const [addedOnCart, setaddedOnCart] = useState<boolean>(design?.addedToCart || false);
+  const [addedOnCart, setaddedOnCart] = useState<boolean>(design?.addedtocart || false);
   const [loved, setLoved] = useState<boolean>(design?.loved || false);
 
 
@@ -104,7 +104,7 @@ export default function DesignElement (){
     }
 
 
-  }, []);
+  }, [id, navigate]);
 
   useEffect(() => {
     if(!id) navigate("/designs");
@@ -114,7 +114,7 @@ export default function DesignElement (){
       .then((design:Design) => {
         console.log("design",design);
         
-        setaddedOnCart(design.addedToCart);
+        setaddedOnCart(design.addedtocart);
         setLoved(design.loved);
         setDesign(design);
         // auto scroll to top smooth
@@ -126,7 +126,7 @@ export default function DesignElement (){
       })
       .finally(() => setLoading(false));
 
-  }, [id]);
+  }, [id, navigate]);
     
   // -----------------
   async function onBuy() {

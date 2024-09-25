@@ -13,7 +13,7 @@ interface DesignComponentProps {
 
 const DesignComponent = forwardRef(({ displayStyle, design }: DesignComponentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const [loved, setLoved] = useState<boolean>(design.loved || false);
-    const [addedToCart, setAddedToCart] = useState<boolean>(design.addedToCart || false);
+    const [addedToCart, setAddedToCart] = useState<boolean>(design.addedtocart || false);
     const navigate = useNavigate();
 
     function onChangeLoved() {
@@ -56,7 +56,7 @@ const DesignComponent = forwardRef(({ displayStyle, design }: DesignComponentPro
     const BuyButtons = () => (
       <div className="btns">
         <button onClick={onChangeCart} className="addCart">
-          <span>Agregar al carrito</span>
+          <span>{ addedToCart ? "Quitar del " : "Agregar al" } carrito</span>
           <i className="fi fi-rr-shopping-cart"/>
           {!!addedToCart && <i className="addedIco fi fi-ss-check-circle"></i>}
         </button>
