@@ -1,8 +1,8 @@
 # todo
-- add loaders in carts and loved
+- add loaders in carts and loved 
+- add cart btn action ✅
 - in landing, show all in pc
 - us section, use real imgs
-- add cart btn action
 - add, free shipment label
 - add mb to btns in grid display
 - add vino blanco
