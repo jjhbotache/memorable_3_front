@@ -11,7 +11,6 @@ import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/slices/userReducer";
-import { mdScreen } from "./constants/styleConstants";
 import UsDescription from "./components/us/usDescription/UsDescription";
 import WinesContainer from "./components/wines/winesContainer/WinesContainer";
 import ContactForm from "./components/contact/ContactForm";
