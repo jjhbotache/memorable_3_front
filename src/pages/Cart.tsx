@@ -55,7 +55,6 @@ export default function Cart() {
     async function main(){
       const {value:whatsappPhone} = await fetchSpecificExtrainfo("whatsapp_phone");
       setPhone(whatsappPhone);
-      // setUrl(`https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`);
     }
     main();
 
@@ -115,57 +114,59 @@ export default function Cart() {
 const Container = styled.div`
   color: var(--primaryColor);
   background-color: var(--secondaryColor);
-    .main{
-      padding: 0 1em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .main {
+    padding: 0 1em;
+    box-sizing: border-box;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .pageTitle {
+      font-family: "Hellovalentina";
+      font-size: 4em;
+      font-weight: 300;
+    }
+    .swithContainer {
+      max-width: 100px;
+    }
+
+    .loaderContainer {
+      flex: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .buyBottlesBtn {
+      font-family: "Hellovalentina";
+      font-size: 4em;
+      padding: 0.2em 0.5em;
+      background-color: var(--secondaryColor);
+      border: 2px solid var(--primaryColor);
+      color: var(--primaryColor);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      max-width: 300px;
+      margin: 0 auto;
       box-sizing: border-box;
-       .pageTitle{
-        font-family: "Hellovalentina";
-        font-size: 4em;
-        font-weight: 300;
-      }
-      .swithContainer{
-        max-width: 100px;
-      }
-      padding: 1em .2em;
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      height: 100%;
-      min-height: 95vh;
 
-      .loaderContainer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        margin-top: clamp(2em, 20vh, 20em);
+      small {
+        display: block;
+        font-size: 0.2em;
+        font-family: "Montserrat";
+        font-weight: 400;
       }
 
-      .buyBottlesBtn{
-        font-family: "Hellovalentina";
-        font-size: 4em;
-        padding: .2em .5em;
-        background-color: var(--secondaryColor);
-        border: 2px solid var(--primaryColor);
-        color: var(--primaryColor);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: .3s;
-        max-width: 300px;
-        margin: 0 auto;
-        box-sizing: border-box;
-
-        small{
-          display: block;
-          font-size: .2em;
-          font-family: "Montserrat";
-          font-weight: 400;
-        }
-
-        &:hover{
-          background-color: var(--primaryColor);
-          color: var(--secondaryColor);
-        }
+      &:hover {
+        background-color: var(--primaryColor);
+        color: var(--secondaryColor);
       }
     }
-  `;
+  }
+`;

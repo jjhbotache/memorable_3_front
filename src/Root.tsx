@@ -16,6 +16,7 @@ export default function Root() {
   const GlobalStylesContainer = styled.div`
     display: flex;
     flex-direction: column;
+    flex: 1;
     height: 100%;
     --primaryColor: ${theme === "dark" ? darkPrimaryColor : primaryColor};
     --secondaryColor: ${theme === "dark" ? darkSecondaryColor : secondaryColor};
@@ -30,4 +31,4 @@ export default function Root() {
     <FloatingWhatsappBtn/>
   </GlobalStylesContainer>
   
-};
+}
