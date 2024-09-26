@@ -1,8 +1,5 @@
 import styled from "styled-components"
 import { mdScreen } from "../../../constants/styleConstants";
-import UsDescription from "../../us/usDescription/UsDescription";
-import WinesContainer from "../../wines/winesContainer/WinesContainer";
-import ContactForm from "../../contact/ContactForm";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../../../redux/slices/filterReducer";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +15,6 @@ interface Props{
 
 export default function TagsPresentation({preloadedTags}:Props) {
   const tags = preloadedTags || [];
-//  const [tags, setTags] = useState<Tag[]>([]);
  const dispacher = useDispatch();
  const navigate = useNavigate();
 
@@ -61,18 +57,10 @@ export default function TagsPresentation({preloadedTags}:Props) {
             }
         </div>
       </div>
-      <div className="extraInfo">
-        <div className="divider"/>
-        <UsDescription/>
-        <div className="divider"/>
-        <WinesContainer/>
-        <div className="divider"/>
-        <ContactForm/>
-      </div>
     </TagsDescription>  
     </>
   )
-};
+}
 
 
 const TagsDescription = styled.main`
@@ -142,20 +130,5 @@ const TagsDescription = styled.main`
     }
 
   }
-  .extraInfo{
-    display: none;
-    @media screen and (width < ${mdScreen}px){
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      align-items: center;
-      text-align: center;
-    }
-
-    .divider{
-      width: 80%;
-      height: 1px;
-      background: var(--primaryColor);
-    }
-  }
+  
 `;

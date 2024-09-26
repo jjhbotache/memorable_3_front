@@ -11,6 +11,10 @@ import Desing from "./interfaces/designInterface";
 import Tag from "./interfaces/tagInterface";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/slices/userReducer";
+import { mdScreen } from "./constants/styleConstants";
+import UsDescription from "./components/us/usDescription/UsDescription";
+import WinesContainer from "./components/wines/winesContainer/WinesContainer";
+import ContactForm from "./components/contact/ContactForm";
 
 
 export default function App() {
@@ -60,18 +64,51 @@ export default function App() {
       <MainContainer >
         <Carousel preloadedImgs={designs.map(design => design.img_url)} />
         <TagsPresentation preloadedTags={tags.slice(0, 7)} />
+        <div className="moreInfoContainer">
+          <div className="extraInfo">
+            <div className="divider"/>
+            <UsDescription/>
+            <div className="divider"/>
+            <WinesContainer/>
+            <div className="divider"/>
+            <ContactForm/>
+          </div>
+        </div>
       </MainContainer>
     </>
   )
-};
+}
 
 const MainContainer = styled.div`
-  display: flex;
   flex: 1;
+  display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   
 
   /* use them */
   color: var(--primaryColor);
   background: var(--background);
+
+  .moreInfoContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .extraInfo{
+      margin: 10vh 0;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1em, 8vw, 4em);
+      align-items: center;
+      text-align: center;
+  
+      .divider{
+        width: 80%;
+        height: 1px;
+        background: var(--primaryColor);
+      }
+    }
+  }
+
 `;  
