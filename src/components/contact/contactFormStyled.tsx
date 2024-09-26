@@ -14,13 +14,13 @@ export const ContactFormStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   @media screen and (width < ${mdScreen}px){
-          background-image: url(${contactSvg});
-          /* turn down the opacity of the bg image */
-          background-size: auto 100%;
-          backdrop-filter: blur(5px);
-          background-position: center;
-          flex-basis: 95%;
-        }
+    background-image: url(${contactSvg});
+    /* turn down the opacity of the bg image */
+    background-size: auto 100%;
+    backdrop-filter: blur(5px);
+    background-position: center;
+    flex-basis: 95%;
+  }
 
   .form{
         height: 100%;

@@ -195,6 +195,7 @@ export const Sidebar = styled.div`
       background: ${tertiaryColor};
       color: ${primaryColor};
       border-radius: .2rem;
+      border: none;
       box-sizing: border-box;
       cursor: pointer;
       transition: all 0.1s ease-in-out;

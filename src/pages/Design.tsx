@@ -403,47 +403,53 @@ export default function DesignElement (){
                 </div>
                 <img src={design.img_url} alt="Design" />
               </div>
-              <div className="details-wrapper">
+                <div className="details-wrapper">
                 <h1 className="title">{design.name}</h1>
                 <div className="tags">
                   <span className="title">Tags:</span>
                   <div className="tags-wrapper">
-                    {design.tags.map((tag: TagInterface) => (
-                      <Tag key={tag.id} tag={tag} />
-                    ))}
+                  {design.tags.map((tag: TagInterface) => (
+                    <Tag key={tag.id} tag={tag} />
+                  ))}
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="free-shipping">
+                    <p>Envío Gratis !</p>
                   </div>
                 </div>
                 {/* quantity */}
-                <div className="row">
-                  <p className="price">${formatNumber(((bottlePrice || 0) * quantity))  }</p>
+                <div className="row ">
+                  <p className="price">${formatNumber(((bottlePrice || 0) * quantity))}</p>
                   <div className="quantity-wrapper">
-                    <label>Cantidad:</label>
-                    <input
-                      className="quantity-input"
-                      type="number"
-                      min="1"
-                      value={quantity}
-                      onChange={(e) => setQuantity(parseInt(e.target.value))}
-                    />
+                  <label>Cantidad:</label>
+                  <input
+                    className="quantity-input"
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                  />
                   </div>
                 </div>
                 {/* wine */}
                 <div className="row">
-                  <select className="dropdown" onChange={e=>{
-                    setWineChoosed(e.target.value);
+                  <select className="dropdown" onChange={e => {
+                  setWineChoosed(e.target.value);
                   }}>
-                    <option value="">Seleccionar vino</option>
-                    {wines.map((wine) => (
-                      <option key={wine} value={wine}>
-                        {wine}
-                      </option>
-                    ))}
+                  <option value="">Seleccionar vino</option>
+                  {wines.map((wine) => (
+                    <option key={wine} value={wine}>
+                    {wine}
+                    </option>
+                  ))}
                   </select>
                   <Link to="/wines" className="row wichToUse">
-                    <i className='fi fi-sr-info'></i>
-                    <p>¿Cuál debería elegir?</p>
+                  <i className='fi fi-sr-info'></i>
+                  <p>¿Cuál debería elegir?</p>
                   </Link>
                 </div>
+                {/* payment methods */}
                 <div className="payment-methods">
                   <label>Métodos de pago:</label>
                   <img onClick={alertToBuy} src="https://seeklogo.com/images/N/nequi-logo-58FBE82BA6-seeklogo.com.png" alt="" />
@@ -458,16 +464,16 @@ export default function DesignElement (){
 
                 <div className="btns">
                   <button onClick={onAddToCart} className="button cartBtn">
-                    {addedOnCart ? "Eliminar del carrito" : "Agregar al carrito"}
-                    <i className="fi fi-rr-shopping-cart"/>
-                    {addedOnCart && <i className="addedIco fi fi-ss-check-circle"></i>}
+                  {addedOnCart ? "Eliminar del carrito" : "Agregar al carrito"}
+                  <i className="fi fi-rr-shopping-cart" />
+                  {addedOnCart && <i className="addedIco fi fi-ss-check-circle"></i>}
                   </button>
-                  <button onClick={onBuy}  className="button">
-                    <small>contáctanos para</small>
-                    Comprar
+                  <button onClick={onBuy} className="button">
+                  <small>contáctanos para</small>
+                  Comprar
                   </button>
                 </div>
-              </div>
+                </div>
             </div>
             {
               !loadingSuggestedDesigns && 
@@ -491,7 +497,7 @@ export default function DesignElement (){
       }
     </StyledDesign>
   );
-};
+}
 
 const bouncingDownRow = keyframes`
   0%{
@@ -514,7 +520,6 @@ const StyledDesign = styled.div`
   flex-grow: 1;
   color: var(--primaryColor);
   background-color: var(--background);
-
 
   .product-section {
     display: flex;
@@ -718,6 +723,8 @@ const StyledDesign = styled.div`
         display: flex;
         gap: 1em;
         justify-content: end;
+        gap: 1em;
+        justify-content: end;
         margin-top: 3em;
         @media screen and (width < ${mdScreen}px) {
           flex-direction: column;
@@ -768,6 +775,16 @@ const StyledDesign = styled.div`
           }
         }
       }
+      .free-shipping {
+        display: block;
+        padding: 4px 6px;
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+        border-radius: 9999px;
+        font-size: .9em;
+        transition: all 0.3s;
+        border: 1px solid var(--primaryColor);
+      }
     }
   
     /* ------ */
@@ -808,5 +825,5 @@ const StyledDesign = styled.div`
     overflow-x: hidden;
   }
 
-`;
+`
 

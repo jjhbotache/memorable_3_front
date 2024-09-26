@@ -41,7 +41,6 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
       .btns{
         margin-top: auto;
         margin-left: auto;
-        /* font-size: large; */
       }
 
     }
@@ -104,6 +103,7 @@ export const DesignComponentStyledContainer = styled.div<{$styleBehavior: "grid"
   .btns {
     display: flex;
     gap: .7vw;
+    margin-top: 1em;  
 
     .addCart {
       position: relative;
