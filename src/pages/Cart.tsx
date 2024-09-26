@@ -63,9 +63,16 @@ export default function Cart() {
 
   const openWhatsAppChat = useCallback(() => {
     if (!cartDesigns) return;
+
+    // if there is only one design in the cart, take it to the design page
+    if(cartDesigns.length === 1){
+      navigate(`/designs/${cartDesigns[0].id}`);
+      return;
+    }
+
     // creates a msg to send to the whatsapp chat
-    const msg = "Hola, me gustaría comprar las siguientes botellas: /";
-    const designs = cartDesigns.map(design => design.name).join(" / ");
+    const msg = "Hola, me gustaría comprar las siguientes botellas:   -";
+    const designs = cartDesigns.map(design => design.name).join(" -");
     const finalMsg = msg + designs;
     // opens the chat
     window.open(
@@ -73,29 +80,29 @@ export default function Cart() {
       "_blank"
     );
     
-  }, [cartDesigns, phone]);
+  }, [cartDesigns, navigate, phone]);
 
   return(
     <Container>
       <div className="main">
-      <h1 className="pageTitle">Mis carrito</h1>
+      <h1 className="pageTitle">Mi carrito</h1>
       <div className="swithContainer">
         <ArrangmentSwitch arragment={arragment} onColumn={() => setArragment("column")} onGrid={() => setArragment("grid")} />
       </div>
       { 
-        cartDesigns
-        ? (
+        cartDesigns === undefined ? (
+          <SimpleSpinner />
+        ) : cartDesigns.length > 0 ? (
           <>
-          <DesignsContainer designs={cartDesigns} arragment={arragment} />
-          {cartDesigns.length > 1 && (
+            <DesignsContainer designs={cartDesigns} arragment={arragment} />
             <button className="buyBottlesBtn" onClick={openWhatsAppChat}>
               <small>contáctanos para</small>
               comprar
             </button>
-          )}
           </>
+        ) : (
+          <p>No hay diseños en el carrito.</p>
         )
-        : <SimpleSpinner />
       }
       </div>
     </Container>
@@ -109,6 +116,8 @@ const Container = styled.div`
   color: var(--primaryColor);
   background-color: var(--secondaryColor);
     .main{
+      padding: 0 1em;
+      box-sizing: border-box;
        .pageTitle{
         font-family: "Hellovalentina";
         font-size: 4em;

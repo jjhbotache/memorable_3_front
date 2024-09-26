@@ -1,5 +1,5 @@
 # todo
-- add loaders in carts and loved 
+- add loaders in carts and loved ✅
 - add cart btn action ✅
 - in landing, show all in pc
 - us section, use real imgs
