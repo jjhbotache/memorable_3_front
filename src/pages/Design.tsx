@@ -446,7 +446,7 @@ export default function DesignElement (){
                   </select>
                   <Link to="/wines" className="row wichToUse">
                   <i className='fi fi-sr-info'></i>
-                  <p>¿Cuál debería elegir?</p>
+                  <p>¿Cuál vino debería elegir?</p>
                   </Link>
                 </div>
                 {/* payment methods */}
