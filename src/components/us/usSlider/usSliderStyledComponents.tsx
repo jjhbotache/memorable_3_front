@@ -1,48 +1,47 @@
 import styled from "styled-components";
-import { mdScreen, secondaryColor, tertiaryColor } from "../../../constants/styleConstants";
+import { secondaryColor } from "../../../constants/styleConstants";
 
 export const UsSliderStyled = styled.div`
-  /* only show if the screen is bigger than mdScreen */
-  @media screen and (width < ${mdScreen}px){
-    width: 100%;
-    max-width: unset;
-    height: 50vh;
-  }
 
-  background: ${tertiaryColor};
-  height: 100%;
-  max-height: 87vh;
-  width: 50%;
-  max-width: 50vw;
-  color: ${secondaryColor};
+  background: var(--tertiaryColor);
+  width: clamp(150px, 50vw, 80vh);
+  height: clamp(150px, 50vw, 80vh);
+  aspect-ratio: 1/1;
+  
+  color: var(--secondaryColor);
+  display: block;
+  
+
+  
 
   .imgContainer{
-    background: ${tertiaryColor};
-    height: 100%;
-    width: 100%;
-    max-height: 88vh; 
+    background: var(--tertiaryColor);
+    width: inherit;
+    height: inherit;
     .swiper-slide{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      min-height: inherit;
-      }
-      .img{
-        height: 100%;
-        width: 100%;
-        max-height: inherit;
-      }
+      display: grid;
+      place-items: center;
+    }
+    .img{
+      width: 100%;
+    }
   }
 
   .swiper-button-next,.swiper-button-prev{
     background: transparent;
+    padding: .2rem;
+    backdrop-filter: blur(0.01em);
     border: none;
+    border-radius: 10%;
     font-size: 2rem;
     color: ${secondaryColor};
+    opacity: 0.5;
     transition: all .1s ease-in-out;
     &:hover{
+      opacity: 1;
       transform: scale(1.3);
+      backdrop-filter: blur(5px);
+      border: 1px solid ${secondaryColor};
     }
   }
 `;

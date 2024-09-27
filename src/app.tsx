@@ -14,6 +14,7 @@ import { setUser } from "./redux/slices/userReducer";
 import UsDescription from "./components/us/usDescription/UsDescription";
 import WinesContainer from "./components/wines/winesContainer/WinesContainer";
 import ContactForm from "./components/contact/ContactForm";
+import UsSlider from "./components/us/usSlider/UsSlider";
 
 
 export default function App() {
@@ -67,6 +68,7 @@ export default function App() {
           <div className="extraInfo">
             <div className="divider"/>
             <UsDescription/>
+            <UsSlider/>
             <div className="divider"/>
             <WinesContainer/>
             <div className="divider"/>

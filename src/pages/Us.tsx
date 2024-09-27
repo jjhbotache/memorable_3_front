@@ -23,6 +23,10 @@ const UsDescriptionStyled = styled.div`
   .main{
     height: 100%;
     display: flex;
+    border: .5em solid var(--tertiaryColor);
+    border-right: none;
+    border-left: none;
+
     }
   @media screen and (width < ${mdScreen}px){
     .main{

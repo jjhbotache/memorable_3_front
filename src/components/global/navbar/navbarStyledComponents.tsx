@@ -22,6 +22,7 @@ export const Nav = styled.nav`
   /* overflow: hidden; */
   position: sticky;
   top: 0;
+  overflow: hidden;
   
 
   display: flex;

@@ -1,24 +1,22 @@
 import { UsSliderStyled } from "./usSliderStyledComponents";
-import wineImg2 from "../../../assets/imgs/snapshot-wine-glass.jpg";
-import wineImg3 from "../../../assets/imgs/side-view-woman-hand-pouring-red-wine-into-glass-different-kinds-cheese-olive-walnut-grape-white-surface-black-background.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
-import orderRandomizer from "../../../helpers/orderRandomizer";
 
 
 export default function UsSlider() {
+  // important 1/1 ratio images
   const imgs = [
-    wineImg2,
-    wineImg3,
-    "https://img.freepik.com/free-photo/vertical-shot-person-holding-glass-wine-vineyard-sunlight_181624-31406.jpg?t=st=1718920018~exp=1718923618~hmac=486e60ac416bc3add78cd5066650b246a86cd918dee3022a9a6f06acf20e4645&w=360",
-    "https://img.freepik.com/free-photo/glass-wine-with-stunning-view-vineyard-sunset_23-2151514993.jpg?t=st=1718921054~exp=1718924654~hmac=26621eeb215667c8e3049701f432646a24ed4e3a78aa6b3b2bcd18d42556ca16&w=740",
-    "https://img.freepik.com/free-photo/glass-red-wine-bar-counter_107420-65844.jpg?t=st=1718921114~exp=1718924714~hmac=bfa4c84ccbc44a6856978c5580a88e3c51f08f894fcc9d4035bda7003c32ae36&w=360",
-    "https://img.freepik.com/free-photo/couple-hands-cheering-red-wine-glasses-dinner_140725-633.jpg?t=st=1718921278~exp=1718924878~hmac=bf2ccef3b2db32a56cb32c7f13671c7d9fbe881216343b648f7ced7bac400d8d&w=360",
-    "https://img.freepik.com/free-photo/delicious-wine_144627-20742.jpg?t=st=1718921675~exp=1718925275~hmac=d56c84dbb36d9621bb63d2bec7c01dd8dabd9bbb391754f99f2226e69881d113&w=360",
-    "https://img.freepik.com/free-photo/set-red-wine-glasses-with-shadow_23-2148261712.jpg?t=st=1718921719~exp=1718925319~hmac=e21874fe8f16c167642d5bd2e3bc117f3a8beac4bd35f8afd0bf955e7b5af1cc&w=360",
-    "https://img.freepik.com/free-photo/red-wine-is-being-poured-glass-with-long-stem-dark_140725-593.jpg?t=st=1718921746~exp=1718925346~hmac=e9f0bea72b6d895f6be1b29ae715c156c02f2c22ae6de01b22a826371b925e5f&w=360"
+    "https://res.cloudinary.com/db8fpml9m/image/upload/v1727465469/memorable_empaque_ibague_rsobci.png",
+    "https://res.cloudinary.com/db8fpml9m/image/upload/v1727468677/usefullllll_slopv0.png",
+    "https://res.cloudinary.com/db8fpml9m/image/upload/v1727466238/real_bottle_1_bewhse.png",
+    "https://res.cloudinary.com/db8fpml9m/image/upload/v1727465469/memorable_empaque_nacional_doqya2.png",
+    "https://instagram.feoh3-1.fna.fbcdn.net/v/t39.30808-6/455282374_908679254618755_85276274797711690_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4yMDQ4eDIwNDguc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.feoh3-1.fna.fbcdn.net&_nc_cat=107&_nc_ohc=wrh38w1NuyoQ7kNvgEeQpTt&_nc_gid=4bc495eefe7f4a71807d65a6a4fbe781&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzQzMzg2MzE3NjE0MTIzNzM1NQ%3D%3D.3-ccb7-5&oh=00_AYCxTI-LCaU20cKe6K7FmBWAOG_jhsDe2pi9QV4X2I7sUQ&oe=66FCC0A6&_nc_sid=22de04",
+    "https://res.cloudinary.com/db8fpml9m/image/upload/v1727466619/artwork_3_qiql9v.png",
+    "https://instagram.feoh3-1.fna.fbcdn.net/v/t39.30808-6/459135026_927492109404136_2826087741824689797_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4OTYwLnNkci5mMzA4MDguZGVmYXVsdF9pbWFnZSJ9&_nc_ht=instagram.feoh3-1.fna.fbcdn.net&_nc_cat=104&_nc_ohc=w-D84FjVLv4Q7kNvgGc6nad&_nc_gid=15444728fdb946a695b63fb1164f15df&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzQ1NDA0NzE1MDU2MjIxMDI1NA%3D%3D.3-ccb7-5&oh=00_AYAp5o25AU3p5Hz68vDhzCkfISfnhRsud2m4ro5cvbqunQ&oe=66FCE269&_nc_sid=22de04",
+    "https://res.cloudinary.com/db8fpml9m/image/upload/v1727467196/artwork_4_x4uozl.png",
+    "https://instagram.feoh3-1.fna.fbcdn.net/v/t39.30808-6/452948819_896574695829211_4116692525076950068_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4yMDQ4eDIwNDguc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.feoh3-1.fna.fbcdn.net&_nc_cat=107&_nc_ohc=Dokpby80NbsQ7kNvgEMx2At&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzQyMDMzNDE3OTE1NTg4NTAyNA%3D%3D.3-ccb7-5&oh=00_AYDAw5vTNuu4vRcXySlXwtDSjyhMmjM_RbZmw6ZXYRhh0g&oe=66FCB912&_nc_sid=22de04",
   ];
 
   return(
@@ -29,11 +27,11 @@ export default function UsSlider() {
         loop={true}
         className="imgContainer"
         autoplay={{
-          delay: 2000,
+          delay: 5000,
           disableOnInteraction: false
         }}
       >
-        {orderRandomizer(imgs).map((img, index) => (
+        {imgs.map((img, index) => (
           <SwiperSlide key={index}>
           <img className="img" src={img} alt={`wineImg${index + 1}`} />
           </SwiperSlide>  
