@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondaryColor } from "../../../constants/styleConstants";
+import { mdScreen, secondaryColor } from "../../../constants/styleConstants";
 
 export const UsSliderStyled = styled.div`
 
@@ -7,6 +7,13 @@ export const UsSliderStyled = styled.div`
   width: clamp(150px, 50vw, 80vh);
   height: clamp(150px, 50vw, 80vh);
   aspect-ratio: 1/1;
+  margin: auto 0;
+
+  @media screen and (width < ${mdScreen}px){
+    width: clamp(150px, 95vw, 80vh);
+    height: clamp(150px, 95vw, 80vh);
+  }
+
   
   color: var(--secondaryColor);
   display: block;
