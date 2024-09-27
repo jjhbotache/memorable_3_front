@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import LoadingScreen from "./components/global/LoadingScreen";
 import styled from 'styled-components';
 import { darkBackground, darkPrimaryColor, darkSecondaryColor, darkTertiaryColor, primaryColor, secondaryColor, tertiaryColor } from './constants/styleConstants';
-
+import { Analytics } from "@vercel/analytics/react"
 
 
 export default function Root() {
@@ -29,6 +29,7 @@ export default function Root() {
     <Outlet/>
     <Footer/>
     <FloatingWhatsappBtn/>
+    <Analytics/>
   </GlobalStylesContainer>
   
 }
