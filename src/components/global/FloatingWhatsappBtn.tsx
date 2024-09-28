@@ -11,7 +11,7 @@ export default function FloatingWhatsappBtn() {
     async function main(){
       const {value:whatsappPhone} = await fetchSpecificExtrainfo("whatsapp_phone");
       
-      setUrl(`https://api.whatsapp.com/send?phone=57${whatsappPhone}&text=${text}`);
+      setUrl(`https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${text}`);
       setOpen(true)
     }
     main();
