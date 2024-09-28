@@ -2,6 +2,7 @@ import styled from "styled-components";
 import UsDescription from "../components/us/usDescription/UsDescription";
 import UsSlider from "../components/us/usSlider/UsSlider";
 import { mdScreen} from "../constants/styleConstants";
+import HowSection from "../components/us/HowSection/HowSection";
 
 export default function Us() {
   return(
@@ -10,9 +11,10 @@ export default function Us() {
         <UsSlider/>
         <UsDescription/>
       </div>
+      <HowSection/>
     </UsDescriptionStyled>
   )
-};
+}
 
 const UsDescriptionStyled = styled.div`
   display: flex;
@@ -26,6 +28,7 @@ const UsDescriptionStyled = styled.div`
     border: .5em solid var(--tertiaryColor);
     border-right: none;
     border-left: none;
+
 
     }
   @media screen and (width < ${mdScreen}px){

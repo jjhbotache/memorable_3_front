@@ -15,6 +15,7 @@ import UsDescription from "./components/us/usDescription/UsDescription";
 import WinesContainer from "./components/wines/winesContainer/WinesContainer";
 import ContactForm from "./components/contact/ContactForm";
 import UsSlider from "./components/us/usSlider/UsSlider";
+import HowSection from "./components/us/HowSection/HowSection";
 
 
 export default function App() {
@@ -54,7 +55,7 @@ export default function App() {
       localStorage.setItem("user", JSON.stringify(user));
     }
 
-  }, []);
+  }, [dispatch, user]);
 
   
 
@@ -65,6 +66,7 @@ export default function App() {
         <Carousel preloadedImgs={designs.map(design => design.img_url)} />
         <TagsPresentation preloadedTags={tags.slice(0, 7)} />
         <div className="moreInfoContainer">
+          <HowSection/>
           <div className="extraInfo">
             <div className="divider"/>
             <UsDescription/>
@@ -96,6 +98,7 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    z-index: 2;
     .extraInfo{
       margin: 10vh 0;
       display: flex;

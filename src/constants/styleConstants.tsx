@@ -1,6 +1,8 @@
 export const primaryColor = "#531035";
 export const secondaryColor = "#faf5fa";
 export const tertiaryColor = "#efc1da";
+export const backgroundColor = "#ffd9e9";
+
 
 export const darkPrimaryColor = "#faf5fa";
 export const darkSecondaryColor = "#531035";

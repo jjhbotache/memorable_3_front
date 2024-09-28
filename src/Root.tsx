@@ -5,7 +5,7 @@ import FloatingWhatsappBtn from "./components/global/FloatingWhatsappBtn";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./components/global/LoadingScreen";
 import styled from 'styled-components';
-import { darkBackground, darkPrimaryColor, darkSecondaryColor, darkTertiaryColor, primaryColor, secondaryColor, tertiaryColor } from './constants/styleConstants';
+import { backgroundColor, darkBackground, darkPrimaryColor, darkSecondaryColor, darkTertiaryColor, primaryColor, secondaryColor, tertiaryColor } from './constants/styleConstants';
 import { Analytics } from "@vercel/analytics/react"
 
 
@@ -21,7 +21,7 @@ export default function Root() {
     --primaryColor: ${theme === "dark" ? darkPrimaryColor : primaryColor};
     --secondaryColor: ${theme === "dark" ? darkSecondaryColor : secondaryColor};
     --tertiaryColor: ${theme === "dark" ? darkTertiaryColor : tertiaryColor};
-    --background: ${theme === "dark" ? darkBackground : secondaryColor};
+    --background: ${theme === "dark" ? darkBackground : backgroundColor};
   `;
 
   return pageLoading? <LoadingScreen/>:<GlobalStylesContainer>
