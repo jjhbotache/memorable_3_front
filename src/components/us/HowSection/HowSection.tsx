@@ -19,7 +19,7 @@ export default function HowSection() {
           ></path>
         </svg>
         <div className="videoContainer">
-          <video autoPlay muted loop controls preload="auto" >
+          <video autoPlay muted loop controls >
             <source src={
               window.innerWidth > mdScreen 
                 ?"https://res.cloudinary.com/db8fpml9m/video/upload/v1727493030/memorable_presentacion_cuadrado_1_tzbjge.mp4"
@@ -60,7 +60,7 @@ export default function HowSection() {
                 Y como si fuera sufiiciente, puedes usar la barrar de búsqueda, que utiliza inteligencia artificial para buscar diseños que te puedan gustar.
               </p>
             </div>
-            <video controls autoPlay muted preload="auto" loop>
+            <video controls autoPlay muted loop>
               <source src={
                 window.innerWidth > mdScreen
                 ?"https://res.cloudinary.com/db8fpml9m/video/upload/v1727499663/paso_1_-_busca_-_horizontal_1_hh4nwg.mp4"
@@ -70,7 +70,7 @@ export default function HowSection() {
             </video>
           </div>
           <div className="step2">
-            <video controls autoPlay muted preload="auto" loop>
+            <video controls autoPlay muted loop>
               <source src={
                 window.innerWidth > mdScreen
                 ?"https://res.cloudinary.com/db8fpml9m/video/upload/v1727498514/paso_2_-_modifica_-_horizontal_n9mjpq.mp4"
@@ -94,7 +94,7 @@ export default function HowSection() {
         <p>
           Si te encuentras en la ciudad de Ibagué, puedes recibir tu botella con un empaque especial y en la puerta de tu casa.
         </p>
-        <video autoPlay muted preload="auto" loop>
+        <video autoPlay muted loop>
           <source src="https://res.cloudinary.com/db8fpml9m/video/upload/v1727498568/resultado_regional_1_xfecug.mp4" type="video/mp4" />
           Tu navegador no soporta la etiqueta de video.
         </video>
@@ -104,7 +104,7 @@ export default function HowSection() {
         <p>
           Para el resto del país, te enviaremos tu botella en una empaque especial, para que la recibas en la puerta de tu casa.
         </p>
-        <video autoPlay muted preload="auto" loop>
+        <video autoPlay muted loop>
           <source src="https://res.cloudinary.com/db8fpml9m/video/upload/v1727498564/resultado_nacional_1_thphxx.mp4" type="video/mp4" />
           Tu navegador no soporta la etiqueta de video.
         </video>
