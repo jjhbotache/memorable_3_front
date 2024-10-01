@@ -137,6 +137,7 @@ export default function TagsManager() {
     })
       .then(res => res.json())
       .then(res => {
+        toast.dismiss();
         console.log("Order updated:", res);
         toast.success("Order updated");
       })
